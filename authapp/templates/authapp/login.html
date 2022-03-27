@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Войти на сайт{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="font-italic text-center">Введите имя (login) и пароль</h1>
+    <div class="row justify-content-center">
+        <div class="col-10 col-md-6">
+            {% for error in form.non_field_errors %}
+            <p class="errorlist">{{ error }}</p>
+            {% endfor %}
+            <form action="{% url 'authapp:login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="form.id_username" class="col-form-label">{{ form.username.label_tag }}</label>
+                    <input type="text" id="form.id_username" class="form-control" name="{{ form.username.html_name }}">
+                </div>
+                <div class="form-group">
+                    <label for="form.id_password" class="col-form-label">{{ form.password.label_tag }}</label>
+                    <input type="password" id="form.id_password" class="form-control" name="{{ form.password.html_name }}">
+                </div>
+                <input type="hidden" name="next" value="{{ next }}">
+                <div class="mt-4 d-flex justify-content-center">
+                    <input type="submit" class="btn btn-primary px-5" value="войти">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

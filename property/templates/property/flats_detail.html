@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load view_price %}
+
+{% block title %}{{ object.get_fl_type_display }}{% endblock title %}
+
+{% block content %}
+<div class="container mt-3 mb-5">
+    <nav aria-label="breadcrumb mt-2">
+    <ol class="breadcrumb px-5">
+      <li class="breadcrumb-item">
+          {% if page %}
+          <a href="{{ page }}">Назад к выбору квартир</a>
+          {% else %}
+          <a href="#" onclick="javascript:history.go(-1); return false;">Назад к результатам поиска</a>
+          {% endif %}
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">{% if object.fl_type == 'С' or object.fl_type == 'П' %}
+            {{ object.get_fl_type_display }} в {{ object.fk_object.name }}
+        {% else %}
+            {{ object.get_fl_type_display }} квартира в {{ object.fk_object.name }}
+        {% endif %}</li>
+    </ol>
+  </nav>
+    <h1 class="text-center font-italic mb-5">
+        {% if object.fl_type == 'С' or object.fl_type == 'П' %}
+            {{ object.get_fl_type_display }} в {{ object.fk_object.name }}
+        {% else %}
+            {{ object.get_fl_type_display }} квартира в {{ object.fk_object.name }}
+        {% endif %}
+    </h1>
+    <div class="row justify-content-center">
+        <!--div class="modal" id="requestForm" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <form action="" method="post">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <button class="btn btn-primary" type="submit">отправить заявку</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div-->
+        <div class="col-12 col-sm-6">
+            {% if object.fl_drawing %}
+                <img class="img-fluid" src="/media/{{ object.fl_drawing }}" alt="object.fl_type">
+            {% else %}
+                <h5 class="align-item-center">Планировка не загружена</h5>
+            {% endif %}
+        </div>
+        <div class="col-12 col-sm-6">
+            <p class="d-flex justify-content-between"><span>Жилой комплекс</span><span>{{ object.fk_object.name }}</span></p>
+            <p class="d-flex justify-content-between"><span>Дом №</span><span>{{ object.build_num }}</span></p>
+            <p class="d-flex justify-content-between"><span>Тип квартиры</span><span>{{ object.get_fl_type_display }}</span></p>
+            <p class="d-flex justify-content-between"><span>Площадь, м2</span><span>{{ object.fl_sq }}</span></p>
+            <p class="d-flex justify-content-between"><span>Этаж</span><span>{{ object.floor }}</span></p>
+            <p class="d-flex justify-content-between"><span>Номер квартиры</span><span>{% if object.fl_num %}{{ object.fl_num }}{% else %}&mdash;{% endif %}</span></p>
+            <p class="d-flex justify-content-between"><span>Отделка</span><span>{{ object.get_fl_decor_display }}</span></p>
+            <p class="d-flex justify-content-between"><span>Стоимость</span><span class="h5">{% if object.fl_price %}{{ object.fl_price|price }} &#8381;{% else %}&mdash;{% endif %}</span></p>
+            <hr>
+            {% if sent %}
+            <p class="h5 mt-3 font-italic">Запрос отправлен</p>
+            {% else %}
+            <!--p class="mt-3"><a class="btn btn-primary w-100" role="button" href="#" data-target="#requestForm" data-toggle="modal"><span class="h5">Оставить заявку на покупку квартиры</span></a></p-->
+            <p class="h5 mt-4 font-italic text-center" style="color: #1A284C;">Заявка на покупку квартиры</p>
+            <form class="mt-3" action="#" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" type="submit">отправить заявку</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

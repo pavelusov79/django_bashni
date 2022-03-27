@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}Результаты поиска{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12">
+      <h1>Результаты поиска по запросу: {{ request.GET.q }}</h1>
+      <h2 class="mb-4" style="color: #1A284C;">Найдено совпадений - {{ search_results }}</h2>
+      {% for item in object_list %}
+      {% if item.title %}
+      <a class="h5" href="{% url 'news_detail'  item.pk %}">{{ item.title }}</a>
+      <p class="mb-2">{{ item.description|truncatewords:40|safe }}</p>
+      <a class="btn btn-outline-secondary" href="{% url 'news_detail' item.pk %}">читать далее...</a>
+      <hr>
+      {% elif item.fl_type %}
+      <a class="h5" href="{% url 'flat_detail' item.fk_object.fk_city.city_slug item.pk item.slug %}">{{ item.get_fl_type_display }} в {{ item.fk_object.name }}</a>
+      <hr>
+      {% elif item.name %}
+      <a class="h5" href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}">{{ item.name }}</a>
+      <p class="text-muted">{{ item.addr }}</p>
+      <hr>
+      {% endif %}
+      {% empty %}
+      <h5 class="my-5">Поиск не дал результатов. Попробуйте изменить запрос.</h5>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      {% if page_obj.has_previous %}
+          <span><a class="h4" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">&laquo;</a></span>
+      {% endif %}
+      <span class="px-2 font-italic font-weight-bold">страница {{ page_obj.number }}
+              из {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+          <span><a class="h4" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">&raquo;</a></span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

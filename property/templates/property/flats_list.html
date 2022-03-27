@@ -1,0 +1,153 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load view_price %}
+{% load split_value %}
+
+{% block title %}Квартирограмма{% endblock title %}
+
+{% block content %}
+<div class="container mt-3 mb-5">
+    <h1 class="text-center font-italic mb-4">Выбрать квартиру </h1>
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <div class="btn-group mt-3 mb-5">
+                {% for i in towns %}
+                <a  class="{% if i.city_slug == city.city_slug %}btn btn-primary city{% else %}btn btn-outline-primary city{% endif %}" href="{% url 'sale' city=i.city_slug %}">{{ i.city_name }}</a>
+                <!--a  class="{% if city.city_slug == 'moskva' %}btn btn-primary city{% else %}btn btn-outline-primary city{% endif %}" href="{% url 'sale' city='moskva' %}">Москва</a>
+                <a  class="{% if city.city_slug == 'sankt-peterburg' %}btn btn-primary city{% else %}btn btn-outline-primary city{% endif %}" href="{% url 'sale' city='sankt-peterburg' %}">Санкт-Петербург</a-->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class=" col-9 col-lg-3 mb-4">
+            <form action="" method="GET" class="filter-objects">
+                <div class="form-group">
+                    <h6 style="color: #1A284C;">Жилой комплекс</h6>
+                    <select id="sort_zhk" class="custom-select">
+                        {% if request.GET.zhk %}
+                        <option value="{{ request.GET.zhk }}">{% for item in property %}
+                            {% if item.id == request.GET.zhk|add:"0" %}{{ item.name }}{% endif %}{% endfor %}</option>
+                        {% endif %}
+                        <option value="">----------------</option>
+                        {% for item in property %}
+                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <h6 style="color: #1A284C;">Тип квартиры</h6>
+                    <div id="flat_type">
+                        {% for item in flat_types %}
+                        <div class="form-check form-check-inline">
+                            {% if item|first in request.GET.flat_type|split:',' %}
+                            <input class="form-check-input flat_type" type="checkbox" id="{{ request.GET.flat_type }}" value="{{ request.GET.flat_type }}" checked>
+                            {% else %}
+                            <input class="form-check-input flat_type" type="checkbox" id="{{ item|first }}" value="{{ item|first }}">
+                            {% endif %}
+                            <label class="form-check-label" for="{{ item|first }}">{{ item|last }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6 style="color: #1A284C;">Отделка квартиры</h6>
+                    <div id="fl_decor">
+                        {% for i in flat_decors %}
+                        <div class="form-check form-check-inline">
+                            {% if i|first in request.GET.fl_decor|split:',' %}
+                            <input class="form-check-input flat_decor" type="checkbox" id="{{ request.GET.fl_decor }}" value="{{ request.GET.fl_decor }}" checked>
+                            {% else %}
+                            <input class="form-check-input flat_decor" type="checkbox" id="{{ i|first }}" value="{{ i|first }}">
+                            {% endif %}
+                            <label class="form-check-label" for="{{ i|first }}">{{ i|last }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6 style="color: #1A284C;">Стоимость</h6>
+                    {% if request.GET.price %}
+                    <span class="mr-3 initial-val">{{ min_price|price }} &#8381;</span>
+                    <input class='ex2 span2' type="text" data-slider-min="{{ min_price }}"
+                           data-slider-max="{{ max_price }}" data-slider-step="500000"
+                           data-slider-value="[{{ request.GET.price|split:','|first }},{{ request.GET.price|split:','|last }}]">
+                    <span class="ml-3 final-val">{{ max_price|price }} &#8381;</span>
+                    {% else %}
+                    <span class="mr-3 initial-val">{{ min_price|price }} &#8381;</span>
+                    <input class='ex2 span2' type="text" data-slider-min="{{ min_price }}"
+                           data-slider-max="{{ max_price }}" data-slider-step="500000"
+                           data-slider-value="[{{ min_price }},{{ max_price }}]">
+                    <span class="ml-3 final-val">{{ max_price|price }} &#8381;</span>
+                    {% endif %}
+                </div>
+                <select id="params" class="custom-select">
+                    {% if request.GET.param == 'fl_price' %}
+                    <option value="fl_price">По возрастанию цены</option>
+                    {% endif %}
+                    <option value="">Сортировать</option>
+                    <option value="fl_price">По возрастанию цены</option>
+                </select>
+                <div class="d-flex my-4 flex-lg-direction-column">
+                    <button class="btn btn-outline-secondary mr-4 w-100" type="reset">Сбросить</button>
+                    <button data-url="{% url 'sale' city=city.city_slug %}" id="flats-search" class="btn btn-outline-primary w-100" type="submit">Применить</button>
+                </div>
+            </form>
+        </div>
+        <div id="all_results" class="col-12 col-lg-9 d-flex flex-wrap">
+            {% for item in object_list %}
+            <div class="col-6 col-md-4 res">
+                <div class="card mb-3">
+                   <a href="{% url 'flat_detail' item.fk_object.fk_city.city_slug item.pk item.slug %}">
+                       {% if item.fl_drawing %}
+                       <img class="card-img-top" src="/media/{{ item.fl_drawing }}" alt="img" style="height: 10rem; object-fit: contain;">
+                       {% else %}
+                       <p class="h5" style="height: 10rem; object-fit: contain;">Изображение планировки отсутствует</p>
+                       {% endif %}
+                   </a>
+                    <div class="card-body">
+                        <p class="badge badge-pill badge-secondary">{{ item.get_fl_status_display }}</p>
+                        <h5 class="card-title"><a href="{% url 'flat_detail' item.fk_object.fk_city.city_slug item.pk item.slug %}">{{ item.get_fl_type_display }} в {{ item.fk_object.name }}</a></h5>
+                        <p class="d-flex justify-content-between small">Дом №: {{ item.build_num }}</p>
+                        <p>Стоимость: {% if item.fl_price %}{{ item.fl_price|price }} &#8381{% else %} &mdash;{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <h5 class="font-italic text-center my-5">Выбор квартир по данному городу или с данными параметрами не доступен.</h5>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <nav class="pagination justify-content-center">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="{{request.path}}?zhk={{request.GET.zhk}}&flat_type={{request.GET.flat_type}}&fl_decor={{request.GET.fl_decor}}&price={{request.GET.price}}&param={{request.GET.param}}&reset={{request.GET.reset}}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a></li>
+                    {% endif %}
+                    {% for p in page_obj.paginator.page_range %}
+                    {% if p > page_obj.number|add:-4 and p < page_obj.number|add:4 %}
+                        {% if page_obj.number == p %}
+                            <li class="page-item active">
+                                <a class="page-link" href="{{request.path}}?zhk={{request.GET.zhk}}&flat_type={{request.GET.flat_type}}&fl_decor={{request.GET.fl_decor}}&price={{request.GET.price}}&param={{request.GET.param}}&reset={{request.GET.reset}}&page={{ p }}">{{ p }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{request.path}}?zhk={{request.GET.zhk}}&flat_type={{request.GET.flat_type}}&fl_decor={{request.GET.fl_decor}}&price={{request.GET.price}}&param={{request.GET.param}}&reset={{request.GET.reset}}&page={{ p }}">{{ p }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="{{request.path}}?zhk={{request.GET.zhk}}&flat_type={{request.GET.flat_type}}&fl_decor={{request.GET.fl_decor}}&price={{request.GET.price}}&param={{request.GET.param}}&reset={{request.GET.reset}}&page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock content %}

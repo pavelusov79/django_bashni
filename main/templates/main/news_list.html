@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Новости{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="text-center font-italic mb-5">Новости</h1>
+  <div class="row">
+    <div class="col-12 col-md-8 order-2 order-sm-1">
+      {% for news in object_list %}
+      <div class="d-flex">
+        <img class="mr-3" src="/media/{{ news.img_news.first.img }}" alt="img" style="width: 10rem">
+        <h3><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h3>
+      </div>
+        <p class="text-muted">{{ news.published|date:"d.m.Y" }}</p>
+      <p>{{ news.description|truncatewords:30|safe }}</p>
+      <a class="btn btn-clear text-muted" href="{% url 'news_detail' news.pk %}">читать далее...</a> <span class="ml-5 text-muted">тэги: </span>
+        {% for tag in news.tags.all %}
+          <a class="btn btn-outline-primary ml-4" href="{% url 'news_slug' tag.slug %}">{{ tag.tag_name }}</a>
+        {% endfor %}
+      <hr class="mb-3">
+      {% endfor %}
+    </div>
+    <div class="col-md-4 col-10 order-1 order-sm-2">
+      <ul class="nav nav-tabs nav-fill" id="newsTab" role="tablist">
+        <li class="nav-item"><a class="nav-link active" id="recent-tab" data-toggle="tab" href="#recent" role="tab"
+                                aria-controls="recent" aria-selected="true">Последнее</a></li>
+        <li class="nav-item"><a class="nav-link" id="popular-tab" data-toggle="tab" href="#popular" role="tab"
+                                aria-controls="popular" aria-selected="false">Популярное</a></li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+          <div class="news-text">
+            {% for item in recent %}
+            <p class="ml-3 mt-3"><span class="text-muted">{{ item.published|date:"d.m.Y" }}</span><a href="{% url 'news_detail' item.pk %}">{{ item.title }}</a></p>
+            {% endfor %}
+          </div>
+          <hr>
+        </div>
+        <div class="tab-pane fade" id="popular" role="tabpanel" aria-labelledby="recent-tab">
+          <div class="news-text">
+            {% for item in popular %}
+            <p class="ml-3 mt-3"><span class="text-muted">{{ item.published|date:"d.m.Y" }}</span><a href="{% url 'news_detail' item.pk %}">{{ item.title }}</a></p>
+            {% endfor %}
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

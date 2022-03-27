@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %} {{ title|title }} {% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+</head>
+<body>
+	<header>
+		<div class="modal fade" id="searchModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="{% url 'search' %}" method="get">
+							<input class="form-control" type="text" name="q" placeholder="введите запрос...">
+							<button class="btn btn-primary px-5 mt-3" type="submit">поиск</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="navbar navbar-expand-md navbar-light bg-light" style="">
+		  <div class="container-fluid">
+		    <a class="navbar-brand pt-0" href="{% url 'main' %}"><img src="{% static 'img/new_logo.png' %}" alt="logo"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			  <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+				<li class="nav-item"><a href="{% url 'news' %}" class="nav-link {% if request.resolver_match.url_name == 'news' %}active{% endif %}">Новости</a></li>
+			    <li class="nav-item"><a href="{% url 'loan' %}" class="nav-link {% if request.resolver_match.url_name == 'loan' %}active{% endif %}">Ипотека</a></li>
+			    <li class="nav-item"><a href="{% url 'property' city='vladivostok' %}" class="nav-link {% if request.resolver_match.url_name == 'property' %}active{% endif %}">Новостройки</a></li>
+			    <li class="nav-item"><a href="{% url 'sale' city='vladivostok' %}" class="nav-link {% if request.resolver_match.url_name == 'sale' %}active{% endif %}">Выбрать квартиру</a></li>
+			    <li class="nav-item"><a href="{% url 'repair' %}" class="nav-link {% if request.resolver_match.url_name == 'repair' %}active{% endif %}">Ремонт</a></li>
+			  </ul>
+			</div>
+		    <div class="user">
+			  <ul class="nav ml-auto mb-2 mb-lg-0 d-sm-flex flex-row">
+				<li class="nav-item py-3 px-sm-3"><a data-toggle="modal" data-target="#searchModal" href="#"><i class="fa fa-search fa-lg fa-nav" style="color: #1A284C;" aria-hidden="true"></i></a></li>
+				<li class="nav-item dropdown py-2">
+					<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown">
+						{% if user.is_authenticated %}{{ request.user.username }}{% else %}
+						<i class="fa fa-user-o fa-lg fa-nav" aria-hidden="true" style="color: #1A284C;"></i>{% endif %}
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						{% if user.is_authenticated %}
+							<a href="#" class="dropdown-item">Личный кабинет</a>
+							<a href="{% url 'authapp:logout' %}" class="dropdown-item">Выход</a>
+						{% else %}
+							<a href="{% url 'authapp:login' %}?next={{ request.path }}" class="dropdown-item">Войти</a>
+							<a href="{% url 'authapp:register' %}" class="dropdown-item">Регистрация</a>
+						{% endif %}
+					</div>
+				</li>
+				<li class="navbar item pl-0"><a class="nav-link phone" href="#" style="color: #1A284C;">
+					+7(423)280-02-07</a></li>
+			  </ul>
+		    </div>
+		  </div>
+		</nav>
+	<div class="border-div"></div>
+	</header>
+
+	{% block content %}
+
+    {% endblock %}
+	<footer>
+		<div class="container-fluid bg-dark" style="background: #3c3c3c">
+			<div class="row first-row-footer mt-3 mb-5 justify-content-center">
+				<div class="col-6 col-sm-4 text-center mail"><i class="fa fa-envelope fa-lg mr-2" aria-hidden="true"></i><a href="mailto:info@111bashni.ru">info@111bashni.ru</a></div>
+				<div class="col-6 col-sm-4 text-center"><i class="fa fa-phone-square fa-lg mr-2" aria-hidden="true"></i><a href="phone:+74232800207">+7(423)280-02-07</a></div>
+				<div class="col-6 col-sm-4 text-center">
+					<a href="https://www.facebook.com/111bashni/"><i class="fa fa-facebook-square fa-2x px-2" aria-hidden="true"></i></a>
+					<a href="https://www.pinterest.ru/111bashni/"><i class="fa fa-pinterest-square fa-2x px-2" aria-hidden="true"></i></a>
+					<a href="https://www.instagram.com/111bashni/"><i class="fa fa-instagram fa-2x px-2" aria-hidden="true"></i></a>
+					<a href="https://www.youtube.com/channel/UCJn9mSFd5v-EOqV2NJ1_Mkg?view_as=subscriber"><i class="fa fa-youtube-square fa-2x px-2" aria-hidden="true"></i></a>
+				</div>
+			</div>
+			<div class="row second-row-footer mb-3 justify-content-center">
+				<div class="col-6 col-sm-4 mail">
+					<p><a href="">О сайте</a></p>
+					<p><a href="">Вакансии</a></p>
+					<p><a href="">Наши партнеры</a></p>
+					<p><a href="">Правила пользования сайтом</a></p>
+					<p><a href="">Политика конфединциальности</a></p>
+					<h5 class="my-2"><a href="">Справочник дольщика</a></h5>
+					<p><a href="">Форум новостроек</a></p>
+					<p><a href="">Юридическая поддержка</a></p>
+				</div>
+				<div class="col-6 col-sm-4">
+					<h5 class="mb-2"><a href="">Жилые комплексы новостройки Владивостока</a></h5>
+					<p><a href="">Новостройки на карте</a></p>
+					<p><a href="">Сданные новостройки</a><span class="px-2" style="color: #bababa;">|</span><a href="{% url 'property' city='vladivostok' %}">Строящиеся</a></p>
+					<p><a href="{% url 'property' city='vladivostok' %}">Новостройки</a><span class="px-2" style="color: #bababa;">|</span><a href="">Долгострои</a></p>
+					<p><a href="{% url 'property' city='vladivostok' %}?b_class=%D0%9A%D0%BE%D0%BC%D1%84%D0%BE%D1%80%D1%82&decor=&wall=">Типовой</a>
+						<span class="px-2" style="color: #bababa;">|</span>
+						<a href="{% url 'property' city='vladivostok' %}?b_class=%D0%9A%D0%BE%D0%BC%D1%84%D0%BE%D1%80%D1%82&decor=&wall=">Комфорт</a>
+						<span class="px-2" style="color: #bababa;">|</span>
+						<a href="{% url 'property' city='vladivostok' %}?b_class=%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81&decor=&wall=">Бизнес</a></p>
+					<p><a href="{% url 'sale' city='vladivostok' %}">Купить квартиру в новостройке</a></p>
+					<p><a href="{% url 'sale' city='vladivostok' %}?flat_type=C&fl_decor=">Квартиры-студии</a></p>
+					<p><a href="{% url 'sale' city='vladivostok' %}?flat_type=1&fl_decor=">1-комнатные квартиры</a></p>
+					<p><a href="{% url 'sale' city='vladivostok' %}?flat_type=2&fl_decor=">2-комнатные квартиры</a></p>
+					<p><a href="{% url 'sale' city='vladivostok' %}?flat_type=3&fl_decor=">3-комнатные квартиры</a></p>
+					<p><a href="">Пентхаусы</a></p>
+					<p><a href="">Коммерческая недвижимость</a></p>
+					<h5 class="my-2"><a href="">Застройщики Владивостока</a></h5>
+					<p><a href="">Обмен на новостройку</a></p>
+					<p><a href="">Ипотека в новостройке</a></p>
+					<p><a href="">Ремонт в новостройке</a></p>
+				</div>
+				<div class="col-6 col-sm-4">
+					<h5 class="mb-2"><a href="">Рейтинг новостроек жилых комплексов</a></h5>
+					<ul>
+						<li><a href="">ЖК Айвазовский (Владивосток)</a></li>
+						<li><a href="">ЖК Академгородок (Владивосток)</a></li>
+						<li><a href="">ЖК Золотая долина (Владивосток)</a></li>
+						<li><a href="">ЖК Ласточка (Владивосток)</a></li>
+						<li><a href="">ЖК Ольга (Владивосток)</a></li>
+						<li><a href="">ЖК Садовый квартал (Владивосток)</a></li>
+						<li><a href="">ЖК 2-я Линейная (Владивосток)</a></li>
+						<li><a href="">ЖК Чайка (Владивосток)</a></li>
+						<li><a href="">ЖК Экосити (Владивосток)</a></li>
+						<li><a href="">ЖК Южный (Владивосток)</a></li>
+						<li><a href="">ЖК Четыре горизонта (Владивосток)</a></li>
+					</ul>
+					<p style="color: #bababa;">Районы во Владивостоке</p>
+					<p><a href="">Новостройки-Баляева</a></p>
+					<p><a href="">Новостройки-Луговая</a></p>
+					<p><a href="">Новостройки-Нейбута</a></p>
+					<p><a href="">Новостройки-Патрокл</a></p>
+					<p><a href="">Новостройки-Первая речка</a></p>
+					<p><a href="">Новостройки-Чуркин</a></p>
+					<p><a href="">Новостройки-Тихая</a></p>
+					<p><a href="">Новостройки-Третья рабочая</a></p>
+					<p><a href="">Новостройки-Центр</a></p>
+				</div>
+			</div>
+			<div class="row second-row-footer mb-3">
+				<div class="col-12">
+					<p style="color: #bababa;">&copy2012-2021 Сайт <a href="/">111.bashni.ru</a> содержит информационную продукцию категории 18+.
+					Копирование изображений и информации сайта допускается только при условии указания Гиперссылки на источние информации.</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	{% block js %}
+	<script src="{% static 'js/jquery-3.6.0-min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+	<script src="https://use.fontawesome.com/aeedf3f379.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+	{% endblock %}
+</body>
+</html>
