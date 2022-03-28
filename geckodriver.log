@@ -1,0 +1,10 @@
+1648424149531	geckodriver	INFO	Listening on 127.0.0.1:34651
+1648424149940	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--window-size=1200, 800" "-headless" "--remote-debugging-port" "39679" "-no-remote" "-profile" "/tmp/rust_mozprofilearGmDR"
+*** You are running in headless mode.
+[GFX1-]: glxtest: libEGL missing eglGetDisplayDriverName
+1648424163079	Marionette	INFO	Marionette enabled
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilearGmDR/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:39679/devtools/browser/c970f708-7b6b-4845-a054-d6b072aebad1
+1648424178714	Marionette	INFO	Listening on port 38861
+1648424179024	RemoteAgent	WARN	TLS certificate errors will be ignored for this session

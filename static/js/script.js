@@ -84,7 +84,7 @@ $('button[type="reset"]').click(function() {
             if($('#params').val() != '') $('#params option:lt(1)').remove();
             window.location.href.replace(window.location.search, '');
             $('#all_results').html('');
-            var results = $(response).find('div.col-6.col-sm-4.res')
+            var results = $(response).find('div.col-6.col-md-4.res')
             $('#all_results').html(results);
             $('.pagination.justify-content-center').empty();
             var data = $(response).find('.pagination.justify-content-center');
@@ -129,7 +129,7 @@ $('#filter-search').click(function() {
         data: {'price': price, 'param': param, 'b_class': b_class.join(','), 'decor': decor.join(','), 'wall': wall.join(',')},
         success: function(response) {
             $('#all_results').html('');
-            var results = $(response).find('div.col-6.col-sm-4.res')
+            var results = $(response).find('div.col-6.col-md-4.res')
             $('#all_results').html(results);
             $('.pagination.justify-content-center').empty();
             var data = $(response).find('.pagination.justify-content-center');
@@ -172,7 +172,7 @@ $('#flats-search').click(function() {
         data: {'price': price, 'param': param, 'flat_type': flat_type.join(','), 'fl_decor': fl_decor.join(','), 'zhk': zhk},
         success: function(response) {
             $('#all_results').html('');
-            var results = $(response).find('div.col-6.col-sm-4.res');
+            var results = $(response).find('div.col-6.col-md-4.res');
             $('#all_results').html(results);
             $('.pagination.justify-content-center').empty();
             var data = $(response).find('.pagination.justify-content-center');
@@ -193,7 +193,7 @@ function ajaxPagination() {
                 success: function(response) {
                     console.log($(el).attr('href'));
                     $('#all_results').html('');
-                    var results = $(response).find('div.col-6.col-sm-4.res');
+                    var results = $(response).find('div.col-6.col-md-4.res');
                     $('#all_results').html(results);
                     $('.pagination.justify-content-center').empty();
                     var data = $(response).find('.pagination.justify-content-center');
