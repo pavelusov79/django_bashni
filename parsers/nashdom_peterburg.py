@@ -1,3 +1,10 @@
+import os
+import datetime
+import wget
+from PIL import Image
+import re
+import time
+
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 from lxml import html
@@ -8,16 +15,14 @@ from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
-import os
-import datetime
-import pytz
-import wget
-from PIL import Image
-import re
+
 from pprint import pprint
 
 
 Image.MAX_IMAGE_PIXELS = 343000000
+
+PYDEVD_THREAD_DUMP_ON_WARN_EVALUATION_TIMEOUT = 6
+PYDEVD_WARN_EVALUATION_TIMEOUT = 4
 
 
 def get_urls():
@@ -31,21 +36,25 @@ def get_urls():
         links = dom.xpath('//a[contains(@class, "styles__Address")]/@href')
         for link in links:
             url_links.append(link)
-        # options = Options()
-        # options.add_argument('--window-size=1200, 800')
-        # options.headless = True
         if len(p) > 1:
+            options = Options()
+            options.add_argument('--window-size=1200, 800')
+            options.headless = True
             s = Service(os.path.dirname(__file__) + '/geckodriver')
-            driver = Firefox(service=s)
+            driver = Firefox(options=options, service=s)
             for i in range(1, int(p[-1])):
                 link = f'https://xn--80az8a.xn--d1aqf.xn--p1ai/%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B/%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3-%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BA/%D1%81%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2/%D1%81%D0%BF%D0%B8%D1%81%D0%BE%D0%BA?objStatus=0&residentialBuildings=1&page={i}&limit=100&place=0-2'
                 driver.get(link)
-                WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.XPATH, "//li/a")))
-                objs = driver.find_elements(By.XPATH, '//a[contains(@class, "Address")]')
-                print(len(objs))
+                cookies = [{'name': 'PUBLIC_URL_ERZ_ANALYTICS', 'value': 'https%3A%2F%2Fxn--80...0%BA%D0%B0', 'path': '/', 'domain': 'xn--80az8a.xn--d1aqf.xn--p1ai', 'secure': False, 'httpOnly': False, 'expiry': 1649288337, 'sameSite': 'None'}]
+                for cookie in cookies:
+                    driver.add_cookie(cookie)   
+                driver.implicitly_wait(5)
+                objs = WebDriverWait(driver, 30).until(EC.presence_of_all_elements_located((By.XPATH, '//div[contains(@class, "styles__Row")]/span[contains(@class, "styles__Primary")]')))
                 for item in objs:
-                    url_links.append(item.get_attribute('href'))  
-            driver.close()
+                    i = f'https://xn--80az8a.xn--d1aqf.xn--p1ai/%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B/%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3-%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BA/%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82/{item.text.strip()}'
+                    url_links.append(i)
+            time.sleep(2)
+            driver.quit()
     print(len(url_links))
     return url_links
 
@@ -61,17 +70,17 @@ def parse_objects():
         if res.status_code == 200:
             db_item = {}
             dom = html.fromstring(res.text)
-            dom_id = dom.xpath('//p[contains(@class, "styles__Id-sc-")]/text()')[0].split(':')[-1]
+            dom_id = dom.xpath('//p[contains(@class, "styles__Id-sc-")]/text()')[0].split(':')[-1].strip()
             db_item['_id'] = int(dom_id)
             print(dom_id)
             db_item['url'] = url
             if main_collection.count_documents({'_id': db_item['_id']}) == 0:
                 db_item['city'] = 'Санкт-Петербург'
                 name = dom.xpath('//h1/text()')[0]
-                db_item['name'] = name
+                db_item['name'] = name[:120]
                 try:
                     addr = dom.xpath('//p[contains(@class, "styles__Address-sc-")]/text()')
-                    db_item['address'] = addr[1]
+                    db_item['address'] = addr[1][:200]
                 except Exception:
                      db_item['address'] = ''
                 owner = dom.xpath('//a[contains(@class, "styles__LinkContainer-sc-")]/text()')[0]
@@ -106,42 +115,47 @@ def parse_objects():
                         db_item['mid_price'] = int(others_ch[3].replace(' ', ''))
                     except ValueError:
                         db_item['mid_price'] = others_ch[3]
-                main_features = dom.xpath('//span[contains(@class, "styles__RowSpan-sc-1fyyfia-7")]/text()')
+                main_features = dom.xpath('//span[contains(@class, "styles__RowSpan-sc-")]/text()')
                 imgs = dom.xpath('//div[contains(@class, "swiper-slide")]/img/@src')
-                os.makedirs(f'{os.path.dirname(__file__)}/images/{dom_id}/', exist_ok=True)
-                for img in imgs:
-                    filename = f'{os.path.dirname(__file__)}/images/{dom_id}/{img.split("/")[-1].split("-")[0]}.jpg'
+                path_to_media = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'media/property/строится')
+                os.makedirs(f'{path_to_media}/{dom_id}', exist_ok=True)
+                for img in range(len(imgs)):
+                    if img > 5:
+                        break
+                    filename = f'{path_to_media}/{dom_id}/{imgs[img].split("/")[-1].split("-")[0]}.jpg'
                     if not os.path.exists(filename):
-                        # os.remove(filename)
-                        wget.download(img, out=filename)
+                        wget.download(imgs[img], out=filename)
                 # resize images
-                path_to_dir = os.path.join(os.path.dirname(__file__), 'images', dom_id)
+                path_to_dir = os.path.join(path_to_media, dom_id)
                 files = os.listdir(path_to_dir)
+                images = []
                 if not files:
                     db_item['small_img'] = ''
-                images = []
-                for file in files:
-                    if file == files[0] and not re.match(r"\w+small(\w+|\.\w+)", file):
+                else:
+                    if not re.match(r"^\w+small.jpg$", files[0]):
                         img_1 = Image.open(os.path.join(path_to_dir, files[0]))
                         width, height = img_1.size
                         if width > 240:
                             width_ratio = round(240 / width * 100)
                             if img_1.mode == 'RGBA' or img_1.mode == 'P':
                                 img_1 = img_1.convert('RGB')
-                            new_img = f"{file.split('.')[0]}_small.jpg"
+                            new_img = f"{files[0].split('.')[0]}_small.jpg"
                             img_1.save(os.path.join(path_to_dir, new_img), quality=width_ratio)
                             db_item['small_img'] = os.path.join(path_to_dir, new_img)
-                    
-                    if not re.match(r"\w+small(\w+|\.\w+)", file):
-                        org_img = Image.open(os.path.join(path_to_dir, file))
-                        width, height = org_img.size
-                        if width > 1420:
-                            width_ratio = round(1420 / width * 100)
-                            if org_img.mode == 'RGBA' or org_img.mode == 'P':
-                                org_img = org_img.convert('RGB')
-                            # new_img = f"{file.split('.')[0]}_resized.jpg"
-                            org_img.save(os.path.join(path_to_dir, file), quality=width_ratio)
-                        images.append(os.path.join(path_to_dir, file))
+                    else:
+                        db_item['small_img'] = os.path.join(path_to_dir, files[0]) 
+                
+                    for file in files:    
+                        if not re.match(r"^\w+_small.jpg$", file):
+                            org_img = Image.open(os.path.join(path_to_dir, file))
+                            width, height = org_img.size
+                            if width > 900:
+                                width_ratio = round(900 / width * 100)
+                                if org_img.mode == 'RGBA' or org_img.mode == 'P':
+                                    org_img = org_img.convert('RGB')
+                                # new_img = f"{file.split('.')[0]}_resized.jpg"
+                                org_img.save(os.path.join(path_to_dir, file), quality=width_ratio)
+                            images.append(os.path.join(path_to_dir, file))
                 db_item['main_photos'] = images
                 db_item['main_class'] = main_features[1]
                 db_item['all_material'] = main_features[3]
@@ -181,11 +195,11 @@ def parse_objects():
                     #                         {'$set': {'delay_terms': delay_res, 'delay_keys': delay_keys}})
             else:
                 l = dom.xpath('//div[contains(@class, "styles__FunctionsRow-sc")]//a[contains(@class, "styles__Message")]/@href')[0]
-                res = requests.get(l, headers=header)
+                r = requests.get(l, headers=header)
                 delay_res = []
                 delay_keys = []
-                if res.status_code == 200:
-                    dom = html.fromstring(res.text)
+                if r.status_code == 200:
+                    dom = html.fromstring(r.text)
                     rows = dom.xpath('//div[contains(@class, "styles__Row-sc-tefync-3")]')
                     for row in range(len(rows)):
                         if row > 4:
@@ -209,7 +223,7 @@ def parse_objects():
     
     logger_path = os.path.join(os.path.dirname(__file__), 'nashdom_logger.txt')
     with open(logger_path, 'a') as f:
-        f.write(f"OK *** {datetime.datetime.now(pytz.timezone('Asia/Vladivostok')).strftime('%d.%m.%y %H:%M')} *** nashdom_peterburg.py\n")
+        f.write(f"OK *** {datetime.datetime.now().strftime('%d.%m.%y %H:%M')} *** спарсено {main_collection.count_documents({'city': 'Санкт-Петербург'})} с nashdom_peterburg.py\n")
 
     return db
 

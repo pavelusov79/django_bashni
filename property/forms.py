@@ -1,5 +1,8 @@
+from pyexpat import model
 from django import forms
 from django.core.validators import RegexValidator
+
+from property.models import PropertyTestimonials, Rating, RatingStar
 
 
 class RequestFlatForm(forms.Form):
@@ -18,3 +21,21 @@ class RequestFlatForm(forms.Form):
             field.widget.attrs['class'] = 'form-control'
 
 
+class TestimonialForm(forms.ModelForm):
+    class Meta:
+        model = PropertyTestimonials
+        fields = ["testimonial"]
+
+    def __init__(self, *args, **kwargs):
+        super(TestimonialForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class RatingForm(forms.ModelForm):
+    star = forms.ModelChoiceField(queryset=RatingStar.objects.all(), widget=forms.RadioSelect(), empty_label=None)
+
+    class Meta:
+        model = Rating
+        fields = ['star']
+        

@@ -7,10 +7,9 @@ from django.urls import reverse
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormMixin
 
-from bashni.settings import DEFAULT_FROM_EMAIL
 from main.models import News, Tags, YoutubeChannel, NewsComment
 from main.forms import NewsCommentForm
-from property.models import BuildingObjects, Flats
+from property.models import Flats, Property
 
 
 class IndexView(TemplateView):
@@ -72,7 +71,7 @@ class NewsDetailList(FormMixin, DetailView):
         form.save()
         recipients = ['info@111bashni.ru']
         message = f'Необходимо просмотреть комментарий от {self.request.user} к новости: {self.object.title}\nКомментарий: {comment_text}.'
-        send_mail('комментарий на валидацию', message, DEFAULT_FROM_EMAIL, recipients)
+        send_mail('комментарий на валидацию', message, 'it@111bashni.ru', recipients)
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -100,11 +99,12 @@ class SearchListView(ListView):
         query_sets = []
         query_sets.append(News.objects.filter(Q(title__icontains=q) | Q(
             description__icontains=q), is_active=True).order_by('-published'))
-        query_sets.append(BuildingObjects.objects.filter(Q(name__icontains=q) | Q(slug__icontains=q)))
-        query_sets.append(Flats.objects.filter(Q(fk_object__name__icontains=q) | Q(fl_type__in=q)))
+        query_sets.append(Property.objects.filter(Q(name__icontains=q) | Q(slug__icontains=q)))
+        query_sets.append(Flats.objects.filter(Q(fk_property__name__icontains=q) | Q(fl_type__in=q)))
         self.object_list = list(chain(*query_sets))
         self.request.session['page'] = ''
         self.request.session['flat_page'] = ''
+        self.request.session['search'] = self.request.path
         return self.object_list
 
     def get_context_data(self, **kwargs):

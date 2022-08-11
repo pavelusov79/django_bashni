@@ -1,0 +1,296 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load view_price %}
+{% load split_value %}
+
+{% block title %}Новостройки{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <h1 class="mb-4 gray">
+        Поиск жилых комплексов {% if city.city_slug == 'vladivostok' %}во{% else %}в{% endif %} 
+        <select name="city" id="city-choice">
+            {% for i in towns %}
+                {% if i.city_slug == city.city_slug %}
+                <option value="{% url 'property' city=i.city_slug %}" selected>{% if i.city_name|last == 'а' %}
+                    {{ i.city_name|slice:':-1'|add:'е' }}
+                    {% elif i.city_name|last == 'и' %}{{ i.city_name }}
+                    {% else %}{{ i.city_name|add:'е' }}{% endif %}
+                </option>
+                {% else %}
+                <option value="{% url 'property' city=i.city_slug %}">{% if i.city_name|last == 'а' %}
+                    {{ i.city_name|slice:':-1'|add:'е' }}
+                    {% elif i.city_name|last == 'и' %}{{ i.city_name }}
+                    {% else %}{{ i.city_name|add:'е' }}{% endif %}
+                </option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </h1>
+    <!--div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <div class="btn-group mt-3 mb-5">
+                {% for i in towns %}
+                <a  class="{% if i.city_slug == city.city_slug %}btn btn-success city{% else %}btn btn-outline-success city{% endif %}" href="{% url 'property' city=i.city_slug %}">{{ i.city_name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div-->
+    <hr style="border-bottom: 1px solid rgba(0, 0, 0, 0.3);">
+    <div class="row justify-content-center mt-3">
+        <div class="col-11 col-sm-12 mb-4">
+            <form action="" method="GET" class="filter-objects">
+                <div class="d-flex flex-wrap my-3 justify-content-between">
+                    <div class="col-8 col-xl-6 pl-0 find-addr">
+                        {% if request.GET.zhk %}
+                        <input id="sort_zhk" type="text" value="{{ request.GET.zhk }}" placeholder="Адрес, жилой комплекс">
+                        <span><img class="search-icon" src="{% static 'img/search_icon.png' %}" alt="search"></span>
+                        {% else %}
+                           <input id="sort_zhk" type="text" placeholder="Адрес, жилой комплекс">
+                           <span><img class="search-icon" src="{% static 'img/search_icon.png' %}" alt="search"></span>
+                        {% endif %}
+                    </div>
+                    <div class="col-4 col-xl-3 pr-0 pr-xl-3">
+                        {% if request.GET.district %}
+                            <select name="district" id="district" style="height: 2.3rem;">
+                                <option class="gray" value="{{ request.GET.district }}" selected>{{ request.GET.district }}</option>
+                                <option class="gray" value="">Выбрать район</option>
+                                {% for item in districts %}
+                                    <option value="{{ item.district }}">{{ item.district }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <select name="district" id="district" style="height: 2.3rem;">
+                                <option class="gray" value="">Выбрать район</option>
+                                {% for item in districts %}
+                                    <option value="{{ item.district }}">{{ item.district }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+                    <div class="col-4 col-xl-3 pl-0 pl-xl-3 pr-lx-0 map-pin">
+                        <a href="" class="btn btn-secondary" style="width: 100%; "><svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.5385 5.76923C11.5385 10.9615 5.76923 15 5.76923 15C5.76923 15 0 10.9615 0 5.76923C0 4.23914 0.607828 2.77171 1.68977 1.68977C2.77171 0.607828 4.23914 0 5.76923 0C7.29933 0 8.76675 0.607828 9.84869 1.68977C10.9306 2.77171 11.5385 4.23914 11.5385 5.76923V5.76923Z" fill="#55B50C" fill-opacity="0.6"/>
+                            <path d="M5.76912 8.07693C7.04362 8.07693 8.07681 7.04374 8.07681 5.76924C8.07681 4.49474 7.04362 3.46155 5.76912 3.46155C4.49461 3.46155 3.46143 4.49474 3.46143 5.76924C3.46143 7.04374 4.49461 8.07693 5.76912 8.07693Z" fill="#E6E6E6"/>
+                            </svg> Смотреть на карте
+                        </a>
+                    </div>
+                </div>
+                <div class="d-flex my-4 flex-wrap justify-content-between">
+                    <div class="col-8 col-xl-6 mt-2">
+                        {% if request.GET.price %}
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="mb-0 gray">Цена за 1м2 от <span id="sl10SliderMinValue">{{ request.GET.price|split:','|first|price }}</span></p>
+                            <p class="mb-0 gray">до <span id="sl10SliderMaxValue">{{ request.GET.price|split:','|last|price }}</span> &#8381;</p>
+                        </div>
+                        <p><input id="sl10" data-slider-id="sl10Slider" type="text" data-slider-min="{{ min_price }}"
+                            data-slider-max="{{ max_price }}" data-slider-step="5000"
+                            data-slider-value="[{{ request.GET.price|split:','|first }},{{ request.GET.price|split:','|last }}]"></p>
+                        {% else %}
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="mb-0 gray">Цена за 1м2 от <span id="sl10SliderMinValue">{{ min_price|price }}</span></p>
+                            <p class="mb-0 gray">до <span id="sl10SliderMaxValue">{{ max_price|price }}</span> &#8381;</p>
+                        </div>
+                        <p><input id="sl10" data-slider-id="sl10Slider" type="text" data-slider-min="{{ min_price }}"
+                            data-slider-max="{{ max_price }}" data-slider-step="5000"
+                            data-slider-value="[{{ min_price }},{{ max_price }}]"></p>
+                        {% endif %}
+                    </div>
+                    <div class="col-4 col-xl-3 pr-0 pr-xl-3 align-self-center">
+                        <select name="fl_decors" id="fl_decor" style="height: 2.3rem;">
+                            {% if request.GET.decor %}
+                                {% for i in decorations %}
+                                    {% if i|first == request.GET.decor %}
+                                        <option value="{{ i|first }}">{{ i|last }}</option>
+                                        <option value="">отделка жк</option>
+                                    {% else %}
+                                        <option disabled value="">------------------------------------------------</option>
+                                        <option value="{{ i|first }}">{{ i|last }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <option value="">отделка жк</option>
+                                {% for i in decorations %}
+                                    <option disabled value="">------------------------------------------------</option>
+                                    <option value="{{ i|first }}">
+                                       {{ i|last }}
+                                    </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="col-4 col-xl-3 pl-0 pl-xl-3 mt-3 mt-xl-0 align-self-center">
+                        <select name="finish_date" style="height: 2.3rem; width: 100%;">
+                            {% if request.GET.date %}
+                                <option value="{{ request.GET.date }}">{{ request.GET.date }}</option>
+                            {% endif %}
+                            <option class='gray' value="">Срок сдачи</option>
+                            {% for item in f_dates %}
+                                <option value="{{ item.operation_term }}">{{ item.operation_term }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-4 pr-0 mt-3">
+                        <select id="params" name="param" class="gray" style="height: 2.3rem;">
+                            {% if request.GET.param == 'rate__get_rating' %}
+                            <option value="rate" selected>По рейтингу</option>
+                            {% elif request.GET.param == 'buildings__middle_price' %}
+                            <option value="price" selected>По возрастанию цены</option>
+                            {% elif request.GET.param == '-buildings__middle_price' %}
+                            <option value="-price" selected>По убыванию цены</option>
+                            {% elif request.GET.param == 'buildings__send_keys' %}
+                            <option value="buildings__send_keys" selected>По сроку сдачи</option>
+                            {% endif %}
+                            <option value="">Сортировать</option>
+                            <option value="rate__get_rating">По рейтингу</option>
+                            <option disabled value="">------------------------------------------------</option>
+                            <option value="buildings__middle_price">По возрастанию цены</option>
+                            <option disabled value="">------------------------------------------------</option>
+                            <option value="-buildings__middle_price">По убыванию цены</option>
+                            <option disabled value="">------------------------------------------------</option>
+                            <option value="buildings__send_keys">По сроку сдачи</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-4 d-flex justify-content-end">
+                    <button class="btn btn-outline-danger dop-filter" type="reset" style="border: none">Сбросить фильтр 
+                    </button>
+                </div>
+                <p class="text-center mt-4"><button data-url="{% url 'property' city=city.city_slug %}" id="filter-search" class="btn btn-success text-center" type="submit" style="width: 22rem; border-radius: 0.5rem;">Показать результаты</button></p>
+                <!--div class="form-group">
+                    <h6 style="color: #1A284C;">Класс недвижимости</h6>
+                    <div id="b_class">
+                        {% for class in property_class %}
+                        <div class="form-check form-check-inline">
+                            {% if class|first in request.GET.b_class|split:',' %}
+                            <input class="form-check-input build_class" type="checkbox" id="{{ class|first|slugify }}" value="{{ class|first }}" checked>
+                            {% else %}
+                            <input class="form-check-input build_class" type="checkbox" id="id_{{ class|first|slugify }}" value="{{ class|first }}">
+                            {% endif %}
+                            <label class="form-check-label" for="id_{{ class|first|slugify }}">{{ class|first }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6 style="color: #1A284C;">Тип отделки</h6>
+                    <div id="b_decor">
+                        {% for d in decorations %}
+                        <div class="form-check form-check-inline">
+                            {% if d|first in request.GET.decor|split:',' %}
+                            <input class="form-check-input build_decor" type="checkbox" id="{{ d|first|slugify }}" value="{{ d|first }}" checked>
+                            {% else %}
+                            <input class="form-check-input build_decor" type="checkbox" id="d_{{ d|first|slugify }}" value="{{ d|first }}">
+                            {% endif %}
+                            <label class="form-check-label" for="d_{{ d|first|slugify }}">{{ d|first }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6 style="color: #1A284C;">Материал стен</h6>
+                    <div id="b_wall">
+                        {% for w in wall_materials %}
+                        <div class="form-check form-check-inline">
+                            {% if w|first in request.GET.wall|split:',' %}
+                            <input class="form-check-input build_wall" type="checkbox" id="{{ w|first|slugify }}" value="{{ w|first }}" checked>
+                            {% else %}
+                            <input class="form-check-input build_wall" type="checkbox" id="w_{{ w|first|slugify }}" value="{{ w|first }}">
+                            {% endif %}
+                            <label class="form-check-label" for="w_{{ w|first|slugify }}">{{ w|first }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h6 style="color: #1A284C;">Средняя стоимость 1 м2</h6>
+                    {% if request.GET.price %}
+                    <span class="mr-3 initial-val">{{ min_price|price }} &#8381;</span>
+                    <input class='ex2 span2' type="text" data-slider-min="{{ min_price }}"
+                           data-slider-max="{{ max_price }}" data-slider-step="500000"
+                           data-slider-value="[{{ request.GET.price|split:','|first }},{{ request.GET.price|split:','|last }}]">
+                    <span class="ml-3 final-val">{{ max_price|price }} &#8381;</span>
+                    {% else %}
+                    <span class="mr-3 initial-val">{{ min_price|price }} &#8381;</span>
+                    <input class='ex2 span2' type="text" data-slider-min="{{ min_price }}"
+                           data-slider-max="{{ max_price }}" data-slider-step="500"
+                           data-slider-value="[{{ min_price }},{{ max_price }}]">
+                    <span class="ml-3 final-val">{{ max_price|price }} &#8381;</span>
+                    {% endif %}
+                </div>
+                <select id="sort_params" class="custom-select">
+                    {% if request.GET.param == 'operation_term' %}
+                    <option value="operation_term">По вводу в эксплуатацию</option>
+                    {% elif request.GET.param == 'middle_price' %}
+                    <option value="middle_price">По возрастанию цены за 1 м2</option>
+                    {% endif %}
+                    <option value="">Сортировать</option>
+                    <option value="operation_term">По вводу в эксплуатацию</option>
+                    <option value="middle_price">По возрастанию цены за 1 м2</option>
+                </select>
+                <div class="d-flex my-4 flex-lg-direction-column">
+                    <button class="btn btn-outline-secondary mr-4 w-100" type="reset">Сбросить</button>
+                    <button data-url="{% url 'property' city=city.city_slug %}" id="filter-search" class="btn btn-outline-success w-100" type="submit">Применить</button>
+                </div-->
+            </form>
+        </div>
+        <div id="all_results" class="col-12 d-flex flex-wrap">
+            {% for item in object_list %}
+            <div class="col-6 col-md-4 col-xl-3 res">
+                <div class="card" style="border: none">
+                   <a href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}">
+                       <img class="card-img-top" src="/media/{{ item.buildings_set.first.small_img }}" alt="img" style="height: 10rem; border-radius: 5px">
+                   </a>
+                   <p class="heart">
+                        <span><i class="fa fa-heart-o" aria-hidden="true" style="color: #55B50C;"></i></span>
+                    </p>
+                    <div class="card-body pb-0" style="position: relative; bottom: 2rem;">
+                        <div class="d-flex justify-content-between">
+                            <p><span><i class="fa fa-star" aria-hidden="true" style="color: #55B50C;"></i> 
+                                {% if item.rate.first.get_rating %}{{ item.rate.first.get_rating }}{% else %}0,0{% endif %}
+                                </span>
+                                <span class="ml-3"><i class="fa fa-comment-o" aria-hidden="true" style="color: #55B50C;"></i> {{ item.testimonials.all|length }}</span>
+                            </p>
+                            <p class="badge badge-pill badge-success">{{ item.buildings_set.first.get_build_stage_display }}</p>
+                        </div>
+                        <h4 class="card-title"><a href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}" style="color: #55B50C;">{{ item.name|truncatewords:20 }}</a></h4>
+                        <p class="gray mb-1">{% if item.district %}{{ item.district }} р-н{% else %}район не указан{% endif %}</p>
+                        <p class="small gray mb-1">Срок сдачи: {{ item.buildings_set.first.operation_term }}</p>
+                        <p class="gray">Стоимость 1 м2: {% if item.buildings_set.first.middle_price %}{{ item.buildings_set.first.middle_price|price }} &#8381{% else %} &mdash;{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <h5 class="font-italic my-5">Поиск не дал результатов.</h5>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <nav class="pagination justify-content-center">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="{{request.path}}?price={{ request.GET.price }}&param={{ request.GET.param }}&date={{ request.GET.date }}&decor={{ request.GET.decor }}&district={{ request.GET.district }}&zhk={{ request.GET.zhk }}&reset={{ request.GET.reset }}&page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a></li>
+                    {% endif %}
+                    {% for p in page_obj.paginator.page_range %}
+                    {% if p > page_obj.number|add:-4 and p < page_obj.number|add:4 %}
+                        {% if page_obj.number == p %}
+                            <li class="page-item active"><a class="page-link" href="{{request.path}}?price={{ request.GET.price }}&param={{ request.GET.param }}&date={{ request.GET.date }}&decor={{ request.GET.decor }}&district={{ request.GET.district }}&zhk={{ request.GET.zhk }}&reset={{ request.GET.reset }}&page={{ p }}">{{ p }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{{request.path}}?price={{ request.GET.price }}&param={{ request.GET.param }}&date={{ request.GET.date }}&decor={{ request.GET.decor }}&district={{ request.GET.district }}&zhk={{ request.GET.zhk }}&reset={{ request.GET.reset }}&page={{ p }}">{{ p }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="{{request.path}}?price={{ request.GET.price }}&param={{ request.GET.param }}&date={{ request.GET.date }}&decor={{ request.GET.decor }}&district={{ request.GET.district }}&zhk={{ request.GET.zhk }}&reset={{ request.GET.reset }}&page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock content %}
