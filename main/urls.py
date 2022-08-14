@@ -10,5 +10,4 @@ urlpatterns = [
     path('loan/', views.LoanPageView.as_view(), name='loan'),
     path('repair/', views.RepairPageView.as_view(), name='repair'),
     path('search/', views.SearchListView.as_view(), name='search'),
-    path('favorites/', views.FavoritesView.as_view(), name='favorites'),
 ]

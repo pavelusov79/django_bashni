@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'main',
     'authapp',
     'property',
-    'cabinet',
 ]
 
 MIDDLEWARE = [

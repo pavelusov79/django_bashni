@@ -20,7 +20,7 @@ class UserLoginView(LoginView):
 
     def form_valid(self, form):
         auth_login(self.request, form.get_user())
-        if form.get_user().is_staff:
+        if form.get_user().is_superuser:
             return HttpResponseRedirect(reverse('admin:index'))
         else:
             return self.get_success_url()

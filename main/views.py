@@ -119,7 +119,3 @@ class LoanPageView(TemplateView):
 class RepairPageView(TemplateView):
     template_name = 'main/in_development_mode.html'
 
-
-class FavoritesView(TemplateView):
-    template_name = 'main/favorites.html'
-
