@@ -207,7 +207,7 @@
   </div>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb br ml-5">
-      <li class="breadcrumb-item br-item"><a class="font-weight-bold" href="/">Главная</a</li>
+      <li class="breadcrumb-item br-item"><a class="font-weight-bold" href="/">Главная</a></li>
       <li class="breadcrumb-item br-item">
           {% if page %}
           <a class="font-weight-bold" href="{{ page }}">Жилые комплексы {{ object.city.city_name }}</a>
@@ -266,7 +266,6 @@
     <div class="col-6 col-md-3 px-5">
       <p class='gray'>Укажите дату заселения</p>
       <select name="finish_date">
-        <option value="">----------------</option>
         {% for item in dates %}
             <option value="{{ item.operation_term }}">{{ item.operation_term }}</option>
         {% endfor %}
@@ -434,7 +433,7 @@
             <p class="mb-0 gray">{{ object.buildings_set.first.start_date }}</p>
             <p class="mb-0 gray">{{ object.buildings_set.first.send_keys|date:"Y" }}</p>
           </div>
-          <p><input class="sl4" data-slider-id="sl4Slider" type="text" data-slider-min="{{ object.buildings_set.first.start_date }}" data-slider-max="{{ object.buildings_set.first.send_keys|date:"Y" }}" data-slider-step="1" data-slider-value="{% now "Y" %}"></p>
+          <p><input class="sl4" data-slider-id="sl4Slider" type="text" data-slider-min="{{ object.buildings_set.first.start_date }}" data-slider-max="{{ object.buildings_set.first.send_keys|date:'Y' }}" data-slider-step="1" data-slider-value="{% now 'Y' %}"></p>
           <div class="sl d-flex justify-content-between">
             <p class="mb-0 gray">Начало строительства</p>
             <p class="mb-0 gray">Выдача ключей</p>
@@ -485,7 +484,7 @@
             <p class="gray mb-2 font-weight-bold">Квартиры</p>
             {% if object.buildings_set.first.sales_flats %}
               <svg class="chart" width="100" height="100" viewBox="0 0 50 50">
-                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ object.buildings_set.first.sales_flats|split:"%"|first }} 100"></circle>
+                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ object.buildings_set.first.sales_flats|split:'%'|first }} 100"></circle>
               </svg>
               <p class="unit-value">{{ object.buildings_set.first.sales_flats }}</p>
             {% else %}
@@ -496,7 +495,7 @@
             <p class="gray mb-2 font-weight-bold">Нежилые помещения</p>
             {% if bject.buildings_set.first.sales_not_living %}
               <svg class="chart" width="100" height="100" viewBox="0 0 50 50">
-                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ object.buildings_set.first.sales_not_living|split:"%"|first }} 100"></circle>
+                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ object.buildings_set.first.sales_not_living|split:'%'|first }} 100"></circle>
               </svg>
               <p class="unit-value">{{ object.buildings_set.first.sales_not_living }}</p>
             {% else %}
@@ -507,7 +506,7 @@
             <p class="gray mb-2 font-weight-bold">Машиноместа</p>
             {% if object.buildings_set.first.sales_parking %}
               <svg class="chart" width="100" height="100" viewBox="0 0 50 50">
-                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ object.buildings_set.first.sales_parking|split:"%"|first }} 100"></circle>
+                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ object.buildings_set.first.sales_parking|split:'%'|first }} 100"></circle>
               </svg>
               <p class="unit-value">{{ object.buildings_set.first.sales_parking }}</p>
             {% else %}
@@ -565,7 +564,7 @@
             <p class="mb-0 gray">{{ building.start_date }}</p>
             <p class="mb-0 gray">{{ building.send_keys|date:"Y" }}</p>
           </div>
-          <p><input class="sl4" data-slider-id="sl5Slider" type="text" data-slider-min="{{ building.start_date }}" data-slider-max="{{ building.send_keys|date:"Y" }}" data-slider-step="1" data-slider-value="{% now "Y" %}"></p>
+          <p><input class="sl4" data-slider-id="sl5Slider" type="text" data-slider-min="{{ building.start_date }}" data-slider-max="{{ building.send_keys|date:'Y' }}" data-slider-step="1" data-slider-value="{% now 'Y' %}"></p>
           <div class="sl d-flex justify-content-between">
             <p class="mb-0 gray">Начало строительства</p>
             <p class="mb-0 gray">Выдача ключей</p>
@@ -650,7 +649,7 @@
             <p class="gray mb-2 font-weight-bold">Квартиры</p>
             {% if building.sales_flats %}
               <svg class="chart" width="100" height="100" viewBox="0 0 50 50">
-                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ building.sales_flats|split:"%"|first }} 100"></circle>
+                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ building.sales_flats|split:'%'|first }} 100"></circle>
               </svg>
               <p class="unit-value">{{ building.sales_flats }}</p>
             {% else %}
@@ -661,7 +660,7 @@
             <p class="gray mb-2 font-weight-bold">Нежилые помещения</p>
             {% if building.sales_not_living %}
               <svg class="chart" width="100" height="100" viewBox="0 0 50 50">
-                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ building.sales_not_living|split:"%"|first }} 100"></circle>
+                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ building.sales_not_living|split:'%'|first }} 100"></circle>
               </svg>
               <p class="unit-value">{{ building.sales_not_living }}</p>
             {% else %}
@@ -672,7 +671,7 @@
             <p class="gray mb-2 font-weight-bold">Машиноместа</p>
             {% if building.sales_parking %}
               <svg class="chart" width="100" height="100" viewBox="0 0 50 50">
-                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ building.sales_parking|split:"%"|first }} 100"></circle>
+                <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ building.sales_parking|split:'%'|first }} 100"></circle>
               </svg>
               <p class="unit-value">{{ building.sales_parking }}</p>
             {% else %}
@@ -738,7 +737,11 @@
       <div class="slider slider-2">
         <div class="slider__container">
           <div class="slider__wrapper">
-            <div class="slider__items" {% if object.youtubechannel_set.all|length == 1 %}style="justify-content: center;"{% endif %}>
+            {% if object.youtubechannel_set.all|length == 1 %}
+            <div class="slider__items" style="justify-content: center;">
+            {% else %}
+            <div class="slider__items">
+            {% endif %}
               {% for item in object.youtubechannel_set.all %}
                 <div class="col-6 col-sm-4 col-lg-3 slider__item">
                   <iframe class="frame_video" src="{{ item.video_url }}" frameborder="0" allowfullscreen style="width: 100%; height: 12rem;"></iframe>
@@ -750,11 +753,6 @@
           <a href="#" class="slider__control" data-slide="next"></a>
         </div>
       </div>
-      <!--{% for item in object.youtubechannel_set.all|slice:":3" %}
-        <div class="col-6 col-sm-4">
-          <iframe src="{{ item.video_url }}" frameborder="0" allowfullscreen style="width: 100%; height: 12rem;"></iframe>
-        </div>
-      {% endfor %}-->
     </div>
   {% endif %}
   {% if similar_obj %}
@@ -763,7 +761,11 @@
     <div class="slider slider-1">
       <div class="slider__container">
         <div class="slider__wrapper">
-          <div class="slider__items" {% if similar_obj|length == 1 %}style="justify-content: center;"{% endif %}>
+          {% if similar_obj|length == 1 %}
+          <div class="slider__items" style="justify-content: center;">
+          {% else %}
+          <div class="slider__items">
+          {% endif %}
             {% for item in similar_obj %}
               <div class="col-6 col-sm-4 col-lg-3 slider__item">
                 <div class="card" style="border: none;">

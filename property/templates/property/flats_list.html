@@ -7,7 +7,7 @@
 {% block title %}Квартирограмма{% endblock title %}
 
 {% block content %}
-<div class="container mt-4 mb-5 px-0">
+<div class="container mt-4 mb-5 px-sm-0">
     <h1 class="mb-4 gray">Купить квартиру в новостройках
         <select name="city" id="city-choice">
             {% for i in towns %}
@@ -39,7 +39,7 @@
     <ul class="nav type_object mb-4 pb-4">
         <li value="fl" class="active gray mr-3">Квартиры</li>
         <li value="parking" class="gray mr-3">Машиноместа</li>
-        <li value="parking" class="gray mr-3">Кладовые</li>
+        <li value="store" class="gray mr-3">Кладовые</li>
     </ul>
     <div class="row justify-content-center mt-3">
         <div class=" col-11 col-sm-12 mb-4">
@@ -47,15 +47,10 @@
                 <div class="form-group">
                     <div class="d-flex justify-content-between mb-4 mt-3">
                         <div class="col-8 pl-0 find-addr">
-                            {% if request.GET.zhk %}
-                            <input id="sort_zhk" type="text" value="{{ request.GET.zhk }}" placeholder="Адрес, жилой комплекс">
+                            <input id="sort_zhk" type="text" value="{% if request.GET.zhk %}{{ request.GET.zhk }}{% endif %}" placeholder="Адрес, жилой комплекс">
                             <span><img class="search-icon" src="{% static 'img/search_icon.png' %}" alt="search"></span>
-                            {% else %}
-                               <input id="sort_zhk" type="text" placeholder="Адрес, жилой комплекс">
-                               <span><img class="search-icon" src="{% static 'img/search_icon.png' %}" alt="search"></span>
-                            {% endif %}
                         </div>
-                        <div class="col-4 pr-0 map-pin">
+                        <div class="col-4 pr-0 pr-xl-3 map-pin">
                             <a href="" class="btn btn-secondary" style="width: 100%; "><svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M11.5385 5.76923C11.5385 10.9615 5.76923 15 5.76923 15C5.76923 15 0 10.9615 0 5.76923C0 4.23914 0.607828 2.77171 1.68977 1.68977C2.77171 0.607828 4.23914 0 5.76923 0C7.29933 0 8.76675 0.607828 9.84869 1.68977C10.9306 2.77171 11.5385 4.23914 11.5385 5.76923V5.76923Z" fill="#55B50C" fill-opacity="0.6"/>
                                 <path d="M5.76912 8.07693C7.04362 8.07693 8.07681 7.04374 8.07681 5.76924C8.07681 4.49474 7.04362 3.46155 5.76912 3.46155C4.49461 3.46155 3.46143 4.49474 3.46143 5.76924C3.46143 7.04374 4.49461 8.07693 5.76912 8.07693Z" fill="#E6E6E6"/>
@@ -63,43 +58,31 @@
                         </div>
                     </div>
                     <div class="d-flex flex-wrap mb-3">
-                        <div class="col-6 col-xl-4 mt-2">
+                        <div class="col-12 col-sm-6 col-xl-4 mt-2">
                             <!--div class="d-flex justify-content-between mb-2">
                                 <p class="mb-0 gray">Цена от <span id="sl7SliderMinValue">{{ min_price|price }}</span></p>
                                 <p class="mb-0 gray">до <span id="sl7SliderMaxValue">{{ max_price|price }}</span> &#8381;</p>
                             </div-->
-                            {% if request.GET.price %}
+
                             <div class="d-flex justify-content-between mb-2">
-                                <p class="mb-0 gray">Цена от <span id="sl7SliderMinValue">{{ request.GET.price|split:','|first|price }}</span></p>
-                                <p class="mb-0 gray">до <span id="sl7SliderMaxValue">{{ request.GET.price|split:','|last|price }}</span> &#8381;</p>
+                                <p class="mb-0 gray">Цена от <span id="sl7SliderMinValue">{% if request.GET.price %}{{ request.GET.price|split:','|first|price }}
+                                {% else %}{{ min_price|price }}{% endif %}</span></p>
+                                <p class="mb-0 gray">до <span id="sl7SliderMaxValue">{% if request.GET.price %}{{ request.GET.price|split:','|last|price }}
+                                {% else %}{{ max_price|price }}{% endif %}</span> &#8381;</p>
                             </div>
                             <p><input id="sl7" data-slider-id="sl7Slider" type="text" data-slider-min="{{ min_price }}"
                                 data-slider-max="{{ max_price }}" data-slider-step="500000"
-                                data-slider-value="[{{ request.GET.price|split:','|first }},{{ request.GET.price|split:','|last }}]"></p>
-                            {% else %}
-                            <div class="d-flex justify-content-between mb-2">
-                                <p class="mb-0 gray">Цена от <span id="sl7SliderMinValue">{{ min_price|price }}</span></p>
-                                <p class="mb-0 gray">до <span id="sl7SliderMaxValue">{{ max_price|price }}</span> &#8381;</p>
-                            </div>
-                            <p><input id="sl7" data-slider-id="sl7Slider" type="text" data-slider-min="{{ min_price }}"
-                                data-slider-max="{{ max_price }}" data-slider-step="500000"
-                                data-slider-value="[{{ min_price }},{{ max_price }}]"></p>
-                            {% endif %}
+                                data-slider-value="{% if request.GET.price %}[{{ request.GET.price|split:','|first }},{{ request.GET.price|split:','|last }}]
+                                {% else %}[{{ min_price }},{{ max_price }}]{% endif %}"></p>
                         </div>
-                        <div class="col-6 col-xl-4 mt-2">
+                        <div class="col-12 col-sm-6 col-xl-4 mt-2">
                             <div class="d-flex justify-content-between mb-2">
-                                <p class="mb-0 gray">Площадь от <span id="sl8SliderMinValue">{{ min_sq|replace }}</span></p>
-                                <p class="mb-0 gray">до <span id="sl8SliderMaxValue">{{ max_sq|replace }}</span> м2</p>
+                                <p class="mb-0 gray">Площадь от <span id="sl8SliderMinValue">{% if request.GET.square %}{{ request.GET.square|split:','|first|replace }}{% else %}{{ min_sq|replace }}{% endif %}</span></p>
+                                <p class="mb-0 gray">до <span id="sl8SliderMaxValue">{% if request.GET.square %}{{ request.GET.square|split:','|last|replace }}{% else %}{{ max_sq|replace }}{% endif %}</span> м2</p>
                             </div>
-                            {% if request.GET.square %}
                             <p><input id="sl8" data-slider-id="sl8Slider" type="text" data-slider-min="{{ min_sq|replace }}"
                                 data-slider-max="{{ max_sq|replace }}" data-slider-step="0.5"
-                                data-slider-value="[{{ request.GET.square|split:','|first|replace  }},{{ request.GET.square|split:','|last|replace }}]"></p>
-                            {% else %}
-                            <p><input id="sl8" data-slider-id="sl8Slider" type="text" data-slider-min="{{ min_sq|replace }}"
-                                data-slider-max="{{ max_sq|replace }}" data-slider-step="0.5"
-                                data-slider-value="[{{ min_sq|replace }}, {{ max_sq|replace }}]"></p>
-                            {% endif %}
+                                data-slider-value="{% if request.GET.square %}[{{ request.GET.square|split:','|first|replace }},{{ request.GET.square|split:','|last|replace }}]{% else %}[{{ min_sq|replace }},{{ max_sq|replace }}]{% endif %}"></p>
                         </div>
                         <div class="col-6 col-xl-4 mb-2 mt-2 pl-0 text-xl-right align-self-center">
                             <select name="finish_date">
@@ -142,17 +125,11 @@
                         <div class="col-6 col-sm-4">
                             <div class="d-flex justify-content-between mb-2">
                                 <p class="mb-0 gray">Этаж от <span id="sl9SliderMinValue">1</span></p>
-                                <p class="mb-0 gray">до <span id="sl9SliderMaxValue">{{ max_fl }}</span></p>
+                                <p class="mb-0 gray">до <span id="sl9SliderMaxValue">{% if request.GET.floor %}{{ request.GET.floor|split:','|last }}{% else %}{{ max_fl }}{% endif %}</span></p>
                             </div>
-                            {% if request.GET.floor %}
                             <p><input id="sl9" data-slider-id="sl9Slider" type="text" data-slider-min="1"
                                 data-slider-max="{{ max_fl }}" data-slider-step="1"
-                                data-slider-value="[{{ request.GET.floor|split:','|first }},{{ request.GET.floor|split:','|last }}]"></p>
-                            {% else %}
-                            <p><input id="sl9" data-slider-id="sl9Slider" type="text" data-slider-min="1"
-                                data-slider-max="{{ max_fl }}" data-slider-step="1"
-                                data-slider-value="[1, {{ max_fl }}]"></p>
-                            {% endif %}
+                                data-slider-value="{% if request.GET.floor %}[{{ request.GET.floor|split:','|first }},{{ request.GET.floor|split:','|last }}]{% else %}[1, {{ max_fl }}]{% endif %}"></p>
                         </div>
                         <div class="col-6 col-sm-4">
                             <select name="fl_decors" id="fl_decor">
@@ -162,14 +139,12 @@
                                             <option value="{{ i|first }}">{{ i|last }}</option>
                                             <option value="">отделка квартиры</option>
                                         {% else %}
-                                            <option disabled value="">------------------------------------------------</option>
                                             <option value="{{ i|first }}">{{ i|last }}</option>
                                         {% endif %}
                                     {% endfor %}
                                 {% else %}
                                     <option value="">отделка квартиры</option>
                                     {% for i in flat_decors %}
-                                        <option disabled value="">------------------------------------------------</option>
                                         <option value="{{ i|first }}">
                                            {{ i|last }}
                                         </option>
@@ -178,22 +153,20 @@
                             </select>
                         </div>
                         <div class="col-6 col-sm-4 my-4">
-                            {% if request.GET.district %}
-                                <select name="district" id="district">
+                            <select name="district" id="district">
+                                {% if request.GET.district %}
                                     <option class="gray" value="{{ request.GET.district }}" selected>{{ request.GET.district }}</option>
                                     <option class="gray" value="">Выбрать район</option>
                                     {% for item in districts %}
                                         <option value="{{ item.fk_property.district }}">{{ item.fk_property.district }}</option>
                                     {% endfor %}
-                                </select>
-                            {% else %}
-                                <select name="district" id="district">
+                                {% else %}
                                     <option class="gray" value="">Выбрать район</option>
                                     {% for item in districts %}
                                         <option value="{{ item.fk_property.district }}">{{ item.fk_property.district }}</option>
                                     {% endfor %}
-                                </select>
-                            {% endif %}
+                                {% endif %}
+                            </select>
                         </div>
                         <div class="col-6 col-sm-4 my-3">
                             <select id="params" name="param" class="gray">
@@ -212,15 +185,10 @@
                                 {% endif %}
                                 <option value="">Сортировать</option>
                                 <option value="fl_price">Сначала дешевые</option>
-                                <option disabled value="">------------------------------------------------</option>
                                 <option value="-fl_price">Сначала дорогие</option>
-                                <option disabled value="">------------------------------------------------</option>
                                 <option value="-fl_sq">Сначала с большей площадью</option>
-                                <option disabled value="">------------------------------------------------</option>
                                 <option value="fl_sq">Сначала с меньшей площадью</option>
-                                <option disabled value="">------------------------------------------------</option>
                                 <option value="-floor">Сначала с высоким этажем</option>
-                                <option disabled value="">------------------------------------------------</option>
                                 <option value="floor">Сначала с низким этажем</option>
                             </select>
                         </div>

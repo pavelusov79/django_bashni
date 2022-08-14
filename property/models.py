@@ -64,7 +64,7 @@ class Property(models.Model):
     zhk_img = models.ImageField(verbose_name='картинка записаться на просмотр', upload_to=path_to_property, blank=True, null=True)
     facilities = models.ManyToManyField(Facilities, verbose_name='инфраструктура')
     video = models.URLField(verbose_name='видеопрезентация', max_length=200, blank=True, null=True,
-        help_text='в конце адреса ?autoplay=1&mute=1, например: https://www.youtube.com/emded/hdi6vkQx?autoplay=1&mute=1')
+        help_text='в конце адреса ?autoplay=1&mute=1, например: https://www.youtube.com/embed/hdi6vkQx?autoplay=1&mute=1')
     has_scraper = models.BooleanField(verbose_name='есть скрапер', default=False)
     is_active = models.BooleanField(verbose_name='активный', default=True)
 

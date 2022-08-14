@@ -24,6 +24,7 @@ urlpatterns = [
     path('auth/', include('authapp.urls', namespace='authapp')),
     path('property/', include('property.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('lk/', include('cabinet.urls', namespace='cabinet')),
 ]
 
 if settings.DEBUG:
