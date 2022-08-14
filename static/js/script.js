@@ -18,33 +18,9 @@ $('.type_object li').on('click', function(e) {
     if ($(e.target).attr('value') == 'fl') {
         $('.block-1').css('display', 'block');
         $('.block-2').css('display', 'none');
-        $('.block-3').css('display', 'none');
-        $('.block-4').css('display', 'none');
-        $('.block-5').css('display', 'none');
-    }else if ($(e.target).attr('value') == 'parking') {
+    }else {
         $('.block-1').css('display', 'none');
         $('.block-2').css('display', 'block');
-        $('.block-3').css('display', 'none');
-        $('.block-4').css('display', 'none');
-        $('.block-5').css('display', 'none');
-    }else if ($(e.target).attr('value') == 'genplan') {
-        $('.block-1').css('display', 'none');
-        $('.block-2').css('display', 'none');
-        $('.block-3').css('display', 'block');
-        $('.block-4').css('display', 'none');
-        $('.block-5').css('display', 'none');
-    }else if ($(e.target).attr('value') == 'zhk') {
-        $('.block-1').css('display', 'none');
-        $('.block-2').css('display', 'none');
-        $('.block-3').css('display', 'none');
-        $('.block-4').css('display', 'none');
-        $('.block-5').css('display', 'block');
-    }else if ($(e.target).attr('value') == 'store') {
-        $('.block-1').css('display', 'none');
-        $('.block-2').css('display', 'none');
-        $('.block-3').css('display', 'none');
-        $('.block-4').css('display', 'block');
-        $('.block-5').css('display', 'none');
     }
 });
 
@@ -456,30 +432,6 @@ $('#calc2').slider({
 
 $('#calc3').slider({tooltip: 'always'});
 $('#calc3').slider('disable');
-
-$(document).ready(function () {
-  $("input[type='tel']").each(function(){
-      $(this).on("change keyup paste", function(e) {
-        var output,
-        $this = $(this),
-        input = $this.val();
-        if(e.keyCode != 8) {
-          input = input.replace(/[^0-9]/g, '');
-          var area = input.substr(0, 3);
-          var pre = input.substr(3, 3);
-          var tel = input.substr(6, 4);
-          if (area.length < 3) {
-            output = "(" + area;
-          } else if (area.length == 3 && pre.length < 3) {
-            output = "(" + area + ")" + " " + pre;
-          } else if (area.length == 3 && pre.length == 3) {
-            output = "(" + area + ")" + " " + pre + "-" + tel;
-          }
-          $this.val(output);
-        }
-      });
-  });
-});
 
 $('.btn-ipoteka').click(function(e) {
     e.preventDefault();

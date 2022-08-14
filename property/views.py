@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.urls import reverse
 from django.db.models import Q
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import ContextMixin
 from django.views.generic.edit import FormMixin

@@ -107,7 +107,6 @@ class PropertyFloorPlansInline(StackedInline):
     model = PropertyFloorPlans
     extra = 0
 
-
 class PropertyFeedsInline(StackedInline):
     model = PropertyFeeds
     extra = 0

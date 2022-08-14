@@ -328,12 +328,8 @@ a .bi-twitter, a .bi-share-fill, a .bi-envelope, a .bi-facebook, a .bi-telegram 
 /* end flat list page */
 
 /* flat detail page */
-.block-2, .block-3, .block-4, .block-5 {
+.block-2 {
     display: none;
-}
-
-.block-3 img {
-    max-height: 40rem;
 }
 
 .invalid_field {
@@ -434,10 +430,6 @@ a .bi-twitter, a .bi-share-fill, a .bi-envelope, a .bi-facebook, a .bi-telegram 
 }
 .br-item>a, .br-item.active {
     color: white;
-}
-
-.fr-item a:hover {
-    color: gray;
 }
 
 #btn-testimon {
@@ -765,44 +757,6 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
 .heart span:hover {
     background: #ccc;
 }
-@media all and (max-width: 700px) {
-    .heart span {
-        left: 15.5rem;
-    }
-}
-
-@media all and (max-width: 568px) {
-    .heart span {
-        left: 19.5rem;
-        bottom: 12rem;
-    }
-}
-@media all and (max-width: 520px) {
-    .heart span {
-        left: 17.5rem;
-        bottom: 12rem;
-    }
-}
-@media all and (max-width: 450px) {
-    .heart span {
-        left: 27.5rem;
-        bottom: 14rem;
-    }
-}
-
-@media all and (max-width: 350px) {
-    .heart span {
-        left: 20.5rem;
-        bottom: 14rem;
-    }
-}
-
-@media all and (max-width: 400px) {
-    .heart span {
-        left: 23.5rem;
-        bottom: 14rem;
-    }
-}
 
 @media all and (max-width: 575px) {
     .raspodazha p {
@@ -815,7 +769,7 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
         max-width: 1360px;
     }
     .heart span {
-        left: 16rem;
+        left: 14rem;
     }
     .property-photo {
         height: 35rem !important;
@@ -867,33 +821,5 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
     }
 }
 
-/* Favorite anonymous user start styles */
 
-.a_fav, .a_fav:hover {
-    color: #55B50C;
-}
-.heart_back {
-    background: url("../img/heart_back.png") 50% 0 no-repeat;
-    height: 25rem;
-}
-
-/* Favorite anonymous user end styles */
-
-/* Favorite user start styles */
-.heart_lk {
-    background: url("../img/heart_back.png") 50% 9rem no-repeat;
-    height: 28rem;
-}
-
-.left-menu {
-    border-top-right-radius: 2rem;
-    background: #5DC60A;
-    height: 28rem;
-}
-
-.left-text {
-    color: white;
-}
-
-/* Favorite user end styles */
 
