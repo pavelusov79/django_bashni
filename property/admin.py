@@ -1,18 +1,54 @@
 from django.contrib import admin
 from django.contrib.admin import StackedInline
 
-from property.models import City, BuildingObjects, MainPhotos, BuildingPhotos, \
-    ObjectDocuments, CheckObjectReadiness, CheckTermsPassKeys, Property, Flats, BuildMonths
+from property.models import City, Buildings, MainPhotos, BuildingPhotos, \
+    ObjectDocuments, CheckObjectReadiness, CheckTermsPassKeys, Property, \
+    Flats, BuildMonths, RatingStar, Rating, Facilities, PropertyDecor, \
+    PropertyDecorImages, PropertyFloorPlans, MediaFlats, PropertyFeeds
+
+from main.models import YoutubeChannel
 
 
-admin.site.register(Property)
+admin.site.register(Facilities)
+admin.site.register(RatingStar)
+
+
+@admin.register(MediaFlats)
+class MediaFlatsAdmin(admin.ModelAdmin):
+    list_display = ('fk_property', 'flat_choice')
+
+
+@admin.register(PropertyFeeds)
+class PropertyFeedsAdmin(admin.ModelAdmin):
+    list_display = ('fk_property',)
+    search_fields = ['fk_property__name__icontains']
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('star', 'property', 'ip')
+
+
+class ZhkName(admin.SimpleListFilter):
+    title = 'Жилые комплексы'
+    parameter_name = 'zhk'
+
+    def lookups(self, request, model_admin):
+        zhk = set([i.fk_property for i in model_admin.model.objects.filter(fk_property__has_scraper=True)])
+        return [(i.id, i.name) for i in zhk]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(fk_property=self.value())
+        else:
+            return queryset.all()
 
 
 @admin.register(Flats)
 class FlatsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('fl_type',)}
-    list_display = ('fl_type', 'fk_object', 'fl_num', 'fl_price', 'build_num')
-    list_filter = ('fk_object', 'fl_type', 'fl_decor', 'fl_status')
+    list_display = ('fl_type', 'fk_property', 'fl_num', 'fl_price', 'build_num')
+    list_filter = (ZhkName, 'fl_type', 'fl_decor', 'fl_status')
     search_fields = ('id',)
 
 
@@ -20,6 +56,11 @@ class FlatsAdmin(admin.ModelAdmin):
 class CityAdmin(admin.ModelAdmin):
     prepopulated_fields = {'city_slug': ('city_name',)}
     list_display = ('city_name', 'city_code')
+
+
+class MediaFlatsInline(StackedInline):
+    model = MediaFlats
+    extra = 0
 
 
 class MainPhotosInline(StackedInline):
@@ -52,21 +93,57 @@ class BuildingMonthsInline(StackedInline):
     extra = 0
 
 
+class YoutubeChannelInline(StackedInline):
+    model = YoutubeChannel
+    extra = 0
+
+
+class PropertyDecorImagesInline(StackedInline):
+    model = PropertyDecorImages
+    extra = 0
+
+
+class PropertyFloorPlansInline(StackedInline):
+    model = PropertyFloorPlans
+    extra = 0
+
+
+class PropertyFeedsInline(StackedInline):
+    model = PropertyFeeds
+    extra = 0
+
+
 @admin.register(BuildMonths)
 class BuildMonthsAdmin(admin.ModelAdmin):
-    list_display = ('build_month', 'fk_property',)
-    list_filter = ('fk_property',)
+    list_display = ('build_month', 'fk_building',)
+    list_filter = ('fk_building',)
     inlines = [BuildingPhotosInline]
 
 
-@admin.register(BuildingObjects)
-class BuildingObjectsAdmin(admin.ModelAdmin):
+@admin.register(PropertyDecor)
+class PropertyDecorAdmin(admin.ModelAdmin):
+    list_display = ['decor', 'fk_property']
+    list_filter = ['decor']
+    search_fields = ['fk_property__icontains']
+    inlines = [PropertyDecorImagesInline]
+
+
+@admin.register(Property)
+class PropertyAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    list_display = ('name', 'city')
-    list_filter = ('city', 'has_flats', 'build_stage', 'property_class', 'wall', 'decoration')
-    search_fields = ('name__startswith',)
+    list_display = ('name', 'city', 'has_scraper')
+    list_filter = ('city', 'has_scraper')
+    search_fields = ('name__icontains', )
+    inlines = [PropertyFeedsInline, YoutubeChannelInline, MediaFlatsInline]
+
+
+@admin.register(Buildings)
+class BuildingsAdmin(admin.ModelAdmin):
+    list_display = ('num_dom', 'fk_property', 'start_date')
+    list_filter = ('build_stage', 'property_class', 'wall', 'decoration', 'start_date')
+    search_fields = ('fk_property__name__icontains',)
     inlines = [MainPhotosInline, BuildingMonthsInline, ObjectsDocumentsInline,
-               CheckObjectReadinessInline, CheckTermsPassKeysInline]
+               CheckObjectReadinessInline, CheckTermsPassKeysInline, PropertyFloorPlansInline]
 
 
 

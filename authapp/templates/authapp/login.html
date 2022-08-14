@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="container my-5">
-    <h1 class="font-italic text-center">Введите имя (login) и пароль</h1>
+    <h1 class="font-italic text-center gray">Введите логин и пароль</h1>
     <div class="row justify-content-center">
         <div class="col-10 col-md-6">
             {% for error in form.non_field_errors %}
@@ -23,7 +23,7 @@
                 </div>
                 <input type="hidden" name="next" value="{{ next }}">
                 <div class="mt-4 d-flex justify-content-center">
-                    <input type="submit" class="btn btn-primary px-5" value="войти">
+                    <input type="submit" class="btn btn-success px-5 w-100 my-4" value="войти">
                 </div>
             </form>
         </div>

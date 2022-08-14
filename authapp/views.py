@@ -4,11 +4,12 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from authapp.forms import UserRegisterForm
+from authapp.forms import UserRegisterForm, MyAuthenticationForm
 
 
 class UserLoginView(LoginView):
     template_name = 'authapp/login.html'
+    authentication_form = MyAuthenticationForm
 
     def get_success_url(self):
         if 'next' in self.request.POST.keys() and self.request.POST['next'] != '':
@@ -19,7 +20,7 @@ class UserLoginView(LoginView):
 
     def form_valid(self, form):
         auth_login(self.request, form.get_user())
-        if form.get_user().is_superuser:
+        if form.get_user().is_staff:
             return HttpResponseRedirect(reverse('admin:index'))
         else:
             return self.get_success_url()

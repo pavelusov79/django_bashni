@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from email.errors import FirstHeaderLineIsContinuationDefect
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'main',
     'authapp',
     'property',
+    'cabinet',
 ]
 
 MIDDLEWARE = [
@@ -89,7 +91,7 @@ DATABASES = {
      #   'NAME': BASE_DIR / 'db.sqlite3',
     #}
     'default': {
-        'NAME': 'bashni',
+        'NAME': 'bashni_new',
         'ENGINE': 'django.db.backends.postgresql',
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASSWORD'],
@@ -131,7 +133,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = 'static/'
 
@@ -149,13 +151,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = 'main'
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'it@111bashni.ru'
+# DEFAULT_FROM_EMAIL = 'pavel.usov79@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+
+

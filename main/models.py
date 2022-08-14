@@ -3,6 +3,8 @@ from django.db import models
 from datetime import datetime
 from ckeditor.fields import RichTextField
 
+from property.models import Property
+
 
 class Tags(models.Model):
     tag_name = models.CharField(max_length=64, verbose_name='тэг')
@@ -32,7 +34,7 @@ class News(models.Model):
 
 class ImageNews(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='img_news')
-    img = models.ImageField(upload_to='news', blank=True, verbose_name='фото новости')
+    img = models.ImageField(upload_to='news', blank=True, null=True, verbose_name='фото новости')
 
 
 class NewsComment(models.Model):
@@ -52,6 +54,7 @@ class YoutubeChannel(models.Model):
     name = models.CharField(verbose_name='название видео', max_length=128)
     date = models.DateTimeField(verbose_name='дата', default=datetime.now)
     video_url = models.URLField(max_length=200, verbose_name='ссылка на видео')
+    fk_property = models.ForeignKey(Property, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='для ЖК')
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

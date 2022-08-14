@@ -5,37 +5,47 @@
 {% block title %}{{ object.get_fl_type_display }}{% endblock title %}
 
 {% block content %}
-<div class="container mt-3 mb-5">
+<div class="container mt-4 mb-5 px-sm-0">
     <nav aria-label="breadcrumb mt-2">
-    <ol class="breadcrumb px-5">
-      <li class="breadcrumb-item">
-          {% if page %}
-          <a href="{{ page }}">Назад к выбору квартир</a>
-          {% else %}
-          <a href="#" onclick="javascript:history.go(-1); return false;">Назад к результатам поиска</a>
-          {% endif %}
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">{% if object.fl_type == 'С' or object.fl_type == 'П' %}
-            {{ object.get_fl_type_display }} в {{ object.fk_object.name }}
-        {% else %}
-            {{ object.get_fl_type_display }} квартира в {{ object.fk_object.name }}
-        {% endif %}</li>
-    </ol>
-  </nav>
-    <h1 class="text-center font-italic mb-5">
+        <ol class="breadcrumb pl-0 gray" style="background: none;">
+            <li class="breadcrumb-item"><a class="gray" href="/">Главная</a></li>
+            <li class="breadcrumb-item">
+                {% if page %}
+                    <a class="gray" href="{{ page }}">Назад к выбору квартир</a>
+                {% elif search %}
+                    <a class="gray" href="#" onclick="javascript:history.go(-1); return false;">Назад к результатам поиска</a>
+                {% else %}
+                    <a class="gray" href="#" onclick="javascript:history.go(-2); return false;">Назад к выбору квартир</a>
+                {% endif %}
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{% if object.fl_type == 'С' or object.fl_type == 'П' %}
+                    {{ object.get_fl_type_display }} в ЖК {{ object.fk_property.name }}
+                {% else %}
+                    {{ object.get_fl_type_display }} квартира в ЖК {{ object.fk_property.name }}
+                {% endif %}
+            </li>
+        </ol>
+    </nav>
+    <!--h1 class="text-center font-italic mb-5">
         {% if object.fl_type == 'С' or object.fl_type == 'П' %}
-            {{ object.get_fl_type_display }} в {{ object.fk_object.name }}
+            {{ object.get_fl_type_display }} в ЖК {{ object.fk_property.name }}
         {% else %}
-            {{ object.get_fl_type_display }} квартира в {{ object.fk_object.name }}
+            {{ object.get_fl_type_display }} квартира в ЖК {{ object.fk_property.name }}
         {% endif %}
-    </h1>
-    <div class="row justify-content-center">
-        <!--div class="modal" id="requestForm" tabindex="-1" role="dialog">
+    </h1-->
+    <ul class="nav type_object mb-4 pb-4" style="border-bottom: none;">
+        <li value="fl" class="gray active mr-3">Планировка</li>
+        <li value="parking" class="gray mr-3">На этаже</li>
+        <li value="genplan" class="gray mr-3">Генплан</li>
+    </ul>
+    <div class="row justify-content-around mb-sm-2">
+        <div class="modal" id="requestForm" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
+                <h4 class="gray">Заявка на наличие квартиры</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
@@ -47,36 +57,266 @@
               </div>
             </div>
           </div>
-        </div-->
-        <div class="col-12 col-sm-6">
-            {% if object.fl_drawing %}
-                <img class="img-fluid" src="/media/{{ object.fl_drawing }}" alt="object.fl_type">
-            {% else %}
-                <h5 class="align-item-center">Планировка не загружена</h5>
-            {% endif %}
         </div>
-        <div class="col-12 col-sm-6">
-            <p class="d-flex justify-content-between"><span>Жилой комплекс</span><span>{{ object.fk_object.name }}</span></p>
-            <p class="d-flex justify-content-between"><span>Дом №</span><span>{{ object.build_num }}</span></p>
-            <p class="d-flex justify-content-between"><span>Тип квартиры</span><span>{{ object.get_fl_type_display }}</span></p>
-            <p class="d-flex justify-content-between"><span>Площадь, м2</span><span>{{ object.fl_sq }}</span></p>
-            <p class="d-flex justify-content-between"><span>Этаж</span><span>{{ object.floor }}</span></p>
-            <p class="d-flex justify-content-between"><span>Номер квартиры</span><span>{% if object.fl_num %}{{ object.fl_num }}{% else %}&mdash;{% endif %}</span></p>
-            <p class="d-flex justify-content-between"><span>Отделка</span><span>{{ object.get_fl_decor_display }}</span></p>
-            <p class="d-flex justify-content-between"><span>Стоимость</span><span class="h5">{% if object.fl_price %}{{ object.fl_price|price }} &#8381;{% else %}&mdash;{% endif %}</span></p>
-            <hr>
-            {% if sent %}
-            <p class="h5 mt-3 font-italic">Запрос отправлен</p>
-            {% else %}
+        <div class="col-10 col-sm-6">
+            <div class="block-1">
+                {% if object.fl_drawing %}
+                    <img class="img-fluid" src="/media/{{ object.fl_drawing }}" alt="{{object.fl_type}}">
+                {% else %}
+                    <h5 class="align-item-center">Планировка не загружена</h5>
+                {% endif %}
+            </div>
+            <div class="block-2">
+                {% if object.fk_building.floor_plans.all|length == 1 %}
+                    <img class="img-fluid" src="/media/{{ object.fk_building.floor_plans.first.floor_drawing }}" alt="floor_plan">
+                {% else %}
+                    {% for plan in object.fk_building.floor_plans.all %}
+                        <img class="img-fluid" src="/media/{{ plan.floor_drawing }}" alt="floor_plan">
+                        {% if object.floor|stringformat:'s' in plan.floor|split:" " %}
+                            <img class="img-fluid" src="/media/{{ plan.floor_drawing }}" alt="floor_plan">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}   
+            </div>
+            <div class="block-3">
+                {% if object.fk_property.gen_plan %}
+                <img class="img-fluid" src="/media/{{ object.fk_property.gen_plan }}">
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-11 col-sm-6 py-3 right-block" style="background: #EEEEEE; border-radius: 0.9rem; max-height: 28.5rem;">
+            <h1 class="gray">{% if object.fl_type == 'C' %}Студия{% else %}{{ object.fl_type }}-комн кв{% endif %} {{ object.fl_sq }} м2</h1>
+            <h6 class=""><a href="{% url 'property_detail' object.fk_property.city.city_slug object.fk_property.id object.fk_property.slug %}" style="color: #55B50C;">{{ object.fk_property.name }}</a></h6>
+            <p class="gray mb-2 mt-3">Передача ключей:{% if object.fk_building.send_keys %} {{ object.fk_building.send_keys|date:"d M Y" }}г.{% else %}&mdash;{% endif %}</p>
+            <h4 style="color: #55B50C;">{% if object.fl_price %}{{ object.fl_price|price }} &#8381;{% else %}Стоимость не указана{% endif %}</h4>
+            <div class="d-flex gray justify-content-between my-3">
+                <div class="pr-3" style="border-right: 1px solid rgba(85, 181, 12, 0.38); flex: 1;">
+                    <p class="text-center font-weight-bold">{{ object.build_num }}</p>
+                    <p class="text-center">Дом</p>
+                </div>
+                <div class="pr-3" style="border-right: 1px solid rgba(85, 181, 12, 0.38); flex:1;">
+                    <p class="text-center font-weight-bold">{% if object.fk_property.name == 'More (Море)' or object.fk_property.name == 'Premium park (Премиум парк)' %}&mdash;{% else %}{{ object.floor }}{% endif %}</p>
+                    <p class="text-center">Этаж</p>
+                </div>
+                <div class="pr-3" style="border-right: 1px solid rgba(85, 181, 12, 0.38); flex: 1;">
+                    <p class="text-center font-weight-bold">{% if object.fl_num %}{{ object.fl_num }}{% else %}&mdash;{% endif %}</p>
+                    <p class="text-center">Номер квартиры</p>
+                </div>
+                <div class="" style="flex: 1;">
+                    <p class="text-center font-weight-bold">{{ object.fk_building.ceil_height }} м</p>
+                    <p class="text-center">Высота полотка</p>
+                </div>
+            </div>
+            <p class="gray mt-4">
+                <span>
+                    {% if object.fl_decor == 'Да' %}<img src="{% static '/img/otdelka.png' %}" alt="img" title="Квартира с отделкой">
+                    {% elif object.fl_decor == 'Нет' %}<img src="{% static '/img/net_otdelki.png' %}" alt="img" title="Квартира без отделки">
+                    {% elif object.fl_decor == 'whitebox' %}<img src="{% static '/img/whitebox.png' %}" alt="img" title="Квартира с отделкой whitebox">
+                    {% elif object.fl_decor == 'zak' %}<img src="{% static '/img/zak.png' %}" alt="img" title="Отделкка по желанию заказчика">
+                    {% endif %}
+                </span>
+                <span>{{ object.get_fl_decor_display }}</span>
+            </p>
+            <div class="d-flex justify-content-between mt-5">
+                <button class="btn btn-success btn-learn" data-target="#requestForm" data-toggle="modal" style="width: 70%; border-radius: 0.7rem; height: 3rem;">Узнать о наличии</button>
+                <p class="icons share-item"><a href="#" title="Поделиться в соц сетях"><svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.63636 16.4546C6.64467 16.4546 8.27273 14.8265 8.27273 12.8182C8.27273 10.8099 6.64467 9.18182 4.63636 9.18182C2.62806 9.18182 1 10.8099 1 12.8182C1 14.8265 2.62806 16.4546 4.63636 16.4546Z" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.3639 24.6364C19.3722 24.6364 21.0003 23.0083 21.0003 21C21.0003 18.9917 19.3722 17.3636 17.3639 17.3636C15.3556 17.3636 13.7275 18.9917 13.7275 21C13.7275 23.0083 15.3556 24.6364 17.3639 24.6364Z" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.3639 8.27273C19.3722 8.27273 21.0003 6.64467 21.0003 4.63636C21.0003 2.62806 19.3722 1 17.3639 1C15.3556 1 13.7275 2.62806 13.7275 4.63636C13.7275 6.64467 15.3556 8.27273 17.3639 8.27273Z" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.307 6.60223L7.69336 10.8522" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.69336 14.7841L14.307 19.0341" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg></a>
+                </p>
+                <p class="icons"><a href="#"><svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.5 19.3C11.5 19.3 1.5 13.7 1.5 6.90002C1.5 5.69791 1.91649 4.53292 2.67862 3.60328C3.44075 2.67363 4.50143 2.03675 5.6802 1.801C6.85897 1.56525 8.08301 1.74518 9.14406 2.31019C10.2051 2.8752 11.0376 3.79038 11.5 4.90002V4.90002C11.9624 3.79038 12.7949 2.8752 13.8559 2.31019C14.917 1.74518 16.141 1.56525 17.3198 1.801C18.4986 2.03675 19.5593 2.67363 20.3214 3.60328C21.0835 4.53292 21.5 5.69791 21.5 6.90002C21.5 13.7 11.5 19.3 11.5 19.3Z" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg></a></p>
+            </div>
+            <div class="share-menu text-right">
+                <a href="https://twitter.com/intent/tweet?text={{ request.get_full_path }}" target="_blank" title="поделиться в twitter" rel="nofollow"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ml-3 bi bi-twitter" viewBox="0 0 16 16">
+                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                </svg></a>
+                <a href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&su=Ссылка на квартиру с сайта www.bashni.pro&body=Ссылка на квартиру с сайта www.bashni.pro -  {{request.get_full_path }}"
+                title="поделиться по почте" target="_blank" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ml-3 bi bi-envelope" viewBox="0 0 16 16">
+                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                </svg></a>
+                <a href="https://vk.com/share.php?url={{ request.get_full_path }}&comment=Смотри какая квартира" target="_blank" rel="nofollow" title="поделиться в vk">
+                    <i class="fa fa-vk fa-lg ml-3" aria-hidden="true"></i>
+                </a>
+                <a href="https://telegram.me/share/url?url={{ request.get_full_path }}" target="_blank" rel="nofollow"
+                title="поделиться в telegram"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="ml-3 bi bi-telegram" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
+                </svg></a>
+            </div>
+            <!--button class="btn btn-success w-100  my-4 d-flex justify-content-between align-items-center" style="border-radius: 0.7rem; height: 2.7rem; background: linear-gradient(to right, rgba(158, 250, 88, 1), rgba(132, 232, 56, 0));">
+                <p class="mb-0" style="color: #55B50C;">&percnt; Расчитать ипотеку</p>
+                <p class="mb-0"><svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 10.5H23" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 1.5L23 10.5L14 19.5" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg></p>
+            </button-->
+           
             <!--p class="mt-3"><a class="btn btn-primary w-100" role="button" href="#" data-target="#requestForm" data-toggle="modal"><span class="h5">Оставить заявку на покупку квартиры</span></a></p-->
-            <p class="h5 mt-4 font-italic text-center" style="color: #1A284C;">Заявка на покупку квартиры</p>
+            <!--p class="h5 mt-4 font-italic text-center" style="color: #1A284C;">Заявка на покупку квартиры</p>
             <form class="mt-3" action="#" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button class="btn btn-primary" type="submit">отправить заявку</button>
-            </form>
-            {% endif %}
+            </form-->
+           
         </div>
     </div>
+    {% if object.fl_price %}
+        <div class="row justify-content-center mt-md-5">
+            <div class="col-11 col-sm-12 ipoteka-calc-1" style="height: 20.5rem; border: 1px solid rgba(238, 238, 238, 1); background: rgba(238, 238, 238, 1)">
+                <form  class="ipoteka_calc_form" method="post" id="select_num_dom" action="{{ request.path }}" style="width: 100%; border: none; padding-left: 0;">
+                {% csrf_token %}
+                <div class="d-flex mt-4 justify-content-center">
+                    <div class="div1 green act ml-3" style="width: 10%;"></div>
+                    <div class="div2 green ml-5" style="width: 10%;"></div>
+                </div>
+                <p class="ml-4 mt-2 text-step">Шаг 1 из 2</p>
+                <div class="step1 ml-4" style="height: 10.5rem;">
+                    <h4 class="mt-2 mb-3">Расчитать ипотеку</h4>
+                    <div class="d-flex flex-wrap">
+                        <div class="col-11 col-sm-6">
+                            <p class="small mb-4">Стоимость недвижимости</p>
+                            <p class="slider4" style="width: 90%; margin-top: 1.7rem;"><input id="calc3" name="calc3" data-slider-id="calc3Slider" type="text" data-slider-min="4000000"
+                            data-slider-max="20000000" data-slider-step="500000" data-slider-value="{{ object.fl_price }}"></p>
+                        </div>
+                        <div class="col-11 col-sm-6">
+                            <p class="small mb-4">Первоначальный взнос</p>
+                            <p class="slider4" style="width: 90%; margin-top: 1.7rem;"><input id="calc2" name="calc2" data-slider-id="calc2Slider" type="text" data-slider-min="500000"
+                            data-slider-max="2500000" data-slider-step="10000" data-slider-value="950000"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="step2" style="height: 10.5rem;">
+                    <h4 class="mt-2 mb-5 ml-4">Укажите ваши данные</h4>
+                    <div class="d-flex flex-wrap">
+                        <div class="col-11 col-sm-6 text-center text-sm-left">
+                            <input type="text" class="ipoteka-text py-2 pl-3" name="fio" placeholder="ФИО">
+                            <p class="er-text mt-1"></p>
+                        </div>
+                        <div class="col-11 col-sm-6">
+                            <p class="text-tel mb-0"><span class="num-seven pr-2 py-2">+7</span><input type="tel" class="ipoteka-text py-2 pl-5 mb-2" name="tel-ip" placeholder="Телефон"></p>
+                            <p class="er-tel-text"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6"><button class="btn btn-success btn-ipoteka">Далее</button></div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    <h2 class="gray mb-4 mt-5 ml-4 ml-sm-0">Отделка квартиры в ЖК {{ object.fk_property.name }}</h2>
+    <div class="row justify-content-center">
+        {% if otdelka %}
+            {% for item in otdelka %}
+                {% if item.decor == object.fl_decor %}
+                    <div class="col-11 col-sm-6 gray">{{ item.decor_text|safe }}</div>
+                    <div class="col-11 col-sm-6">
+                        {% if object.fk_property.flats_media.first %}
+                            {% for obj in  object.fk_property.flats_media.all %}
+                                {% if object.fl_type == obj.flat_choice %}
+                                    <iframe class="property-frame" src="{{ obj.flat_media }}" allow="autoplay" frameborder="0" allowfullscreen style="width: 100%; height: 18.5rem;"></iframe>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% if object.fl_decor == 'Нет' %}
+                                <img src="{% static 'img/bez_otdelki.jpg' %}" alt="img" style="height: 20rem; object-fit: cover;">
+                            {% elif object.fl_decor == 'whitebox' %}
+                                <img src="{% static 'img/witebox.jpg' %}" alt="img" style="height: 20rem; object-fit: cover;">
+                            {% else %}
+                                <div id="carouselControlsDecor" class="carousel slide" data-ride="carousel" data-interval="false">
+                                    <div class="carousel-inner" style="height: 20rem;">
+                                        <div class="carousel-item active">
+                                            <img class="d-block w-100" src="/media/{{ item.decor_images.first.decor_img }}" alt="img" style="height: 20rem; object-fit: cover;">
+                                        </div>
+                                        {% for img in item.decor_images.all|slice:"1:" %}
+                                        <div class="carousel-item">
+                                            <img class="d-block w-100" src="/media/{{ img.decor_img }}" alt="img" style="height: 20rem; object-fit: cover;">
+                                        </div>
+                                        {% endfor %}
+                                        <a class="carousel-control-prev" href="#carouselControlsDecor" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselControlsDecor" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="col-11 col-sm-6 gray">{% lorem 2 p random %}</div>
+            <div class="col-11 col-sm-6">
+                {% if object.fl_decor == 'Нет' %}
+                    <img src="{% static 'img/bez_otdelki.jpg' %}" alt="img" style="height: 20rem; object-fit: cover;">
+                {% elif object.fl_decor == 'whitebox' %}
+                    <img src="{% static 'img/witebox.jpg' %}" alt="img" style="height: 20rem; object-fit: cover;">
+                {% else %}
+                    <p class="ml-5 mt-5">Фото не загружено</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    {% if similar %}
+    <h2 class="gray mb-3 mt-5 ml-4 ml-sm-0">Похожие квартиры</h2>
+    <div class="row justify-content-center mx-sm-3">
+        <div class="slider slider-1">
+            <div class="slider__container">
+                <div class="slider__wrapper">
+                    <div class="slider__items" {% if similar|length == 1 %}style="justify-content: center;"{% endif %}>
+                        {% for item in similar %}
+                        <div class="col-6 col-sm-4 col-lg-3 slider__item">
+                            <div class="card" style="border: none; background: rgba(238, 238, 238, 1); border-radius: 0.7rem;">
+                                <a href="{% url 'flat_detail' item.fk_property.city.city_slug item.pk item.slug %}">
+                                    {% if item.fl_drawing %}
+                                    <img class="card-img-top" src="/media/{{ item.fl_drawing }}" alt="img" style="height: 11rem; object-fit: contain; padding-top: 0.7rem; width: 90%; margin-left: 5%;">
+                                    {% else %}
+                                    <p class="h5" style="height: 11rem; object-fit: contain; padding-top: 0.7rem;">Изображение планировки отсутствует</p>
+                                    {% endif %}
+                                </a>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="card-title gray">{% if item.fl_price %}{{ item.fl_price|price }} &#8381;{% else %}стоимость не указана{% endif %}</h6>
+                                    <p style="display: inline-block;">{% if item.fl_decor == 'Да' %}<img src="{% static '/img/otdelka.png' %}" alt="img" title="Квартира с отделкой">
+                                        {% elif item.fl_decor == 'Нет' %}<img src="{% static '/img/net_otdelki.png' %}" alt="img" title="Квартира без отделки">
+                                        {% elif item.fl_decor == 'whitebox' %}<img src="{% static '/img/whitebox.png' %}" alt="img" title="Квартира с отделкой whitebox">
+                                        {% elif item.fl_decor == 'zak' %}<img src="{% static '/img/zak.png' %}" alt="img" title="Отделкка по желанию заказчика">{% endif %}</p>
+                                </div> 
+                                <p class="d-flex justify-content-between gray" style="height: 1.5rem;">
+                                    <span>{% if item.fl_type == 'C' %}Студия{% else %}{{ item.fl_type }}-х комн{% endif %}</span><span class="dot_html">&middot;</span><span>{{ item.fl_sq }} м2</span><span class="dot_html">&middot;</span><span>{{ item.floor }} этаж</span>
+                                </p>
+                                <p class="gray"><span class="font-weight-bold">{{ item.fk_property.name }}</span> дом {{ item.build_num }}</p>
+                            </div>
+                        </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <a href="#" class="slider__control" data-slide="prev"></a>
+                <a href="#" class="slider__control" data-slide="next"></a>
+            </div>
+        </div>
+    </div> 
+    {% endif %} 
 </div>
 {% endblock content %}
+
+{% block js %}
+  <script src="{% static 'js/jquery-3.6.0-min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+  <script src="https://use.fontawesome.com/aeedf3f379.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+  <script src="{% static 'js/chief-slider.js' %}"></script>
+  <script src="{% static 'js/slider.js' %}"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

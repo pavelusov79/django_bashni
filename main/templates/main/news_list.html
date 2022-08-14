@@ -4,14 +4,14 @@
 {% block title %}Новости{% endblock title %}
 
 {% block content %}
-<div class="container my-5">
-  <h1 class="text-center font-italic mb-5">Новости</h1>
+<div class="container mt-4 mb-5">
+  <h1 class="text-center font-italic mb-5 gray">Новости</h1>
   <div class="row">
     <div class="col-12 col-md-8 order-2 order-sm-1">
       {% for news in object_list %}
       <div class="d-flex">
         <img class="mr-3" src="/media/{{ news.img_news.first.img }}" alt="img" style="width: 10rem">
-        <h3><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h3>
+        <h3 class="gray"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h3>
       </div>
         <p class="text-muted">{{ news.published|date:"d.m.Y" }}</p>
       <p>{{ news.description|truncatewords:30|safe }}</p>

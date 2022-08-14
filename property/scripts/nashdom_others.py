@@ -1,6 +1,7 @@
 import os
 import shutil
 from pymongo import MongoClient
+from pathlib import Path
 
 from property.models import BuildingObjects, BuildingPhotos, ObjectDocuments, CheckObjectReadiness, \
     CheckTermsPassKeys, MainPhotos, City, BuildMonths
@@ -11,22 +12,9 @@ def run():
     client = MongoClient('127.0.0.1', 27017)
     db = client['nashdom_cities']
     items = db.main.find({})
-    # build_objs = BuildingObjects.objects.filter(build_stage='b')
-    # build_objs.delete()
-    # current_dir = os.getcwd()
-    # path_to_dir = os.path.join(current_dir, 'media/property/строится')
-    # try:
-    #     shutil.rmtree(path_to_dir)
-    # except FileNotFoundError:
-    #     pass
     for el in items:
         if not BuildingObjects.objects.filter(id=el['_id']):
             print(el['_id'])
-            path_to_dir = os.path.join(os.getcwd(), f'media/property/строится/{el["_id"]}')
-            try:
-                shutil.rmtree(path_to_dir)
-            except FileNotFoundError:
-                pass
             city = City.objects.get(city_name=el['city'])
             if el['term_keys'] == '-' and el['mid_price'] == '-':
                 obj = BuildingObjects(
@@ -48,11 +36,20 @@ def run():
                     ceil_height=el['ceil_height'],
                     city=city
                 )
-                if el['small_img']:
-                    obj.small_img.save(el['small_img'].split('/')[-1], UploadedFile(file=open(el['small_img'], 'rb'), content_type='image/jpg'))
-                else:
+                try:
+                    if el['small_img']:
+                        # obj.small_img.save(el['small_img'].split('/')[-1], UploadedFile(file=open(el['small_img'], 'rb'), content_type='image/jpg'))
+                        obj.small_img = el['small_img'].split('media/')[-1]
+                        obj.save()
+                    else:
+                        file_path = os.path.join(os.getcwd(), 'media/build.jpg')
+                        # obj.small_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                        obj.small_img = file_path.split('media/')[-1]
+                        obj.save()
+                except Exception:
                     file_path = os.path.join(os.getcwd(), 'media/build.jpg')
-                    obj.small_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                    obj.small_img = file_path.split('media/')[-1]
+                    obj.save()
 
             elif el['mid_price'] == '-':
                 obj = BuildingObjects(
@@ -75,13 +72,21 @@ def run():
                     city=city,
                     send_keys=el['term_keys']
                 )
-
-                if el['small_img']:
-                    obj.small_img.save(el['small_img'].split('/')[-1],
-                                   UploadedFile(file=open(el['small_img'], 'rb'), content_type='image/jpg'))
-                else:
+                try:
+                    if el['small_img']:
+                        # obj.small_img.save(el['small_img'].split('/')[-1],
+                        #                UploadedFile(file=open(el['small_img'], 'rb'), content_type='image/jpg'))
+                        obj.small_img = el['small_img'].split('media/')[-1]
+                        obj.save()
+                    else:
+                        file_path = os.path.join(os.getcwd(), 'media/build.jpg')
+                        # obj.small_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                        obj.small_img = file_path.split('media/')[-1]
+                        obj.save()
+                except Exception:
                     file_path = os.path.join(os.getcwd(), 'media/build.jpg')
-                    obj.small_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                    obj.small_img = file_path.split('media/')[-1]
+                    obj.save()
             else:
                 obj = BuildingObjects(
                     id=el['_id'],
@@ -104,22 +109,35 @@ def run():
                     send_keys=el['term_keys'],
                     middle_price=el['mid_price']
                 )
-                if el['small_img']:
-                    obj.small_img.save(el['small_img'].split('/')[-1],
-                                       UploadedFile(file=open(el['small_img'], 'rb'), content_type='image/jpg'))
-                else:
+                try:
+                    if el['small_img']:
+                        # obj.small_img.save(el['small_img'].split('/')[-1],
+                        #                    UploadedFile(file=open(el['small_img'], 'rb'), content_type='image/jpg'))
+                        obj.small_img = el['small_img'].split('media/')[-1]
+                        obj.save()
+                    else:
+                        file_path = os.path.join(os.getcwd(), 'media/build.jpg')
+                        # obj.small_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                        obj.small_img = file_path.split('media/')[-1]
+                        obj.save()
+                except Exception:
                     file_path = os.path.join(os.getcwd(), 'media/build.jpg')
-                    obj.small_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                    obj.small_img = file_path.split('media/')[-1]
+                    obj.save()
 
             main_photos = el['main_photos']
             if main_photos:
                 for item in main_photos:
                     ph = MainPhotos(fk_property=obj)
-                    ph.main_img.save(item.split('/')[-1], UploadedFile(file=open(item, 'rb'), content_type='image/jpg'))
+                    # ph.main_img.save(item.split('/')[-1], UploadedFile(file=open(item, 'rb'), content_type='image/jpg'))
+                    ph.main_img =  item.split('media/')[-1]
+                    ph.save()
             else:
                 ph = MainPhotos(fk_property=obj)
                 file_path = os.path.join(os.getcwd(), 'media/build.jpg')
-                ph.main_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                # ph.main_img.save('build.jpg', UploadedFile(file=open(file_path, 'rb'), content_type='image/jpg'))
+                ph.main_img = file_path.split('media/')[-1]
+                ph.save()
 
             # build_photos = el['build_imgs']
             # if build_photos:
@@ -173,7 +191,7 @@ def run():
     for build in buildings:
         if db.main.count_documents({'_id': build.id}) == 0:
             build.delete()
-            path_to_dir = os.path.join(os.getcwd(), f'media/property/строится/{build.id}')
+            path_to_dir = os.path.join(Path(__file__).parent.parent.parent, f'media/property/строится/{build.id}')
             try:
                 shutil.rmtree(path_to_dir)
             except FileNotFoundError:
