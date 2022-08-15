@@ -703,3 +703,14 @@ $('.star').click(function() {
     $(this).removeClass('star').addClass('star-fill');
     $(this).nextAll().removeClass('star').addClass('star-fill');
 });
+
+$('#togglePassword').click(function() {
+    console.log($("input[name='password']").attr('type'));
+    if ($("input[name='password']").attr('type') == 'password') {
+        $("input[name='password']").attr('type', 'text');
+        $(this).removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+    }else {
+        $("input[name='password']").attr('type', 'password');
+        $(this).removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+    }
+});

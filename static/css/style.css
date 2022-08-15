@@ -865,6 +865,9 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
     select[name="finish_date"] {
         width: 96%;
     }
+    #togglePassword {
+        left: 38rem;
+    }
 }
 
 /* Favorite anonymous user start styles */
@@ -896,4 +899,63 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
 }
 
 /* Favorite user end styles */
+
+#togglePassword {
+    cursor: pointer;
+    position: relative;
+    bottom: 2rem;
+}
+@media all and (max-width: 1201px) {
+    #togglePassword {
+        left: 33rem;
+    }
+}
+
+@media all and (max-width: 991px) {
+    #togglePassword {
+        left: 25rem;
+    }
+}
+@media all and (max-width: 767px) {
+    #togglePassword {
+        left: 32rem;
+    }
+}
+@media all and (max-width: 567px) {
+    #togglePassword {
+        left: 38rem;
+        bottom: 2.3rem;
+    }
+}
+@media all and (max-width: 520px) {
+    #togglePassword {
+        left: 36rem;
+        bottom: 2.3rem;
+    }
+}
+@media all and (max-width: 490px) {
+    #togglePassword {
+        left: 31rem;
+        bottom: 2.3rem;
+    }
+}
+@media all and (max-width: 430px) {
+    #togglePassword {
+        left: 27rem;
+        bottom: 2.3rem;
+    }
+}
+@media all and (max-width: 385px) {
+    #togglePassword {
+        left: 25rem;
+        bottom: 2.3rem;
+    }
+}
+@media all and (max-width: 350px) {
+    #togglePassword {
+        left: 23rem;
+        bottom: 2.3rem;
+    }
+}
+
 
