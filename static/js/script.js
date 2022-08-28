@@ -16,7 +16,7 @@ $('.type_object li').on('click', function(e) {
     });
     $(e.target).addClass('active');
     if ($(e.target).attr('value') == 'fl') {
-        $('.block-1').css('display', 'block');
+        $('.block-1').css({'display': 'flex', 'flex-wrap': 'wrap'});
         $('.block-2').css('display', 'none');
         $('.block-3').css('display', 'none');
         $('.block-4').css('display', 'none');
@@ -38,13 +38,19 @@ $('.type_object li').on('click', function(e) {
         $('.block-2').css('display', 'none');
         $('.block-3').css('display', 'none');
         $('.block-4').css('display', 'none');
-        $('.block-5').css('display', 'block');
+        $('.block-5').css({'display': 'flex', 'flex-wrap': 'wrap'});
     }else if ($(e.target).attr('value') == 'store') {
         $('.block-1').css('display', 'none');
         $('.block-2').css('display', 'none');
         $('.block-3').css('display', 'none');
         $('.block-4').css('display', 'block');
         $('.block-5').css('display', 'none');
+    }else if ($(e.target).attr('value') == 'bank_requests') {
+        $('.block-6').css('display', 'block');
+        $('.block-7').css('display', 'none');
+    }else if ($(e.target).attr('value') == 'bank_conform') {
+        $('.block-6').css('display', 'none');
+        $('.block-7').css('display', 'block');
     }
 });
 
@@ -364,8 +370,13 @@ function ajaxPagination() {
                 success: function(response) {
                     console.log($(el).attr('href'));
                     $('#all_results').html('');
+                    $('.news').html('');
                     var results = $(response).find('div.col-6.col-md-4.col-xl-3.res');
+                    var news_res1 = $(response).find('div.col-12.col-md-8.order-2.order-sm-1');
+                    var news_res2 = $(response).find('div.col-md-4.col-10.order-1.order-sm-2');
                     $('#all_results').html(results);
+                    $('.news').html(news_res1);
+                    $('.news').append(news_res2);
                     $('.pagination.justify-content-center').empty();
                     var data = $(response).find('.pagination.justify-content-center');
                     $('.pagination.justify-content-center').html(data);
@@ -391,6 +402,50 @@ $('#likes').click(function() {
             $('#count-likes').html('');
             $('#count-likes').html(response.data);
             console.log('success');
+        }
+    });
+    return false;
+});
+
+$('span i').click(function() {
+    if ($(this).hasClass('fa fa-heart-o')) {
+        console.log('yes');
+        $(this).removeClass('fa fa-heart-o').addClass('fa fa-heart');
+    }else {
+        $(this).removeClass('fa fa-heart').addClass('fa fa-heart-o');
+    }
+});
+
+$('span i').click(function() {
+    var favorite_obj = $(this).attr('id');
+    console.log(favorite_obj);
+    var $this = $(this);
+    console.log('fav_obj= ', favorite_obj);
+    $.ajax({
+        type: 'GET',
+        url: $(this).attr('data-url'),
+        data: {'fav_obj': favorite_obj},
+        success: function(response) {
+            console.log('success');
+            if ($this.hasClass('delete_fav fl')) {
+                if ($('.fl').length > 1) {
+                    $this.parents('.res').fadeOut('slow', function() {
+                        $this.parents('.res').empty();
+                        console.log('deleted flat');
+                    });
+                }else {
+                    window.location.reload();
+                }
+            }else if ($this.hasClass('delete_fav zhk')) {
+                if ($('.zhk').length > 1) {
+                    $this.parents('.res').fadeOut('slow', function() {
+                        $this.parents('.res').empty();
+                        console.log('deleted zhk');
+                    });
+                }else {
+                    window.location.reload();
+                }
+            }
         }
     });
     return false;
@@ -496,7 +551,7 @@ $('.btn-ipoteka').click(function(e) {
         $('.er-tel').css('display', 'none');
         var nameEl = $('input[name=fio]').val();
         var telEl = $('input[name=tel-ip]').val();
-        var re = new RegExp(/^9[0-9]{9}$/);
+        var re = new RegExp(/^\(9[0-9]{2}\)\s[0-9]{3}\-[0-9]{4}$/);
         var re1 = new RegExp(/^[а-яА-Я]{2,}$|^[а-яА-Я]{2,}\s[а-яА-Я]{2,}$|^[а-яА-Я]{2,}\s[а-яА-Я]{2,}\s[а-яА-Я]{2,}$/);
         if (nameEl == '' || re1.test(nameEl) != true) {
             $('.er-text').append('<p class="font-italic er-fio pl-4 text-left" style="color: red;">Введите ФИО. Допускается только кирилица, не менее 2-х символов.</p>');

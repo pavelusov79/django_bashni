@@ -41,8 +41,10 @@ class RatingStar(models.Model):
         verbose_name_plural = 'Звезды рейтинга' 
         ordering = ['-value']
 
+
 def path_to_property(instance, filename):
     return f'property/{instance.name}/{filename}'
+
 
 class Property(models.Model):
     STAGE_CHOICES = (
@@ -93,7 +95,6 @@ class Property(models.Model):
                 width_ratio = round(900 / width * 100)
                 img.save(self.zhk_img.path, quality=width_ratio)
        
-
 
 class Rating(models.Model):
     ip = models.CharField(verbose_name='ip адрес', max_length=15)

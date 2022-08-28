@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
 from ckeditor.fields import RichTextField
+from slugify import slugify
 
 from property.models import Property
 
@@ -15,6 +16,11 @@ class Tags(models.Model):
 
     class Meta:
         verbose_name_plural = 'Тэги новостей'
+        ordering = ['tag_name']
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.tag_name, ok='_', only_ascii=True)
+        return super(Tags, self).save(*args, **kwargs)
 
 
 class News(models.Model):

@@ -220,7 +220,13 @@
                        <img class="card-img-top" src="/media/{{ item.buildings_set.first.small_img }}" alt="img" style="height: 10rem; border-radius: 5px">
                    </a>
                    <p class="heart">
-                        <span><i class="fa fa-heart-o" aria-hidden="true" style="color: #55B50C;"></i></span>
+                        <span>
+                            {% if request.user.is_authenticated %}
+                                <i id="{{ item.id }}_zhk" data-url="{{ request.path }}" class="{% if item.id in fav_zhk %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                            {% else %}
+                                <i id="{{ item.id }}" data-url="{{ request.path }}" class="{% if item.id in request.session.fav_zhk %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                            {% endif %}
+                        </span>
                     </p>
                     <div class="card-body pb-0" style="position: relative; bottom: 2rem;">
                         <div class="d-flex justify-content-between">

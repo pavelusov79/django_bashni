@@ -127,9 +127,15 @@
                     <path d="M7.69336 14.7841L14.307 19.0341" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg></a>
                 </p>
-                <p class="icons"><a href="#"><svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.5 19.3C11.5 19.3 1.5 13.7 1.5 6.90002C1.5 5.69791 1.91649 4.53292 2.67862 3.60328C3.44075 2.67363 4.50143 2.03675 5.6802 1.801C6.85897 1.56525 8.08301 1.74518 9.14406 2.31019C10.2051 2.8752 11.0376 3.79038 11.5 4.90002V4.90002C11.9624 3.79038 12.7949 2.8752 13.8559 2.31019C14.917 1.74518 16.141 1.56525 17.3198 1.801C18.4986 2.03675 19.5593 2.67363 20.3214 3.60328C21.0835 4.53292 21.5 5.69791 21.5 6.90002C21.5 13.7 11.5 19.3 11.5 19.3Z" stroke="#55B50C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg></a></p>
+                <p class="icons">
+                    <span>
+                        {% if request.user.is_authenticated %}
+                            <i id="{{ object.id }}_fl" data-url="{{ request.path }}" class="{% if object.id in fav_fl %}fa fa-heart fa-lg{% else %}fa fa-heart-o fa-lg{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                        {% else %}
+                            <i id="{{ object.id }}" data-url="{{ request.path }}" class="{% if object.id in request.session.fav_fl %}fa fa-heart fa-lg{% else %}fa fa-heart-o fa-lg{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                        {% endif %}
+                    </span>
+                </p>
             </div>
             <div class="share-menu text-right">
                 <a href="https://twitter.com/intent/tweet?text={{ request.get_full_path }}" target="_blank" title="поделиться в twitter" rel="nofollow"><svg

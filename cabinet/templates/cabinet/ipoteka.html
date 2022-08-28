@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Ипотека{% endblock title %}
+
+{% block content %}
+<div class="container px-sm-0 my-5">
+    <div class="row">
+        <div class="col-12 col-sm-4 col-xl-3 mb-5 left-menu">
+            {% include 'cabinet/include/left-menu.html' %}
+        </div>
+        <div class="col-12 col-sm-8 col-xl-9 pl-sm-5">
+            <h1 class="gray mb-5 pb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.3)">Ипотека</h1>
+            <ul class="nav type_object mb-4 pb-4" style="border-bottom: none;">
+                <li value="bank_requests" class="active gray mr-3">Мои заявки</li>
+                <li value="bank_conform" class="gray mr-3">Одобрения банков</li>
+            </ul>
+            <div class="block-6">
+                <h4 class="mt-5 gray">Пока здесь пусто...</h4>
+                <h4 class="mt-3 mb-5 gray">Вы можете оставить <a class="a_fav" href="#">заявку онлайн</a></h4>
+            </div>
+            <div class="block-7">
+                <h4 class="mt-5 mb-5 gray">Пока здесь пусто...</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

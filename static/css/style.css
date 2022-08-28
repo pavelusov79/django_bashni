@@ -328,7 +328,7 @@ a .bi-twitter, a .bi-share-fill, a .bi-envelope, a .bi-facebook, a .bi-telegram 
 /* end flat list page */
 
 /* flat detail page */
-.block-2, .block-3, .block-4, .block-5 {
+.block-2, .block-3, .block-4, .block-5, .block-7 {
     display: none;
 }
 
@@ -344,7 +344,11 @@ a .bi-twitter, a .bi-share-fill, a .bi-envelope, a .bi-facebook, a .bi-telegram 
     padding: 5px 10px;
     background: rgba(157, 198, 127, 0.46);
     border-radius: 0.7rem;
+    cursor: pointer;
 }   
+.icons:hover {
+    cursor:pointer;
+}
 
 @media all and (min-width: 1200px) {
     .btn-learn {
@@ -762,6 +766,10 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
     cursor: pointer;
 }
 
+.heart-fl span {
+    background: #EEEEEE;
+}
+
 .heart span:hover {
     background: #ccc;
 }
@@ -877,15 +885,23 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
 }
 .heart_back {
     background: url("../img/heart_back.png") 50% 0 no-repeat;
-    height: 25rem;
+    min-height: 25rem;
 }
-
+.save_favorites {
+    background: #EEEEEE;
+    border-radius: 1rem;
+}
 /* Favorite anonymous user end styles */
 
 /* Favorite user start styles */
 .heart_lk {
     background: url("../img/heart_back.png") 50% 9rem no-repeat;
     height: 28rem;
+}
+
+.heart_lk_cab {
+    background: url("../img/heart_back.png") 50% 0% no-repeat;
+    min-height: 28rem;
 }
 
 .left-menu {
@@ -897,7 +913,21 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
 .left-text {
     color: white;
 }
-
+.left-menu-select {
+    color: #479906;
+}
+.left-text:hover {
+    text-decoration: none;
+    color: #479906;
+}
+.left-text svg path:hover {
+    stroke: #479906;
+}
+.profile-info {
+    background: #E5E5E5;
+    padding: 10px 20px;
+    border-radius: 0.7rem;
+}
 /* Favorite user end styles */
 
 #togglePassword {

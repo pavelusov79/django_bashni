@@ -13,6 +13,7 @@ from django.views.generic.edit import FormMixin
 from property.models import BuildMonths, BuildingPhotos, Buildings, City, Flats, Property, PropertyTestimonials, Rating, PropertyDecor
 from property.forms import RequestFlatForm, TestimonialForm, RatingForm
 from main.models import News
+from cabinet.models import FavoritesFlats, FavoritesProperty
 
 
 class GetContext(ContextMixin):
@@ -39,7 +40,28 @@ class FlatsListView(GetContext, ListView):
         param = self.request.GET.get('param')
         district = self.request.GET.get('district')
         reset = self.request.GET.get('reset')
+        fav_obj = self.request.GET.get('fav_obj')
         self.request.session['flat_page'] = self.request.get_full_path()
+        if 'fav_fl' not in self.request.session.keys():
+            self.request.session['fav_fl'] = []
+        if fav_obj:
+            if not self.request.user.is_authenticated:
+                if int(fav_obj) not in self.request.session['fav_fl']:
+                    self.request.session['fav_fl'].append(int(fav_obj))
+                    self.request.session.modified = True
+                else:
+                    self.request.session['fav_fl'].remove(int(fav_obj))
+                    self.request.session.modified = True
+            else:
+                fav_id = int(fav_obj.replace('_fl', ''))
+                if fav_id not in [item[0] for item in FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]:
+                    fav = FavoritesFlats(user=self.request.user, property_pk=Flats.objects.filter(id=fav_id).first())
+                    fav.save()
+                else:
+                    fav = FavoritesFlats.objects.get(user=self.request.user,
+                                           property_pk=Flats.objects.filter(id=fav_id).first())
+                    fav.delete()
+
         if zhk:
             results = results.filter(Q(fk_property__name__icontains=zhk) | Q(fk_building__addr__icontains=zhk))
         if date:
@@ -88,6 +110,8 @@ class FlatsListView(GetContext, ListView):
             context['min_sq'] = 0
             context['max_sq'] = 0
             context['max_fl'] = 25
+        if self.request.user.is_authenticated:
+            context['fav_fl'] = [item[0] for item in FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]
         return context
 
 
@@ -104,8 +128,34 @@ class FlatDetailView(FormMixin, DetailView):
         else:
             context['similar'] = Flats.objects.filter(fk_property=self.object.fk_property, fl_sq__range=((self.object.fl_sq - 10), (self.object.fl_sq + 10))).order_by('fl_sq')
         context['otdelka'] = PropertyDecor.objects.filter(fk_property=self.object.fk_property)
-        print('otdelka = ', context['otdelka'])
+        if self.request.user.is_authenticated:
+            context['fav_fl'] = [item[0] for item in FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]
         return context
+
+    def get(self, request, *args, **kwargs):
+        fav_obj = self.request.GET.get('fav_obj')
+        print('fav_obj= ', fav_obj)
+        if 'fav_fl' not in self.request.session.keys():
+            self.request.session['fav_fl'] = []
+        if fav_obj:
+            if not self.request.user.is_authenticated:
+                if int(fav_obj) not in self.request.session['fav_fl']:
+                    self.request.session['fav_fl'].append(int(fav_obj))
+                    self.request.session.modified = True
+                else:
+                    self.request.session['fav_fl'].remove(int(fav_obj))
+                    self.request.session.modified = True
+            else:
+                fav_id = int(fav_obj.replace('_fl', ''))
+                if fav_id not in [item[0] for item in
+                                  FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]:
+                    fav = FavoritesFlats(user=self.request.user, property_pk=Flats.objects.filter(id=fav_id).first())
+                    fav.save()
+                else:
+                    fav = FavoritesFlats.objects.get(user=self.request.user,
+                                                     property_pk=Flats.objects.filter(id=fav_id).first())
+                    fav.delete()
+        return super().get(self, request, *args, **kwargs)
         
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -154,7 +204,27 @@ class PropertyListView(GetContext, ListView):
         param = self.request.GET.get('param')
         price = self.request.GET.get('price')
         reset = self.request.GET.get('reset')
+        fav_obj = self.request.GET.get('fav_obj')
         self.request.session['page'] = self.request.get_full_path()
+        if 'fav_zhk' not in self.request.session.keys():
+            self.request.session['fav_zhk'] = []
+        if fav_obj:
+            if not self.request.user.is_authenticated:
+                if int(fav_obj) not in self.request.session['fav_zhk']:
+                    self.request.session['fav_zhk'].append(int(fav_obj))
+                    self.request.session.modified = True
+                else:
+                    self.request.session['fav_zhk'].remove(int(fav_obj))
+                    self.request.session.modified = True
+            else:
+                fav_id = int(fav_obj.replace('_zhk', ''))
+                if fav_id not in [item[0] for item in FavoritesProperty.objects.filter(user=self.request.user).values_list('property_pk')]:
+                    fav = FavoritesProperty(user=self.request.user, property_pk=Property.objects.filter(id=fav_id).first())
+                    fav.save()
+                else:
+                    fav = FavoritesProperty.objects.get(user=self.request.user,
+                                           property_pk=Property.objects.filter(id=fav_id).first())
+                    fav.delete()
         if zhk:
             results = list(set(results.filter(Q(name__icontains=zhk) | Q(buildings__addr__icontains=zhk))))
         if district:
@@ -180,12 +250,15 @@ class PropertyListView(GetContext, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['fav_zhk'] = [item[0] for item in FavoritesProperty.objects.filter(user=self.request.user).values_list('property_pk')]
         try:
             context['min_price'] = Buildings.objects.filter(fk_property__city=self.city).order_by('middle_price').exclude(middle_price=None).first().middle_price
             context['max_price'] = Buildings.objects.filter(fk_property__city=self.city).order_by('-middle_price').exclude(middle_price=None).first().middle_price
         except Exception:
             context['min_price'] = 0
             context['max_price'] = 0
+            # context['fav_zhk'] = ''
         # context['property_class'] = list(set(Buildings.objects.filter(fk_property__city=self.city).values_list('property_class')))
         # context['wall_materials'] = list(set(Buildings.objects.filter(fk_property__city=self.city).values_list('wall')))
         context['decorations'] = list(set(Buildings.objects.filter(fk_property__city=self.city).values_list('decoration')))

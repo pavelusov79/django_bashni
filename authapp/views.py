@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.views.generic import CreateView
 
 from authapp.forms import UserRegisterForm, MyAuthenticationForm
+from cabinet.models import FavoritesProperty, FavoritesFlats
+from property.models import Property, Flats
 
 
 class UserLoginView(LoginView):
@@ -12,10 +14,27 @@ class UserLoginView(LoginView):
     authentication_form = MyAuthenticationForm
 
     def get_success_url(self):
+        if 'fav_zhk' in self.request.session.keys():
+            for item in self.request.session['fav_zhk']:
+                favorites_db = [item.property_pk.id for item in FavoritesProperty.objects.filter(user=self.request.user)]
+                if item not in favorites_db:
+                    add_fav = FavoritesProperty(property_pk=Property.objects.filter(id=item).first(), user=self.request.user)
+                    add_fav.save()
+        if 'fav_fl' in self.request.session.keys():
+            for item in self.request.session['fav_fl']:
+                favorites_db = [item.property_pk.id for item in FavoritesFlats.objects.filter(user=self.request.user)]
+                if item not in favorites_db:
+                    add_fav = FavoritesFlats(property_pk=Flats.objects.filter(id=item).first(), user=self.request.user)
+                    add_fav.save()
+        if 'next' in self.request.POST.keys() and self.request.POST['next'] == '/favorites/':
+            return HttpResponseRedirect(reverse('cabinet:main', kwargs={'pk': self.request.user.pk}))
         if 'next' in self.request.POST.keys() and self.request.POST['next'] != '':
             return HttpResponseRedirect(self.request.POST['next'])
         if 'prev_page' in self.request.session.keys():
-            return redirect(self.request.session['prev_page'])
+            if self.request.session['prev_page'] == '/favorites/':
+                return HttpResponseRedirect(reverse('cabinet:main', kwargs={'pk': self.request.user.pk}))
+            else:
+                return redirect(self.request.session['prev_page'])
         return HttpResponseRedirect(reverse('main'))
 
     def form_valid(self, form):

@@ -1,3 +1,5 @@
+import re
+
 from itertools import chain
 
 from django.core.mail import send_mail
@@ -19,12 +21,13 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['news'] = News.objects.all().order_by('-published')[:3]
         context['youtube'] = YoutubeChannel.objects.all().order_by('-date')[:3]
-
         return context
 
 
 class NewsListView(ListView):
     model = News
+    ordering = ['-published']
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,7 +42,6 @@ class NewsDetailList(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['url'] = f'http://127.0.0.1:8000{self.request.path}'
         context['comments'] = NewsComment.objects.filter(news=self.object, is_active=True)
         return context
 
@@ -79,6 +81,8 @@ class NewsDetailList(FormMixin, DetailView):
 
 
 class NewsSlugView(ListView):
+    paginate_by = 20
+
     def get_queryset(self):
         tags = Tags.objects.get(slug=self.kwargs['tag'])
         return News.objects.filter(tags__slug=tags.slug)
@@ -112,6 +116,7 @@ class SearchListView(ListView):
         context['search_results'] = len(self.object_list)
         return context
 
+
 class LoanPageView(TemplateView):
     template_name = 'main/in_development_mode.html'
 
@@ -122,4 +127,26 @@ class RepairPageView(TemplateView):
 
 class FavoritesView(TemplateView):
     template_name = 'main/favorites.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['zhk'] = Property.objects.all()
+        context['fl'] = Flats.objects.all()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        fav_obj = self.request.GET.get('fav_obj')
+        if fav_obj:
+            if re.match(r'\d+_zhk', fav_obj):
+                if not self.request.user.is_authenticated:
+                    if int(fav_obj.replace('_zhk', '')) in self.request.session['fav_zhk']:
+                        self.request.session['fav_zhk'].remove(int(fav_obj.replace('_zhk', '')))
+                        self.request.session.modified = True
+            elif re.match(r'\d+_fl', fav_obj):
+                if not self.request.user.is_authenticated:
+                    if int(fav_obj.replace('_fl', '')) in self.request.session['fav_fl']:
+                        self.request.session['fav_fl'].remove(int(fav_obj.replace('_fl', '')))
+                        self.request.session.modified = True
+        return super().get(self, request, *args, **kwargs)
+
 

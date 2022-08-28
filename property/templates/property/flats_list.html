@@ -278,13 +278,22 @@
             {% for item in object_list %}
             <div class="col-6 col-md-4 col-xl-3 res">
                 <div class="card mb-3" style="border: none;">
-                   <a href="{% url 'flat_detail' item.fk_property.city.city_slug item.pk item.slug %}">
+                    <a href="{% url 'flat_detail' item.fk_property.city.city_slug item.pk item.slug %}">
                        {% if item.fl_drawing %}
-                       <img class="card-img-top" src="/media/{{ item.fl_drawing }}" alt="img" style="height: 11rem; object-fit: contain;">
+                       <img class="card-img-top py-2" src="/media/{{ item.fl_drawing }}" alt="img" style="height: 11rem; object-fit: contain; border: 1px solid #ccc; border-radius: 0.5rem;">
                        {% else %}
                        <p class="h5" style="height: 11rem; object-fit: contain;">Изображение планировки отсутствует</p>
                        {% endif %}
-                   </a>
+                    </a>
+                    <p class="heart heart-fl">
+                        <span>
+                            {% if request.user.is_authenticated %}
+                                <i id="{{ item.id }}_fl" data-url="{{ request.path }}" class="{% if item.id in fav_fl %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                            {% else %}
+                                <i id="{{ item.id }}" data-url="{{ request.path }}" class="{% if item.id in request.session.fav_fl %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                            {% endif %}
+                        </span>
+                    </p>
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h6 class="card-title gray">{% if item.fl_price %}{{ item.fl_price|price }} &#8381;{% else %}стоимость не указана{% endif %}</h6>

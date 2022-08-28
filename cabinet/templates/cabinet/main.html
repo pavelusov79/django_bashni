@@ -8,10 +8,9 @@
 <div class="container px-sm-0 my-5">
     <div class="row">
         <div class="col-12 col-sm-4 col-xl-3 mb-5 left-menu">
-            <p class="h4 mt-3 ml-5 left-text font-weight-bold">Личный кабинет</p>
-            <p class="left-text mt-5 ml-5">в разработке</p>
+            {% include 'cabinet/include/left-menu.html' %}
         </div>
-        <div class="col-12 col-sm-8 col-xl-9 heart_lk pl-sm-5">
+        <div class="col-12 col-sm-8 col-xl-9 pl-sm-5">
             <h1 class="gray mb-5 pb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.3)">Избранное</h1>
             <ul class="nav type_object mb-4 pb-4" style="border-bottom: none;">
                 <li value="fl" class="active gray mr-3">Квартиры</li>
@@ -19,20 +18,93 @@
                 <li value="parking" class="gray mr-3">Машиноместа</li>
                 <li value="store" class="gray mr-3">Кладовые</li>
             </ul>
-            <div class="block-1">
-                <h4 class="mt-5 gray">Пока здесь пусто...</h4>
-                <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'sale' city='vladivostok' %}">поиском</a> и найдите, то что по душе.</h4>
+            {% if fav_fl %}
+                <div class="block-1" style="display: flex; flex-wrap: wrap; clear: left;">
+                {% for item in fav_fl %}
+                    <div class="col-6 col-md-5 col-xl-4 res">
+                        <div class="card mb-3" style="border: none;">
+                            <a href="{% url 'flat_detail' item.property_pk.fk_property.city.city_slug item.property_pk.pk item.property_pk.slug %}">
+                               {% if item.property_pk.fl_drawing %}
+                               <img class="card-img-top py-2" src="/media/{{ item.property_pk.fl_drawing }}" alt="img" style="height: 11rem; object-fit: contain; border: 1px solid #ccc; border-radius: 0.5rem;">
+                               {% else %}
+                               <p class="h5" style="height: 11rem; object-fit: contain;">Изображение планировки отсутствует</p>
+                               {% endif %}
+                            </a>
+                            <p class="heart heart-fl">
+                                <span>
+                                    <i id="{{ item.property_pk.id }}_fl" data-url="{{ request.path }}" class="fa fa-heart delete_fav fl" aria-hidden="true" style="color: #55B50C;"></i>
+                                </span>
+                            </p>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="card-title gray">{% if item.property_pk.fl_price %}{{ item.property_pk.fl_price|price }} &#8381;{% else %}стоимость не указана{% endif %}</h6>
+                                    <p style="display: inline-block;">{% if item.property_pk.fl_decor == 'Да' %}<img src="{% static '/img/otdelka.png' %}" alt="img" title="Квартира с отделкой">
+                                        {% elif item.property_pk.fl_decor == 'Нет' %}<img src="{% static '/img/net_otdelki.png' %}" alt="img" title="Квартира без отделки">
+                                        {% elif item.property_pk.fl_decor == 'whitebox' %}<img src="{% static '/img/whitebox.png' %}" alt="img" title="Квартира с отделкой whitebox">
+                                        {% elif item.property_pk.fl_decor == 'zak' %}<img src="{% static '/img/zak.png' %}" alt="img" title="Отделкка по желанию заказчика">{% endif %}</p>
+                                </div>
+                                <p class="d-flex justify-content-between gray" style="height: 1.5rem;">
+                                    <span>{% if item.property_pk.fl_type == 'C' %}Студия{% else %}{{ item.property_pk.fl_type }}-х комн{% endif %}</span><span class="dot_html">&middot;</span><span>{{ item.property_pk.fl_sq }} м2</span><span class="dot_html">&middot;</span><span>{% if item.property_pk.fk_property.name == 'More (Море)' or item.property_pk.fk_property.name == 'Premium park (Премиум парк)' %}&mdash; этаж{% else %}{{ item.property_pk.floor }} этаж{% endif %}</span>
+                                </p>
+                                <p class="gray"><span class="font-weight-bold">{{ item.property_pk.fk_property.name }}</span> {{ item.property_pk.fk_building.num_dom }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+            {% else %}
+                <div class="block-1 heart_lk_cab">
+                    <div>
+                        <h4 class="mt-5 gray">Пока здесь пусто...</h4>
+                        <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'sale' city='vladivostok' %}">поиском</a> и найдите, то что по душе.</h4>
+                    </div>
+                </div>
+            {% endif %}
             <div class="block-2">
                 <h4 class="mt-5 mb-5 gray">Пока здесь пусто...</h4>
             </div>
             <div class="block-4">
                 <h4 class="mt-5 mb-5 gray">Пока здесь пусто...</h4>
             </div>
-            <div class="block-5">
-                <h4 class="mt-5 gray">Пока здесь пусто...</h4>
-                <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'property' city='vladivostok' %}">поиском</a> и найдите, то что по душе.</h4>
+            {% if fav_zhk %}
+                <div class="block-5" style="clear: left;">
+                {% for item in fav_zhk %}
+                    <div class="col-9 col-md-5 col-xl-4 res">
+                        <div class="card" style="border: none">
+                           <a href="{% url 'property_detail' item.property_pk.city.city_slug item.property_pk.pk item.property_pk.slug %}">
+                               <img class="card-img-top" src="/media/{{ item.property_pk.buildings_set.first.small_img }}" alt="img" style="height: 10rem; border-radius: 5px">
+                           </a>
+                           <p class="heart">
+                                <span>
+                                    <i id="{{ item.property_pk.id }}_zhk" data-url="{{ request.path }}" class="fa fa-heart delete_fav zhk" aria-hidden="true" style="color: #55B50C;"></i>
+                                </span>
+                            </p>
+                            <div class="card-body pb-0" style="position: relative; bottom: 2rem;">
+                                <div class="d-flex justify-content-between">
+                                    <p><span><i class="fa fa-star" aria-hidden="true" style="color: #55B50C;"></i>
+                                        {% if item.property_pk.rate.first.get_rating %}{{ item.property_pk.rate.first.get_rating }}{% else %}0,0{% endif %}
+                                        </span>
+                                        <span class="ml-3"><i class="fa fa-comment-o" aria-hidden="true" style="color: #55B50C;"></i> {{ item.property_pk.testimonials.all|length }}</span>
+                                    </p>
+                                    <p class="badge badge-pill badge-success">{{ item.property_pk.buildings_set.first.get_build_stage_display }}</p>
+                                </div>
+                                <h4 class="card-title"><a href="{% url 'property_detail' item.property_pk.city.city_slug item.property_pk.pk item.property_pk.slug %}" style="color: #55B50C;">{{ item.property_pk.name|truncatewords:20 }}</a></h4>
+                                <p class="gray mb-1">{% if item.property_pk.district %}{{ item.property_pk.district }} р-н{% else %}район не указан{% endif %}</p>
+                                <p class="small gray mb-1">Срок сдачи: {{ item.property_pk.buildings_set.first.operation_term }}</p>
+                                <p class="gray">Стоимость 1 м2: {% if item.property_pk.buildings_set.first.middle_price %}{{ item.property_pk.buildings_set.first.middle_price|price }} &#8381{% else %} &mdash;{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+            {% else %}
+                <div class="block-5 heart_lk_cab">
+                    <div>
+                        <h4 class="mt-4 gray">Пока здесь пусто...</h4>
+                        <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'property' city='vladivostok' %}">поиском</a> и найдите, то что по душе.</h4>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

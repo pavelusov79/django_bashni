@@ -1,0 +1,93 @@
+<p class="h4 mt-3 ml-5 left-text font-weight-bold">Личный кабинет</p>
+            <p class="mt-3"><a class="left-text mt-5 ml-5 {% if request.resolver_match.url_name == 'main' %}left-menu-select{% endif %}" href="{% url 'cabinet:main' request.user.id %}">
+                <span class="mr-3"><svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {% if request.resolver_match.url_name == 'main' %}
+                        <path d="M11 18.6C11 18.6 1 13 1 6.20001C1 4.99789 1.41649 3.83291 2.17862 2.90327C2.94075 1.97362 4.00143 1.33674 5.1802 1.10099C6.35897 0.865235 7.58301 1.04517 8.64406 1.61018C9.70512 2.17519 10.5376 3.09037 11 4.20001V4.20001C11.4624 3.09037 12.2949 2.17519 13.3559 1.61018C14.417 1.04517 15.641 0.865235 16.8198 1.10099C17.9986 1.33674 19.0593 1.97362 19.8214 2.90327C20.5835 3.83291 21 4.99789 21 6.20001C21 13 11 18.6 11 18.6Z" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% else %}
+                        <path d="M11 18.6C11 18.6 1 13 1 6.20001C1 4.99789 1.41649 3.83291 2.17862 2.90327C2.94075 1.97362 4.00143 1.33674 5.1802 1.10099C6.35897 0.865235 7.58301 1.04517 8.64406 1.61018C9.70512 2.17519 10.5376 3.09037 11 4.20001V4.20001C11.4624 3.09037 12.2949 2.17519 13.3559 1.61018C14.417 1.04517 15.641 0.865235 16.8198 1.10099C17.9986 1.33674 19.0593 1.97362 19.8214 2.90327C20.5835 3.83291 21 4.99789 21 6.20001C21 13 11 18.6 11 18.6Z" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% endif %}
+                </svg>
+                </span>Избранное</a>
+            </p>
+            <p><a class="left-text mt-5 ml-5 {% if request.resolver_match.url_name == 'compare' %}left-menu-select{% endif %}" href="{% url 'cabinet:compare' request.user.pk %}">
+                <span class="mr-2"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {% if request.resolver_match.url_name == 'compare' %}
+                        <path d="M26 18H6C5.44772 18 5 18.4477 5 19V25C5 25.5523 5.44772 26 6 26H26C26.5523 26 27 25.5523 27 25V19C27 18.4477 26.5523 18 26 18Z" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M26 6H6C5.44772 6 5 6.44772 5 7V13C5 13.5523 5.44772 14 6 14H26C26.5523 14 27 13.5523 27 13V7C27 6.44772 26.5523 6 26 6Z" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% else %}
+                        <path d="M26 18H6C5.44772 18 5 18.4477 5 19V25C5 25.5523 5.44772 26 6 26H26C26.5523 26 27 25.5523 27 25V19C27 18.4477 26.5523 18 26 18Z" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M26 6H6C5.44772 6 5 6.44772 5 7V13C5 13.5523 5.44772 14 6 14H26C26.5523 14 27 13.5523 27 13V7C27 6.44772 26.5523 6 26 6Z" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% endif %}
+                    </svg>
+                </span>Сравнить</a>
+            </p>
+            <p><a class="left-text mt-5 ml-5 {% if request.resolver_match.url_name == 'loan' %}left-menu-select{% endif %}" href="{% url 'cabinet:loan' request.user.pk %}">
+                <span class="mr-3"><svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {% if request.resolver_match.url_name == 'loan' %}
+                        <path d="M20.95 2.00435L2.05002 20.0826" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.675 8.03043C6.70465 8.03043 8.35 6.45662 8.35 4.51522C8.35 2.57382 6.70465 1 4.675 1C2.64535 1 1 2.57382 1 4.51522C1 6.45662 2.64535 8.03043 4.675 8.03043Z" fill="#479906" stroke="#479906" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M18.325 21.087C20.3546 21.087 22 19.5131 22 17.5717C22 15.6303 20.3546 14.0565 18.325 14.0565C16.2953 14.0565 14.65 15.6303 14.65 17.5717C14.65 19.5131 16.2953 21.087 18.325 21.087Z" fill="#479906" stroke="#479906" stroke-width="2" stroke-miterlimit="10"/>
+                    {% else %}
+                        <path d="M20.95 2.00435L2.05002 20.0826" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.675 8.03043C6.70465 8.03043 8.35 6.45662 8.35 4.51522C8.35 2.57382 6.70465 1 4.675 1C2.64535 1 1 2.57382 1 4.51522C1 6.45662 2.64535 8.03043 4.675 8.03043Z" fill="#EEEEEE" stroke="#EEEEEE" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M18.325 21.087C20.3546 21.087 22 19.5131 22 17.5717C22 15.6303 20.3546 14.0565 18.325 14.0565C16.2953 14.0565 14.65 15.6303 14.65 17.5717C14.65 19.5131 16.2953 21.087 18.325 21.087Z" fill="#EEEEEE" stroke="#EEEEEE" stroke-width="2" stroke-miterlimit="10"/>
+                    {% endif %}
+                    </svg>
+                </span>Ипотека</a>
+            </p>
+            <p><a class="left-text mt-5 ml-5 {% if request.resolver_match.url_name == 'reserve' %}left-menu-select{% endif %}" href="{% url 'cabinet:reserve' request.user.pk %}">
+                <span class="mr-2"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {% if request.resolver_match.url_name == 'reserve' %}
+                        <path d="M10 29C11.1046 29 12 28.1046 12 27C12 25.8954 11.1046 25 10 25C8.89543 25 8 25.8954 8 27C8 28.1046 8.89543 29 10 29Z" fill="#479906"/>
+                        <path d="M23 29C24.1046 29 25 28.1046 25 27C25 25.8954 24.1046 25 23 25C21.8954 25 21 25.8954 21 27C21 28.1046 21.8954 29 23 29Z" fill="#479906"/>
+                        <path d="M5.2875 9H27.7125L24.4125 20.55C24.2948 20.9692 24.0426 21.3381 23.6948 21.6001C23.3471 21.862 22.9229 22.0025 22.4875 22H10.5125C10.0771 22.0025 9.65293 21.862 9.30515 21.6001C8.95738 21.3381 8.70524 20.9692 8.5875 20.55L4.0625 4.725C4.0027 4.51594 3.8764 4.33207 3.70271 4.20125C3.52903 4.07042 3.31744 3.99977 3.1 4H1" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% else %}
+                        <path d="M10 29C11.1046 29 12 28.1046 12 27C12 25.8954 11.1046 25 10 25C8.89543 25 8 25.8954 8 27C8 28.1046 8.89543 29 10 29Z" fill="#EEEEEE"/>
+                        <path d="M23 29C24.1046 29 25 28.1046 25 27C25 25.8954 24.1046 25 23 25C21.8954 25 21 25.8954 21 27C21 28.1046 21.8954 29 23 29Z" fill="#EEEEEE"/>
+                        <path d="M5.2875 9H27.7125L24.4125 20.55C24.2948 20.9692 24.0426 21.3381 23.6948 21.6001C23.3471 21.862 22.9229 22.0025 22.4875 22H10.5125C10.0771 22.0025 9.65293 21.862 9.30515 21.6001C8.95738 21.3381 8.70524 20.9692 8.5875 20.55L4.0625 4.725C4.0027 4.51594 3.8764 4.33207 3.70271 4.20125C3.52903 4.07042 3.31744 3.99977 3.1 4H1" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% endif %}
+                    </svg>
+                </span>Бронирование</a>
+            </p>
+            <p><a class="left-text mt-5 ml-5 {% if request.resolver_match.url_name == 'profile' %}left-menu-select{% endif %}" href="{% url 'cabinet:profile' request.user.pk %}">
+                <span class="mr-2"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {% if request.resolver_match.url_name == 'profile' %}
+                        <path d="M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z" stroke="#479906" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M3.875 27C5.10367 24.8714 6.87104 23.1038 8.99944 21.8749C11.1278 20.6459 13.5423 19.9989 16 19.9989C18.4577 19.9989 20.8722 20.6459 23.0006 21.8749C25.129 23.1038 26.8963 24.8714 28.125 27" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% else %}
+                        <path d="M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z" stroke="#EEEEEE" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M3.875 27C5.10367 24.8714 6.87104 23.1038 8.99944 21.8749C11.1278 20.6459 13.5423 19.9989 16 19.9989C18.4577 19.9989 20.8722 20.6459 23.0006 21.8749C25.129 23.1038 26.8963 24.8714 28.125 27" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% endif %}
+                    </svg>
+                </span>Профиль</a>
+            </p>
+            <p><a class="left-text mt-5 ml-5 {% if request.resolver_match.url_name == 'subscriptions' %}left-menu-select{% endif %}" href="{% url 'cabinet:subscriptions' request.user.pk %}">
+                <span class="mr-2"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {% if request.resolver_match.url_name == 'subscriptions' %}
+                        <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#479906" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M11 16H21" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 11V21" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% else %}
+                        <path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#EEEEEE" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M11 16H21" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 11V21" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% endif %}
+                    </svg>
+                </span>Подписки</a>
+            </p>
+            <p><a class="left-text mt-5 ml-5 {% if request.resolver_match.url_name == 'docs' %}left-menu-select{% endif %}" href="{% url 'cabinet:docs' request.user.pk %}">
+                <span class="mr-2"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {% if request.resolver_match.url_name == 'docs' %}
+                        <path d="M21 28H7C6.73478 28 6.48043 27.8946 6.29289 27.7071C6.10536 27.5196 6 27.2652 6 27V9C6 8.73478 6.10536 8.48043 6.29289 8.29289C6.48043 8.10536 6.73478 8 7 8H17L22 13V27C22 27.2652 21.8946 27.5196 21.7071 27.7071C21.5196 27.8946 21.2652 28 21 28Z" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 8V5C10 4.73478 10.1054 4.48043 10.2929 4.29289C10.4804 4.10536 10.7348 4 11 4H21L26 9V23C26 23.2652 25.8946 23.5196 25.7071 23.7071C25.5196 23.8946 25.2652 24 25 24H22" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 19H17" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 23H17" stroke="#479906" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% else %}
+                        <path d="M21 28H7C6.73478 28 6.48043 27.8946 6.29289 27.7071C6.10536 27.5196 6 27.2652 6 27V9C6 8.73478 6.10536 8.48043 6.29289 8.29289C6.48043 8.10536 6.73478 8 7 8H17L22 13V27C22 27.2652 21.8946 27.5196 21.7071 27.7071C21.5196 27.8946 21.2652 28 21 28Z" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 8V5C10 4.73478 10.1054 4.48043 10.2929 4.29289C10.4804 4.10536 10.7348 4 11 4H21L26 9V23C26 23.2652 25.8946 23.5196 25.7071 23.7071C25.5196 23.8946 25.2652 24 25 24H22" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 19H17" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 23H17" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    {% endif %}
+                    </svg>
+                </span>Документы</a>
+            </p>

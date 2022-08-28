@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load view_price %}
+
+{% block title %}Сравнение{% endblock title %}
+
+{% block content %}
+<div class="container px-sm-0 my-5">
+    <div class="row">
+        <div class="col-12 col-sm-4 col-xl-3 mb-5 left-menu">
+            {% include 'cabinet/include/left-menu.html' %}
+        </div>
+        <div class="col-12 col-sm-8 col-xl-9 pl-sm-5">
+            <h1 class="gray mb-5 pb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.3)">Сравнить</h1>
+            <ul class="nav type_object mb-4 pb-4" style="border-bottom: none;">
+                <li value="fl" class="active gray mr-3">Квартиры</li>
+                <li value="zhk" class="gray mr-3">Новостройки</li>
+                <li value="parking" class="gray mr-3">Машиноместа</li>
+                <li value="store" class="gray mr-3">Кладовые</li>
+            </ul>
+            <div class="block-1">
+                <h4 class="mt-5 gray">Пока здесь пусто...</h4>
+                <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'sale' city='vladivostok' %}">поиском</a> для добавления квартир для сравнения.</h4>
+            </div>
+            <div class="block-2">
+                <h4 class="mt-5 mb-5 gray">Пока здесь пусто...</h4>
+            </div>
+            <div class="block-4">
+                <h4 class="mt-5 mb-5 gray">Пока здесь пусто...</h4>
+            </div>
+            <div class="block-5">
+                <h4 class="mt-4 gray">Пока здесь пусто...</h4>
+                <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'property' city='vladivostok' %}">поиском</a> для добавления новостроек для сравнения.</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
