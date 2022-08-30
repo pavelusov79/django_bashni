@@ -24,7 +24,7 @@ class Tags(models.Model):
 
 
 class News(models.Model):
-    title = models.CharField(max_length=64, verbose_name="заголовок")
+    title = models.CharField(max_length=128, verbose_name="заголовок")
     published = models.DateField(verbose_name="опубликовано", default=datetime.now)
     description = RichTextField(verbose_name="текст новости")
     tags = models.ManyToManyField(Tags, verbose_name='тэги')
@@ -36,11 +36,12 @@ class News(models.Model):
 
     class Meta:
         verbose_name_plural = 'Новости'
+        ordering = ['-published']
 
 
 class ImageNews(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='img_news')
-    img = models.ImageField(upload_to='news', blank=True, null=True, verbose_name='фото новости')
+    img = models.ImageField(upload_to='news', blank=True, null=True, verbose_name='фото новости', max_length=256)
 
 
 class NewsComment(models.Model):

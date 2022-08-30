@@ -772,6 +772,15 @@
                   <a href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}">
                       <img class="card-img-top" src="/media/{{ item.buildings_set.first.small_img }}" alt="img" style="height: 10rem; border-radius: 0.6rem;">
                   </a>
+                  <p class="heart">
+                      <span>
+                          {% if request.user.is_authenticated %}
+                              <i id="{{ item.id }}_zhk" data-url="{{ request.path }}" class="{% if item.id in fav_zhk %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                          {% else %}
+                              <i id="{{ item.id }}" data-url="{{ request.path }}" class="{% if item.id in request.session.fav_zhk %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                          {% endif %}
+                      </span>
+                  </p>
                    <div class="card-body">
                        <p class="badge badge-pill badge-secondary">{{ item.buildings_set.first.get_build_stage_display }}</p>
                        <h4 class="card-title"><a href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}" style="color: #55B50C;">{{ item.name|truncatewords:20 }}</a></h4>

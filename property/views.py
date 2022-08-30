@@ -193,10 +193,11 @@ class FlatDetailView(FormMixin, DetailView):
 class PropertyListView(GetContext, ListView):
     paginate_by = 24
     template_name = 'property/property_list.html'
+    context_object_name = 'results'
 
     def get_queryset(self):
         self.city = get_object_or_404(City, city_slug=self.kwargs['city'])
-        results = Property.objects.filter(city=self.city).order_by('-has_scraper', '-rate__star__value')
+        results = Property.objects.filter(city=self.city).order_by('-has_scraper', 'name')
         zhk = self.request.GET.get('zhk')
         date = self.request.GET.get('date')
         decor = self.request.GET.get('decor')
@@ -223,7 +224,7 @@ class PropertyListView(GetContext, ListView):
                     fav.save()
                 else:
                     fav = FavoritesProperty.objects.get(user=self.request.user,
-                                           property_pk=Property.objects.filter(id=fav_id).first())
+                                                        property_pk=Property.objects.filter(id=fav_id).first())
                     fav.delete()
         if zhk:
             results = list(set(results.filter(Q(name__icontains=zhk) | Q(buildings__addr__icontains=zhk))))
@@ -236,14 +237,16 @@ class PropertyListView(GetContext, ListView):
         if price:
             results = list(set(results.filter(buildings__middle_price__range=(price.split(',')[0], price.split(',')[-1]))))
         if param:
-            if param == '-buildings__middle_price':
-                results = results.annotate(custom_order=Max('buildings__middle_price')).exclude(buildings__middle_price=None).order_by('custom_order').reverse()
+            if param == 'buildings__middle_price':
+                results = results.annotate(custom_order=Max('buildings__middle_price')).exclude(buildings__middle_price=None).order_by('custom_order')
+            elif param == '-buildings__middle_price':
+                results = results.annotate(custom_order=Max('buildings__middle_price')).exclude(buildings__middle_price=None).order_by('custom_order').reverse
             elif param == 'rate__get_rating':
-                results = results.annotate(custom_order=Max('rate__star__value'))
-            else:
-                results = results.annotate(custom_order=Max(param)).order_by('custom_order')
+                results = results.annotate(custom_order=Max('rate__star__value')).order_by('custom_order')
+            elif param == 'buildings__send_keys':
+                results = results.annotate(custom_order=Max('buildings__send_keys')).order_by('custom_order')
         if reset:
-            results = Property.objects.filter(city=self.city).order_by('-has_scraper', '-rate__star__value')
+            results = Property.objects.filter(city=self.city).order_by('-has_scraper', 'name')
             self.request.session['page'] = self.request.path
         self.request.session['search'] = ''
         return results
@@ -271,8 +274,33 @@ class PropertyDetailView(FormMixin, DetailView):
     model = Property
     form_class = TestimonialForm
 
+    def get(self, request, *args, **kwargs):
+        fav_obj = self.request.GET.get('fav_obj')
+        if 'fav_zhk' not in self.request.session.keys():
+            self.request.session['fav_zhk'] = []
+        if fav_obj:
+            if not self.request.user.is_authenticated:
+                if int(fav_obj) not in self.request.session['fav_zhk']:
+                    self.request.session['fav_zhk'].append(int(fav_obj))
+                    self.request.session.modified = True
+                else:
+                    self.request.session['fav_zhk'].remove(int(fav_obj))
+                    self.request.session.modified = True
+            else:
+                fav_id = int(fav_obj.replace('_zhk', ''))
+                if fav_id not in [item[0] for item in FavoritesProperty.objects.filter(user=self.request.user).values_list('property_pk')]:
+                    fav = FavoritesProperty(user=self.request.user, property_pk=Property.objects.filter(id=fav_id).first())
+                    fav.save()
+                else:
+                    fav = FavoritesProperty.objects.get(user=self.request.user,
+                                           property_pk=Property.objects.filter(id=fav_id).first())
+                    fav.delete()
+        return super().get(self, request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['fav_zhk'] = [item[0] for item in FavoritesProperty.objects.filter(user=self.request.user).values_list('property_pk')]
         try:
             context['page'] = self.request.session['page']
         except KeyError:

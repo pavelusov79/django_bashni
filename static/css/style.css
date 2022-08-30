@@ -192,6 +192,11 @@ footer {
 /* end footer styles*/
 
 /* news styles*/
+h1 a:hover, h3 a:hover {
+    text-decoration: none;
+    color: #55B50C;
+}
+
 .news-text a {
     color: #1A284C;
 }

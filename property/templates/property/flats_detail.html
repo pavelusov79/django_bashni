@@ -290,6 +290,15 @@
                                     <p class="h5" style="height: 11rem; object-fit: contain; padding-top: 0.7rem;">Изображение планировки отсутствует</p>
                                     {% endif %}
                                 </a>
+                                <p class="heart heart-fl">
+                                    <span>
+                                        {% if request.user.is_authenticated %}
+                                            <i id="{{ item.id }}_fl" data-url="{{ request.path }}" class="{% if item.id in fav_fl %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                                        {% else %}
+                                            <i id="{{ item.id }}" data-url="{{ request.path }}" class="{% if item.id in request.session.fav_fl %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                                        {% endif %}
+                                    </span>
+                                </p>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <h6 class="card-title gray">{% if item.fl_price %}{{ item.fl_price|price }} &#8381;{% else %}стоимость не указана{% endif %}</h6>

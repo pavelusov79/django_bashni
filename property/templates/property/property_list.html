@@ -8,7 +8,7 @@
 {% block content %}
 <div class="container mt-4 mb-5">
     <h1 class="mb-4 gray">
-        Поиск жилых комплексов {% if city.city_slug == 'vladivostok' %}во{% else %}в{% endif %} 
+        Поиск жилых комплексов {% if city.city_slug == 'vladivostok' %}во{% else %}в{% endif %}
         <select name="city" id="city-choice">
             {% for i in towns %}
                 {% if i.city_slug == city.city_slug %}
@@ -213,7 +213,7 @@
             </form>
         </div>
         <div id="all_results" class="col-12 d-flex flex-wrap">
-            {% for item in object_list %}
+            {% for item in results %}
             <div class="col-6 col-md-4 col-xl-3 res">
                 <div class="card" style="border: none">
                    <a href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}">
