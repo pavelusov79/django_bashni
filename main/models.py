@@ -3,6 +3,7 @@ from django.db import models
 from datetime import datetime
 from ckeditor.fields import RichTextField
 from slugify import slugify
+from PIL import Image
 
 from property.models import Property
 
@@ -42,6 +43,15 @@ class News(models.Model):
 class ImageNews(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='img_news')
     img = models.ImageField(upload_to='news', blank=True, null=True, verbose_name='фото новости', max_length=256)
+
+    def save(self, *args, **kwargs):
+        if self.img:
+            super().save(*args, **kwargs)
+            org_img = Image.open(self.img.path)
+            width, height = org_img.size
+            if width > 900:
+                width_ratio = round(900 / width * 100)
+                org_img.save(self.img.path, quality=width_ratio)
 
 
 class NewsComment(models.Model):

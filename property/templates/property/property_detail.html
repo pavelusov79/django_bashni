@@ -218,8 +218,7 @@
       <li class="breadcrumb-item br-item active font-weight-bold" aria-current="page">{{ object.name}} ({{ object.city.city_name }})</li>
     </ol>
   </nav>
-  <button id="btn-testimon" class="btn btn-outline-secondary btn-lg ml-5" data-toggle="modal" data-target="#testimonial_zhk">Отзывы <i class="fa fa-star" aria-hidden="true"></i> 
-    {% if object.rate.first.get_rating %}{{ object.rate.first.get_rating }}{% else %}0.0{% endif %}</button>
+  <button id="btn-testimon" class="btn btn-outline-secondary btn-lg ml-5" data-toggle="modal" data-target="#testimonial_zhk">Отзывы <i class="fa fa-star" aria-hidden="true"></i> {{ object.mid_rating }}</button>
   <div class="row justify-content-center" style="position: relative; bottom: 5rem; border-bottom: 1px solid rgba(0, 0, 0, 0.3)">
     <div class="col-6 col-md-3 text-center">
       <p class="mb-0" style="color: #8D8D8D;">Жилой комплекс</p>

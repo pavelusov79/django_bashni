@@ -8,6 +8,14 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from slugify import slugify
 
 
+def resize_image(elem):
+    org_img = Image.open(elem.path)
+    width, height = org_img.size
+    if width > 900:
+        width_ratio = round(900 / width * 100)
+        org_img.save(elem.path, quality=width_ratio)
+
+
 class City(models.Model):
     city_name = models.CharField(verbose_name='город', max_length=32)
     city_slug = models.SlugField(verbose_name='поле url')
@@ -69,6 +77,7 @@ class Property(models.Model):
         help_text='в конце адреса ?autoplay=1&mute=1, например: https://www.youtube.com/embed/hdi6vkQx?autoplay=1&mute=1')
     has_scraper = models.BooleanField(verbose_name='есть скрапер', default=False)
     is_active = models.BooleanField(verbose_name='активный', default=True)
+    mid_rating = models.DecimalField(verbose_name='средний рейтинг новостройки', max_digits=2, decimal_places=1, default=0.0)
 
     def __str__(self):
         return self.name
@@ -82,18 +91,10 @@ class Property(models.Model):
         super(Property, self).save(*args, **kwargs)
         if self.gen_plan:
             super().save(*args, **kwargs)
-            org_img = Image.open(self.gen_plan.path)
-            width, height = org_img.size
-            if width > 900:
-                width_ratio = round(900 / width * 100)
-                org_img.save(self.gen_plan.path, quality=width_ratio)
+            resize_image(self.gen_plan)
         if self.zhk_img:
             super().save(*args, **kwargs)
-            img = Image.open(self.zhk_img.path)
-            width, height = img.size
-            if width > 900:
-                width_ratio = round(900 / width * 100)
-                img.save(self.zhk_img.path, quality=width_ratio)
+            resize_image(self.zhk_img)
        
 
 class Rating(models.Model):
@@ -107,7 +108,7 @@ class Rating(models.Model):
         try:
             for item in ratings:
                 rate_sum += item.star.value
-            return round(rate_sum/len(ratings), 2)
+            return round(rate_sum/len(ratings), 1)
         except Exception:
             return 0.0
 
@@ -261,11 +262,7 @@ class PropertyFloorPlans(models.Model):
     def save(self, *args, **kwargs):
         if self.floor_drawing:
             super().save(*args, **kwargs)
-            org_img = Image.open(self.floor_drawing.path)
-            width, height = org_img.size
-            if width > 900:
-                width_ratio = round(900 / width * 100)
-                org_img.save(self.floor_drawing.path, quality=width_ratio)
+            resize_image(self.floor_drawing)
 
 
 def path_to_decor(instance, filename):
@@ -301,11 +298,7 @@ class PropertyDecorImages(models.Model):
     def save(self, *args, **kwargs):
         if self.decor_img:
             super().save(*args, **kwargs)
-            org_img = Image.open(self.decor_img.path)
-            width, height = org_img.size
-            if width > 900:
-                width_ratio = round(900 / width * 100)
-                org_img.save(self.decor_img.path, quality=width_ratio)
+            resize_image(self.decor_img)
 
 
 def img_path(instance, filename):

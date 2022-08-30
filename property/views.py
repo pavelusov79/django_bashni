@@ -241,8 +241,8 @@ class PropertyListView(GetContext, ListView):
                 results = results.annotate(custom_order=Max('buildings__middle_price')).exclude(buildings__middle_price=None).order_by('custom_order')
             elif param == '-buildings__middle_price':
                 results = results.annotate(custom_order=Max('buildings__middle_price')).exclude(buildings__middle_price=None).order_by('custom_order').reverse
-            elif param == 'rate__get_rating':
-                results = results.annotate(custom_order=Max('rate__star__value')).order_by('custom_order')
+            elif param == 'mid_rating':
+                results = results.order_by('-mid_rating', 'name')
             elif param == 'buildings__send_keys':
                 results = results.annotate(custom_order=Max('buildings__send_keys')).order_by('custom_order')
         if reset:
@@ -357,6 +357,8 @@ class PropertyDetailView(FormMixin, DetailView):
                     property=self.object,
                     defaults={'star_id': int(star_id)}
                 )
+                self.object.mid_rating = self.object.rate.first().get_rating()
+                self.object.save()
         name = request.POST.get('name')
         tel = request.POST.get('contact_phone')
         if name and tel:
