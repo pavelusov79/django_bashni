@@ -16,7 +16,9 @@ def run():
     db = client['flats_vl']
     urls = PropertyFeeds.objects.all()
     # urls = [
-    #     'https://api.develug.ru/feed/71/zhk_ayvazovskiy.xml', 
+        # 'https://s-kvartal.ru/storage/app/uploads/dom_click_feed.xml'
+        # 'https://domoplaner.ru/dc-api/feeds/248-2vUKBi8HYGXHOXiPWxlYUN8VON13MrjOICVXUF4msFwx0VW9oPzDYFqyKOs2HKfV/',
+        # 'https://api.develug.ru/feed/71/zhk_ayvazovskiy.xml',
     #     'https://api.develug.ru/feed/74/zhk_futurist.xml',
     #     'https://api.develug.ru/feed/72/zhk_kashtanovyy_dvor.xml', 
     #     'https://pb11656.profitbase.ru/export/domclick/6fcad6b30813e28ab0713930ffcb3173',
@@ -81,9 +83,15 @@ def run():
                     if item.tagName == 'apartment':
                         db_item['num_fl'] = int(item.firstChild.data)
                     if item.tagName == 'price':
-                        db_item['price'] = int(item.firstChild.data)
+                        try:
+                            db_item['price'] = int(item.firstChild.data)
+                        except ValueError:
+                            db_item['price'] = int(item.firstChild.data.split('.')[0])
                     if item.tagName == 'room':
-                        db_item['flat_type'] = item.firstChild.data
+                        if item.firstChild.data == '0':
+                            db_item['flat_type'] = 'C'
+                        else:
+                            db_item['flat_type'] = item.firstChild.data
                     try:
                         if item.tagName == 'renovation':
                             db_item['flat_decor'] = item.firstChild.data
@@ -102,23 +110,20 @@ def run():
                             if re.match('https', plan_url):
                                 r = requests.get(plan_url)
                             else:
-                                 r = requests.get(f'https:{plan_url}')
+                                r = requests.get(f'https:{plan_url}')
                             with open(filename, 'wb') as f:
                                 f.write(r.content)
-            
-                            # wget.download(plan_url, out=filename)                
-                 
+            # pprint(db_item)
+            # print('-----------------------------')
             try:
                 db.flats.insert_one(db_item)
-                if db_item['living_complex_name'] == 'Брусника':
-                    print(db_item['num_dom'])
             except DuplicateKeyError:
-                db_item['_id'] = f'{db_item["_id"]} + {url}'
                 try:
+                    db_item['_id'] = f'{db_item["_id"]}{url}'
                     db.flats.insert_one(db_item)
                 except DuplicateKeyError:
-                    pass
-                                                  
+                    print('found duplicate')
+
     logger_path = os.path.join(os.path.dirname(__file__), 'flats_logger.txt')
     with open(logger_path, 'a') as f:
         f.write(f"OK *** {datetime.datetime.now().strftime('%d.%m.%y %H:%M')} *** успешно спарсены  квартиры с feeds.py\n")

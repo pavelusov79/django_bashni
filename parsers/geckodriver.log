@@ -1,0 +1,12 @@
+1662161567670	geckodriver	INFO	Listening on 127.0.0.1:36869
+1662161568180	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--window-size=1200, 800" "-headless" "--remote-debugging-port" "45739" "-no-remote" "-profile" "/tmp/rust_mozprofiledHZp8t"
+*** You are running in headless mode.
+Gtk-Message: 09:32:48.336: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1662161728258	geckodriver	INFO	Listening on 127.0.0.1:54071
+1662161728802	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--window-size=1200, 800" "-headless" "--remote-debugging-port" "35609" "-no-remote" "-profile" "/tmp/rust_mozprofileYY2u0c"
+*** You are running in headless mode.
+Gtk-Message: 09:35:28.978: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt

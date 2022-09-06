@@ -665,6 +665,7 @@ $('.type_fl').click(function(e) {
     });
     $(e.target).addClass('active');
     var type_f = $(e.target).attr('value');
+    console.log('type_f = ', type_f);
     $('.link_sale').attr('href', function(i, name) {
         return name.replace('flat_type=', `flat_type=${type_f}`);
     });
@@ -710,6 +711,7 @@ $('.t_fl').click(function(e) {
     });
     $(e.target).addClass('active');
     var t_f = $(e.target).attr('value');
+    console.log('t_fl= ', t_f);
     var url = $('#select_num_dom').attr('action');
     $.ajax({
         type: 'GET',

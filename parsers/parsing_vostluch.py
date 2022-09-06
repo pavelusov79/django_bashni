@@ -6,6 +6,8 @@ from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError 
 from lxml import html
 
+from pprint import pprint
+
 
 def parse_flats():
     client = MongoClient('127.0.0.1', 27017)
@@ -32,12 +34,12 @@ def parse_flats():
                         db_item['living_complex_name'] = "Восточный луч"
                         db_item['price'] = int(prices[i].replace(' ', ''))
                         db_item['flat_type'] = dom.xpath('//div[contains(@class, "ApartmentInfo_name")]//span/text()')[0]
-                        db_item['num_dom'] = int(dom.xpath('//div[contains(@class, "ApartmentInfo_prop_value")]/text()')[4])
-                        db_item['num_fl'] = int(dom.xpath('//div[contains(@class, "ApartmentInfo_prop_value")]/text()')[2])
+                        db_item['num_dom'] = int(dom.xpath('//div[contains(@class, "ApartmentInfo_prop_value")]/text()')[3])
+                        db_item['num_fl'] = int(dom.xpath('//div[contains(@class, "ApartmentInfo_prop_value")]/text()')[1])
                         db_item['_id'] = int(f'2{db_item["num_dom"]}{db_item["num_fl"]}')
                         fl_sq = dom.xpath('//div[contains(@class, "ApartmentInfo_name")]//span/text()')[-2]
                         db_item['flat_sq'] = float(fl_sq.replace(',', '.'))
-                        db_item['floor'] = int(dom.xpath('//div[contains(@class, "ApartmentInfo_prop_value")]/text()')[3])
+                        db_item['floor'] = int(dom.xpath('//div[contains(@class, "ApartmentInfo_prop_value")]/text()')[2])
                         db_item['planning_url'] = dom.xpath('//div[contains(@class, "CardBox_image")]/img/@src')[0]
                         db_item['flat_decor'] = 'Нет'
                         path_to_media = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'media/flats')
@@ -48,10 +50,11 @@ def parse_flats():
                             r = requests.get(db_item["planning_url"])
                             with open(filename, 'wb') as f:
                                 f.write(r.content)
+
                         try:
                             db.flats.insert_one(db_item)
                         except DuplicateKeyError:
-                            pass  
+                            pass
 
     logger_path = os.path.join(os.path.dirname(__file__), 'flats_logger.txt')
     with open(logger_path, 'a') as f:

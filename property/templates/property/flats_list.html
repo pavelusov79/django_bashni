@@ -111,7 +111,7 @@
                                 <li value="C" class="mr-4 {% if 'C' in request.GET.flat_type %}active{% endif %}">Студия</li>
                                 <li value="1" class="mr-4 {% if '1' in request.GET.flat_type %}active{% endif %}">1</li>
                                 <li value="2" class="mr-4 {% if '2' in request.GET.flat_type %}active{% endif %}">2</li>
-                                <li value="3" class="{% if '3' in request.GET.flat_type %}active{% endif %}">3+</li>
+                                <li value="3" class="{% if '3' in request.GET.flat_type or '4' in request.GET.flat_type %}active{% endif %}">3+</li>
                             </ul>
                             {% else %}
                             <ul name="flat_t" class="nav flat_tp d-flex gray">

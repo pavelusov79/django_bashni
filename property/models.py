@@ -174,7 +174,7 @@ class Buildings(models.Model):
 
 
 def img_path_photo(instance, filename):
-    return f'property/{instance.fk_builging.get_build_stage_display()}/{instance.fk_building.id}/{filename}'
+    return f'property/{instance.fk_building.get_build_stage_display()}/{instance.fk_building.id}/{filename}'
 
 
 class MainPhotos(models.Model):

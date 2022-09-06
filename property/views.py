@@ -319,10 +319,11 @@ class PropertyDetailView(FormMixin, DetailView):
         context['similar_obj'] = Property.objects.filter(district__icontains=self.object.district.replace('район', "").strip(), city__city_name=self.object.city.city_name).order_by('name').exclude(name=self.object.name)
         context['dates'] = Buildings.objects.filter(fk_property=self.object).distinct('operation_term').order_by('-operation_term')
         # context['dates'] = set([datetime.datetime.strftime(i[0], "%Y") for i in l])
-        
+        context['fil_flats'] = Flats.objects.filter(fk_property=self.object).distinct('fl_type')
         el = self.request.GET.get('ind_el')
         type_of_flat = self.request.GET.get('type_of_flat')
         if type_of_flat:
+            context['type_flat'] = type_of_flat
             context['flats_d'] = Flats.objects.filter(fk_property=self.object, fl_type=type_of_flat).exclude(fl_drawing='').exclude(fl_price__in=[None, 0]).order_by('fl_sq').distinct('fl_sq')
             if context['flats_d']:
                 context['current_price'] = context['flats_d'][0].fl_price
@@ -330,7 +331,14 @@ class PropertyDetailView(FormMixin, DetailView):
                 context['current_price'] = context['flats_d'][int(el)].fl_price
                 print('price ', context['flats_d'][int(el)].fl_price)
         else:
-            context['flats_d'] = Flats.objects.filter(fk_property=self.object, fl_type="1").exclude(fl_drawing='').exclude(fl_price__in=[None, 0]).order_by('fl_sq').distinct('fl_sq')
+            try:
+                context['type_flat'] = context['fil_flats'][0].fl_type
+            except IndexError:
+                context['type_flat'] = '1'
+            try:
+                context['flats_d'] = Flats.objects.filter(fk_property=self.object, fl_type=context['fil_flats'][0].fl_type).exclude(fl_drawing='').exclude(fl_price__in=[None, 0]).order_by('fl_sq').distinct('fl_sq')
+            except IndexError:
+                context['flats_d'] = ''
             if context['flats_d']:
                 context['current_price'] = context['flats_d'][0].fl_price
         if el and context['flats_d']:
@@ -338,7 +346,7 @@ class PropertyDetailView(FormMixin, DetailView):
         context['testimonials'] = PropertyTestimonials.objects.filter(fk_property=self.object).order_by('-date')
         context['star_form'] = RatingForm()
         context['request_form'] = RequestFlatForm()
-        context['fil_flats'] = Flats.objects.filter(fk_property=self.object).distinct('fl_type')
+
         print('fil_flats = ', context['fil_flats'])
         return context
 
