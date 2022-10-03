@@ -11,4 +11,7 @@ urlpatterns = [
     path('repair/', views.RepairPageView.as_view(), name='repair'),
     path('search/', views.SearchListView.as_view(), name='search'),
     path('favorites/', views.FavoritesView.as_view(), name='favorites'),
+    path('events/', views.EventsView.as_view(), name='events'),
+    path('events/<pk>/', views.EventsDetailView.as_view(), name='events_detail'),
+    path('policy/', views.PolicyView.as_view(), name='policy'),
 ]

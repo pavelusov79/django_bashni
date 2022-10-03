@@ -3,7 +3,10 @@ from django.contrib import admin
 from django.contrib.admin import StackedInline
 from django.core.mail import send_mail
 
-from main.models import ImageNews, News, Tags, YoutubeChannel, NewsComment
+from main.models import ImageNews, News, Tags, YoutubeChannel, NewsComment, Events, SitePolicy
+
+
+admin.site.register(SitePolicy)
 
 
 class NewsCommentForm(forms.ModelForm):
@@ -53,3 +56,10 @@ class NewsAdmin(admin.ModelAdmin):
 class YoutubeChannelAdmin(admin.ModelAdmin):
     list_display = ('date', 'name')
     search_fields = ('name__startswith',)
+
+
+@admin.register(Events)
+class EventsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'start_date', 'finish_date')
+    search_fields = ('title__startswith',)
+    list_filter = ('is_active',)

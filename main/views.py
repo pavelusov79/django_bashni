@@ -9,9 +9,9 @@ from django.urls import reverse
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormMixin
 
-from main.models import News, Tags, YoutubeChannel, NewsComment
+from main.models import News, Tags, YoutubeChannel, NewsComment, Events, SitePolicy
 from main.forms import NewsCommentForm
-from property.models import Flats, Property
+from property.models import Flats, Property, Buildings, City
 
 
 class IndexView(TemplateView):
@@ -19,15 +19,38 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['news'] = News.objects.all().order_by('-published')[:3]
-        context['youtube'] = YoutubeChannel.objects.all().order_by('-date')[:3]
+        context['news'] = News.objects.filter(is_active=True).order_by('-published')[:2]
+        context['youtube'] = YoutubeChannel.objects.all().order_by('-date')[:4]
+        context['events'] = Events.objects.filter(is_active=True).order_by('-start_date')
+        prop = Property.objects.all().order_by('-mid_rating').first()
+        context['most_popular'] = Buildings.objects.filter(fk_property=prop).first()
+        context['towns'] = City.objects.all()
+        context['flat_types'] = Flats.FLAT_CHOICES
+        context['flat_decors'] = Flats.DECOR_CHOICES
+        context['f_dates'] = Flats.objects.distinct('fk_building__operation_term').order_by(
+            '-fk_building__operation_term')
+        context['districts'] = Flats.objects.distinct('fk_property__district')
+        try:
+            context['min_price'] = Flats.objects.exclude(fl_price__in=[None, 0]).order_by('fl_price').first().fl_price
+            context['max_price'] = Flats.objects.all().order_by('-fl_price').exclude(fl_price=None).first().fl_price
+            context['max_sq'] = Flats.objects.all().order_by('-fl_sq').first().fl_sq
+            context['min_sq'] = Flats.objects.all().order_by('fl_sq').first().fl_sq
+            context['max_fl'] = Flats.objects.all().order_by('-floor').first().floor
+        except Exception:
+            context['min_price'] = 0
+            context['max_price'] = 0
+            context['min_sq'] = 0
+            context['max_sq'] = 0
+            context['max_fl'] = 25
         return context
 
 
+
 class NewsListView(ListView):
-    model = News
-    ordering = ['-published']
     paginate_by = 20
+
+    def get_queryset(self):
+        return News.objects.filter(is_active=True).order_by('-published')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -148,5 +171,23 @@ class FavoritesView(TemplateView):
                         self.request.session['fav_fl'].remove(int(fav_obj.replace('_fl', '')))
                         self.request.session.modified = True
         return super().get(self, request, *args, **kwargs)
+
+
+class EventsView(ListView):
+    model = Events
+    paginate_by = 18
+
+
+class EventsDetailView(DetailView):
+    model = Events
+
+
+class PolicyView(TemplateView):
+    template_name = 'main/policy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = SitePolicy.objects.first()
+        return context
 
 

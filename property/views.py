@@ -1,4 +1,5 @@
 import datetime
+import re
 
 from django.db.models import Max, F
 from django.core.mail import send_mail
@@ -29,7 +30,7 @@ class FlatsListView(GetContext, ListView):
 
     def get_queryset(self):
         self.city = get_object_or_404(City, city_slug=self.kwargs['city'])
-        results = Flats.objects.filter(fk_property__city=self.city)
+        results = Flats.objects.filter(fk_property__city=self.city).order_by('?')
         zhk = self.request.GET.get('zhk')
         flat_type = self.request.GET.get('flat_type')
         fl_decor = self.request.GET.get('fl_decor')
@@ -41,9 +42,12 @@ class FlatsListView(GetContext, ListView):
         district = self.request.GET.get('district')
         reset = self.request.GET.get('reset')
         fav_obj = self.request.GET.get('fav_obj')
+        sr_obj = self.request.GET.get('sr_obj')
         self.request.session['flat_page'] = self.request.get_full_path()
         if 'fav_fl' not in self.request.session.keys():
             self.request.session['fav_fl'] = []
+        if 'sravni_fl' not in self.request.session.keys():
+            self.request.session['sravni_fl'] = []
         if fav_obj:
             if not self.request.user.is_authenticated:
                 if int(fav_obj) not in self.request.session['fav_fl']:
@@ -61,6 +65,17 @@ class FlatsListView(GetContext, ListView):
                     fav = FavoritesFlats.objects.get(user=self.request.user,
                                            property_pk=Flats.objects.filter(id=fav_id).first())
                     fav.delete()
+        if sr_obj:
+            if re.search(r'\w1', sr_obj):
+                sr_id = int(sr_obj.replace('_sr1', ''))
+            else:
+                sr_id = int(sr_obj.replace('_sr', ''))
+            if int(sr_id) not in self.request.session['sravni_fl']:
+                self.request.session['sravni_fl'].append(int(sr_id))
+                self.request.session.modified = True
+            else:
+                self.request.session['sravni_fl'].remove(int(sr_id))
+                self.request.session.modified = True
 
         if zhk:
             results = results.filter(Q(fk_property__name__icontains=zhk) | Q(fk_building__addr__icontains=zhk))
@@ -84,7 +99,7 @@ class FlatsListView(GetContext, ListView):
         if param:
             results = results.order_by(param)
         if reset:
-            results = Flats.objects.filter(fk_property__city=self.city)
+            results = Flats.objects.filter(fk_property__city=self.city).order_by('?')
             self.request.session['flat_page'] = self.request.path
         
         self.request.session['search'] = ''

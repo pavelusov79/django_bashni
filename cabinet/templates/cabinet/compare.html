@@ -11,7 +11,17 @@
             {% include 'cabinet/include/left-menu.html' %}
         </div>
         <div class="col-12 col-sm-8 col-xl-9 pl-sm-5">
-            <h1 class="gray mb-5 pb-3" style="border-bottom: 1px solid rgba(0, 0, 0, 0.3)">Сравнить</h1>
+            <div class="d-flex justify-content-between mb-5 align-items-center" style="border-bottom: 1px solid rgba(0, 0, 0, 0.3)">
+                <h1 class="gray pb-2">Сравнить</h1>
+                <a href="#" class="sr-empty" id="empty_block" data-url="{{ request.path }}">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.5625 4.8125H3.4375" stroke="#A3A0A0" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.5625 2.0625H14.4375" stroke="#A3A0A0" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17.1875 4.8125V17.875C17.1875 18.0573 17.1151 18.2322 16.9861 18.3611C16.8572 18.4901 16.6823 18.5625 16.5 18.5625H5.5C5.31766 18.5625 5.1428 18.4901 5.01386 18.3611C4.88493 18.2322 4.8125 18.0573 4.8125 17.875V4.8125" stroke="#A3A0A0" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="gray ml-1">Очистить</span>
+                </a>
+            </div>
             <ul class="nav type_object mb-4 pb-4" style="border-bottom: none;">
                 <li value="fl" class="active gray mr-3">Квартиры</li>
                 <li value="zhk" class="gray mr-3">Новостройки</li>
@@ -19,8 +29,71 @@
                 <li value="store" class="gray mr-3">Кладовые</li>
             </ul>
             <div class="block-1">
-                <h4 class="mt-5 gray">Пока здесь пусто...</h4>
-                <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'sale' city='vladivostok' %}">поиском</a> для добавления квартир для сравнения.</h4>
+                <div class="row">
+                    {% if request.session.sravni_fl %}
+                        <div class="col-3">
+                            <div style="height: 16rem;"></div>
+                            <p class="mb-3">Жилой комплекс</p>
+                            <p class="mb-3">Стоимость</p>
+                            <p class="mb-3">Площадь</p>
+                            <p class="mb-3">Стоимость 1 м2</p>
+                            <p class="mb-3">Срок сдачи</p>
+                            <p class="mb-3">Высота</p>
+                        </div>
+                        <div class="sr-results d-flex col-9" style="overflow-x: scroll;">
+                            {% for i in request.session.sravni_fl %}
+                                {% for item in flats %}
+                                    {% if i == item.id %}
+                                        <div class="col-6 col-xl-6 sr">
+                                            <div class="card mb-3" style="border: none;">
+                                                <a href="{% url 'flat_detail' item.fk_property.city.city_slug item.pk item.slug %}">
+                                                   {% if item.fl_drawing %}
+                                                   <img class="card-img-top py-2" src="/media/{{ item.fl_drawing }}" alt="img" style="height: 11rem; object-fit: contain; border: 1px solid #ccc; border-radius: 0.5rem;">
+                                                   {% else %}
+                                                   <p class="h5" style="height: 11rem; object-fit: contain;">Изображение планировки отсутствует</p>
+                                                   {% endif %}
+                                                </a>
+                                                <p class="heart_1 heart-fl mb-0">
+                                                    <span>
+                                                        {% if item.id in request.session.sravni_fl %}
+                                                            <svg id="{{ item.id }}_sr" width="22" height="22" viewBox="0 0 22 22" fill="#55B50C" xmlns="http://www.w3.org/2000/svg" data-url="{{ request.path }}" class="delete-sr">
+                                                                <path d="M17.875 12.375H4.125C3.7453 12.375 3.4375 12.6828 3.4375 13.0625V17.1875C3.4375 17.5672 3.7453 17.875 4.125 17.875H17.875C18.2547 17.875 18.5625 17.5672 18.5625 17.1875V13.0625C18.5625 12.6828 18.2547 12.375 17.875 12.375Z" stroke="#55B50C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                <path d="M17.875 4.125H4.125C3.7453 4.125 3.4375 4.4328 3.4375 4.8125V8.9375C3.4375 9.3172 3.7453 9.625 4.125 9.625H17.875C18.2547 9.625 18.5625 9.3172 18.5625 8.9375V4.8125C18.5625 4.4328 18.2547 4.125 17.875 4.125Z" stroke="#55B50C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+                                                        {% endif %}
+                                                    </span>
+                                                    <span>
+                                                        <i id="{{ item.id }}_fl" data-url="{{ request.path }}" class="{% if item.id in fav_fl %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
+                                                    </span>
+                                                </p>
+                                                <div class="card-body" style="position: relative; bottom: 2.5rem;">
+                                                    <p style="text-align: end;">{% if item.fl_decor == 'Да' %}<img src="{% static '/img/otdelka.png' %}" alt="img" title="Квартира с отделкой">
+                                                        {% elif item.fl_decor == 'Нет' %}<img src="{% static '/img/net_otdelki.png' %}" alt="img" title="Квартира без отделки">
+                                                        {% elif item.fl_decor == 'whitebox' %}<img src="{% static '/img/whitebox.png' %}" alt="img" title="Квартира с отделкой whitebox">
+                                                        {% elif item.fl_decor == 'zak' %}<img src="{% static '/img/zak.png' %}" alt="img" title="Отделкка по желанию заказчика">{% endif %}</p>
+                                                     <p class="d-flex justify-content-between gray h5" style="height: 1.5rem;">
+                                                        <span>{% if item.fl_type == 'C' %}Студия{% else %}{{ item.fl_type }}-х комнатная{% endif %}</span><span class="dot_html">&middot;</span><span>{% if item.fk_property.name == 'More (Море)' or item.fk_property.name == 'Premium park (Премиум парк)' %}&mdash; этаж{% else %}{{ item.floor }} этаж{% endif %}</span>
+                                                    </p>
+                                                    <p class="gray mb-4"><span class="font-weight-bold">{{ item.fk_property.name }}</span> {{ item.fk_building.num_dom }}</p>
+                                                    <h6 class="card-title gray">{% if item.fl_price %}{{ item.fl_price|price }} &#8381;{% else %}стоимость не указана{% endif %}</h6>
+                                                    <p class="gray">{{ item.fl_sq }} м2</p>
+                                                    <p class="gray">{% if item.middle_price %}{{ item.middle_price|price }} &#8381;{% else %}&mdash;{% endif %}</p>
+                                                    <p class="gray">{{ item.fk_building.operation_term }}</p>
+                                                    <p class="gray">{{ item.fk_building.ceil_height }} м</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="mt-5 show-block">
+                            <h4 class="gray">Пока здесь пусто...</h4>
+                            <h4 class="mt-3 mb-5 gray">Воспользуйтесь нашим <a class="a_fav" href="{% url 'sale' city='vladivostok' %}">поиском</a> для добавления квартир для сравнения.</h4>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
             <div class="block-2">
                 <h4 class="mt-5 mb-5 gray">Пока здесь пусто...</h4>

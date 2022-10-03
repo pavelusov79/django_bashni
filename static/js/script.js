@@ -375,7 +375,7 @@ $('#flats-search').click(function() {
             $('.pagination.justify-content-center').empty();
             var data = $(response).find('.pagination.justify-content-center');
             $('.pagination.justify-content-center').html(data);
-            $('.heart span i').click(function() {
+            $('span i').click(function() {
                 var favorite_obj = $(this).attr('id');
                 var $this = $(this);
                 $.ajax({
@@ -384,7 +384,7 @@ $('#flats-search').click(function() {
                     data: {'fav_obj': favorite_obj},
                     success: function(response) {
                         if ($this.hasClass('fa fa-heart-o')) {
-                            console.log('yes');
+                            console.log('yes, inner ajax');
                             $this.removeClass('fa fa-heart-o').addClass('fa fa-heart');
                         }else {
                             $this.removeClass('fa fa-heart').addClass('fa fa-heart-o');
@@ -392,7 +392,26 @@ $('#flats-search').click(function() {
                     }
                 });
             });
-            console.log('success');
+            $('span svg').click(function() {
+                var sr_obj = $(this).attr('id');
+                console.log(sr_obj);
+                var $this = $(this);
+                console.log('sr_obj= ', sr_obj);
+                $.ajax({
+                    type: 'GET',
+                    url: $(this).attr('data-url'),
+                    data: {'sr_obj': sr_obj},
+                    success: function() {
+                        console.log('success');
+                        if($this.attr('fill') == 'none') {
+                            $this.attr('fill', '#55B50C');
+                        }else {
+                            $this.attr('fill', 'none');
+                        }
+                    }
+                });
+            });
+            console.log('success flats');
         }
     });
     return false;
@@ -456,7 +475,6 @@ $('span i').click(function() {
 
 $('span i').click(function() {
     var favorite_obj = $(this).attr('id');
-    console.log(favorite_obj);
     var $this = $(this);
     console.log('fav_obj= ', favorite_obj);
     $.ajax({
@@ -484,6 +502,51 @@ $('span i').click(function() {
                     window.location.reload();
                 }
             }
+        }
+    });
+    return false;
+});
+
+$('span svg').click(function() {
+    var sr_obj = $(this).attr('id');
+    console.log(sr_obj);
+    var $this = $(this);
+    console.log('sr_obj= ', sr_obj);
+    $.ajax({
+        type: 'GET',
+        url: $(this).attr('data-url'),
+        data: {'sr_obj': sr_obj},
+        success: function() {
+            console.log('success');
+            if($this.attr('fill') == 'none') {
+                $this.attr('fill', '#55B50C');
+            }else {
+                $this.attr('fill', 'none');
+            }
+            if ($this.hasClass('delete-sr')) {
+                if ($('.sr').length > 1 && $('.sr').html != '') {
+                    $this.parents('.sr').fadeOut('slow', function() {
+                        $this.parents('.sr').empty();
+                        console.log('deleted compare');
+                    });
+                }else {
+                    window.location.reload();
+                }
+            }
+        }
+    });
+});
+
+$('.sr-empty').click(function(){
+    var sr_empty = $(this).attr('id');
+    $.ajax({
+        type: 'GET',
+        url: $(this).attr('data-url'),
+        data: {'sr_empty': sr_empty},
+        success: function(response) {
+            var res = $(response).find('.show-block');
+            $('.block-1').empty();
+            $('.block-1').html(res);
         }
     });
     return false;
@@ -688,13 +751,61 @@ $('#sl3').change(function() {
     });
 });
 
+$('#city-choice').change(function(){
+    var city = $('#city-choice').val();
+    $('#show_flats').attr('href', function(i, name) {
+        console.log('city = ', city);
+        return name.replace('vladivostok', city);
+    });
+});
+
 $('select[name=finish_date]').change(function() {
     if($('select[name=finish_date]').val() != '') {
         var date = $('select[name=finish_date]').val();
     }
-    $('.link_sale').attr('href', function(i, name) {
+    $('.filter__sale').attr('href', function(i, name) {
         console.log(name.replace('date=', `date=${date}`));
         return name.replace('date=', `date=${date}`);
+    });
+    $('#show_flats').attr('href', function(i, name) {
+        return name.replace('date=', `date=${date}`);
+    });
+});
+
+$('#sort_zhk').change(function() {
+    var zhk = $(this).val();
+    $('#show_flats').attr('href', function(i, name) {
+        return name.replace('zhk=', `zhk=${zhk}`);
+    });
+});
+
+$('#fl_decor').change(function() {
+    var decor = $(this).val();
+    $('#show_flats').attr('href', function(i, name) {
+        return name.replace('fl_decor=', `fl_decor=${decor}`);
+    });
+});
+
+$('#params').change(function() {
+    var param = $(this).val();
+    $('#show_flats').attr('href', function(i, name) {
+        return name.replace('param=', `param=${param}`);
+    });
+});
+
+$('#sl7').change(function() {
+    var min_price = $('#sl7SliderMinValue').html().replaceAll(' ', '');
+    var max_price = $('#sl7SliderMaxValue').html().replaceAll(' ', '');
+    $('#show_flats').attr('href', function(i, name) {
+        return name.split('price')[0] + `price=${min_price}%2C${max_price}`;
+    });
+});
+
+$('#sl8').change(function() {
+    var min_price = $('#sl8SliderMinValue').html().replaceAll(' ', '');
+    var max_price = $('#sl8SliderMaxValue').html().replaceAll(' ', '');
+    $('#show_flats').attr('href', function(i, name) {
+        return name.split('square')[0] + `square=${min_price}%2C${max_price}`;
     });
 });
 

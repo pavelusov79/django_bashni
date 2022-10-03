@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Политика сайта{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center gray mb-5">Политика сайта и условия обработки и защиты персональных данных</h1>
+      <div class="gray" style="text-align: justify">{{ object.text|safe }}</div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

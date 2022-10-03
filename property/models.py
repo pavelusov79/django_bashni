@@ -351,6 +351,12 @@ class Flats(models.Model):
         self.slug = slugify(self.get_fl_type_display(), ok='_', only_ascii=True)
         super(Flats, self).save(*args, **kwargs)
 
+    def middle_price(self):
+        try:
+            return round(self.fl_price / self.fl_sq)
+        except Exception:
+            pass
+
 
 class MediaFlats(models.Model):
     FLAT_CHOICES = (

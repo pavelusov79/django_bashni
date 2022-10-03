@@ -352,7 +352,7 @@
   {% if object.gen_plan %}
     <div class="row mb-5 justify-content-center">
       <div class="col-11 col-sm-12">
-        <img src="/media/{{ object.gen_plan }}" alt="gen_plan" style="width: 100%; object-fit: contain;">
+        <img src="/media/{{ object.gen_plan }}" alt="gen_plan" style="width: 100%; object-fit: contain; max-height: 55rem;">
       </div>
     </div>
   {% endif %}
@@ -756,15 +756,11 @@
   {% endif %}
   {% if similar_obj %}
   <h2 class="gray mb-3 mt-5">Похожие проекты рядом</h2>
-  <div class="row mx-sm-3">
+  <div class="row mx-sm-3 mx-lx-0">
     <div class="slider slider-1">
       <div class="slider__container">
         <div class="slider__wrapper">
-          {% if similar_obj|length == 1 %}
-          <div class="slider__items" style="justify-content: center;">
-          {% else %}
-          <div class="slider__items">
-          {% endif %}
+          <div class="slider__items" style="{% if similar_obj|length == 1 %}justify-content: center;{% endif %}">
             {% for item in similar_obj %}
               <div class="col-6 col-sm-4 col-lg-3 slider__item">
                 <div class="card" style="border: none;">

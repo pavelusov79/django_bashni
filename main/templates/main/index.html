@@ -1,45 +1,255 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load view_price %}
+{% load split_value %}
+{% load replace_value %}
 
 {% block title %}Главная{% endblock title %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-8 card px-0" style="border: none;">
-            <a href="{% url 'news_detail' news.0.pk %}">
-                <img class="card-img-top" src="/media/{{ news.0.img_news.first.img }}" alt="img">
-            </a>
-            <div class="card-body">
-                <h1 class="card-title"> <a class="gray" href="{% url 'news_detail' news.0.pk %}">{{ news.0.title }}</a></h1>
-                <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ news.0.published|date:"d.m.Y" }}</p>
-                <p class="card-text">{{ news.0.description|truncatewords:30|safe }}</p>
-                <a class="btn btn-clear text-muted" href="{% url 'news_detail' news.0.pk %}">Читать далее...</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 px-0">
+            <img src="/media/{{ most_popular.main_photos.first.main_img }}" alt="main_img" style="max-height: 40rem; width: 100%; object-fit: cover;">
+        </div>
+    </div>
+</div>
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="white"><a href="{% url 'property' 'vladivostok' %}?param=mid_rating" style="text-decoration: none; color: white;">Популярные новостройки Приморского края</a></h1>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-6 popular gray py-3">
+            <a href="{% url 'property_detail' most_popular.fk_property.city.city_slug most_popular.fk_property.pk most_popular.fk_property.slug %}"
+               style="text-decoration: none; color: white;">
+                <h4 class="mb-0">ЖК "{{ most_popular.fk_property.name }}"</h4>
+                <h4 class="mb-0">{{ most_popular.addr }}</h4></a>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="position: relative; bottom: 6rem">
+        <div class="col-12">
+            <h2 class="mb-5 gray">Купить квартиру в новостройках
+                <select name="" id="city-choice">
+                    {% for i in towns %}
+                        <option value="{{ i.city_slug }}">{% if i.city_name|last == 'а' %}
+                            {{ i.city_name|slice:':-1'|add:'ы' }}
+                            {% elif i.city_name|last == 'и' %}{{ i.city_name }}
+                            {% else %}{{ i.city_name|add:'а' }}{% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+            </h2>
+            <div class="form-group">
+                <div class="d-flex justify-content-between mb-4 mt-3">
+                    <div class="col-6 pl-0 find-addr">
+                        <input id="sort_zhk" type="text" value="{% if request.GET.zhk %}{{ request.GET.zhk }}{% endif %}" placeholder="Адрес, жилой комплекс">
+                        <span><img class="search-icon" src="{% static 'img/search_icon.png' %}" alt="search"></span>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <select name="finish_date" style="height: 2.4rem;">
+                            {% if request.GET.date %}
+                                <option value="{{ request.GET.date }}">{{ request.GET.date }}</option>
+                            {% endif %}
+                            <option class='gray' value="">Срок сдачи</option>
+                            {% for item in f_dates %}
+                                <option value="{{ item.fk_building.operation_term }}">{{ item.fk_building.operation_term }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-4 col-sm-3 pr-0 pr-xl-3 map-pin">
+                        <a href="" class="btn btn-secondary" style="width: 100%; "><svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.5385 5.76923C11.5385 10.9615 5.76923 15 5.76923 15C5.76923 15 0 10.9615 0 5.76923C0 4.23914 0.607828 2.77171 1.68977 1.68977C2.77171 0.607828 4.23914 0 5.76923 0C7.29933 0 8.76675 0.607828 9.84869 1.68977C10.9306 2.77171 11.5385 4.23914 11.5385 5.76923V5.76923Z" fill="#55B50C" fill-opacity="0.6"/>
+                            <path d="M5.76912 8.07693C7.04362 8.07693 8.07681 7.04374 8.07681 5.76924C8.07681 4.49474 7.04362 3.46155 5.76912 3.46155C4.49461 3.46155 3.46143 4.49474 3.46143 5.76924C3.46143 7.04374 4.49461 8.07693 5.76912 8.07693Z" fill="#E6E6E6"/>
+                            </svg> Смотреть на карте</a>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap mb-3">
+                    <div class="col-12 col-sm-6 col-xl-5 mt-2">
+                        <!--div class="d-flex justify-content-between mb-2">
+                            <p class="mb-0 gray">Цена от <span id="sl7SliderMinValue">{{ min_price|price }}</span></p>
+                            <p class="mb-0 gray">до <span id="sl7SliderMaxValue">{{ max_price|price }}</span> &#8381;</p>
+                        </div-->
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="mb-0 gray">Цена от <span id="sl7SliderMinValue">{% if request.GET.price %}{{ request.GET.price|split:','|first|price }}
+                            {% else %}{{ min_price|price }}{% endif %}</span></p>
+                            <p class="mb-0 gray">до <span id="sl7SliderMaxValue">{% if request.GET.price %}{{ request.GET.price|split:','|last|price }}
+                            {% else %}{{ max_price|price }}{% endif %}</span> &#8381;</p>
+                        </div>
+                        <p><input id="sl7" data-slider-id="sl7Slider" type="text" data-slider-min="{{ min_price }}"
+                            data-slider-max="{{ max_price }}" data-slider-step="500000"
+                            data-slider-value="{% if request.GET.price %}[{{ request.GET.price|split:','|first }},{{ request.GET.price|split:','|last }}]
+                            {% else %}[{{ min_price }},{{ max_price }}]{% endif %}"></p>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-4 mt-2">
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="mb-0 gray">Площадь от <span id="sl8SliderMinValue">{% if request.GET.square %}{{ request.GET.square|split:','|first|replace }}{% else %}{{ min_sq|replace }}{% endif %}</span></p>
+                            <p class="mb-0 gray">до <span id="sl8SliderMaxValue">{% if request.GET.square %}{{ request.GET.square|split:','|last|replace }}{% else %}{{ max_sq|replace }}{% endif %}</span> м2</p>
+                        </div>
+                        <p><input id="sl8" data-slider-id="sl8Slider" type="text" data-slider-min="{{ min_sq|replace }}"
+                            data-slider-max="{{ max_sq|replace }}" data-slider-step="0.5"
+                            data-slider-value="{% if request.GET.square %}[{{ request.GET.square|split:','|first|replace }},{{ request.GET.square|split:','|last|replace }}]{% else %}[{{ min_sq|replace }},{{ max_sq|replace }}]{% endif %}"></p>
+                    </div>
+                    <div class="col-6 col-sm-4 col-xl-3 align-self-center">
+                        <select name="fl_decors" id="fl_decor" style="height: 2.4rem;">
+                            {% if request.GET.fl_decor %}
+                                {% for i in flat_decors %}
+                                    {% if i|first == request.GET.fl_decor %}
+                                        <option value="{{ i|first }}">{{ i|last }}</option>
+                                        <option value="">отделка квартиры</option>
+                                    {% else %}
+                                        <option value="{{ i|first }}">{{ i|last }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <option value="">отделка квартиры</option>
+                                {% for i in flat_decors %}
+                                    <option value="{{ i|first }}">
+                                       {{ i|last }}
+                                    </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex mb-4 mt-5 justify-content-between">
+                    <div class="col-6 col-sm-4 col-xl-3">
+                        <select id="params" name="param" class="gray" style="height: 2.4rem;">
+                            {% if request.GET.param == 'fl_price' %}
+                            <option value="fl_price">Сначала дешевые</option>
+                            {% elif request.GET.param == '-fl_price' %}
+                            <option value="-fl_price">Сначала дорогие</option>
+                            {% elif request.GET.param == '-fl_sq' %}
+                            <option value="-fl_sq">Сначала с большей площадью</option>
+                            {% elif request.GET.param == 'fl_sq' %}
+                            <option value="fl_sq">Сначала с меньшей площадью</option>
+                            {% elif request.GET.param == '-floor' %}
+                            <option value="-floor">Сначала с высоким этажем</option>
+                            {% elif request.GET.param == 'floor' %}
+                            <option value="floor">Сначала с низким этажем</option>
+                            {% endif %}
+                            <option value="">Сортировать</option>
+                            <option value="fl_price">Сначала дешевые</option>
+                            <option value="-fl_price">Сначала дорогие</option>
+                            <option value="-fl_sq">Сначала с большей площадью</option>
+                            <option value="fl_sq">Сначала с меньшей площадью</option>
+                            <option value="-floor">Сначала с высоким этажем</option>
+                            <option value="floor">Сначала с низким этажем</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-outline-danger dop-filter" type="reset" style="border: none">Сбросить фильтр
+                    </button>
+                </div>
+                <p class="text-center my-5"><a id="show_flats" href="{% url 'sale' 'vladivostok' %}?zhk=&flat_type=&fl_decor=&price=&param=&square=&date=&floor=&dictrict=" class="btn btn-success text-center" type="submit" style="width: 22rem; border-radius: 0.5rem;">Показать результаты</a></p>
             </div>
         </div>
-        <div class="col-8 col-sm-4 left-news">
-            {% for item in news|slice:"1:" %}
-            <div class="card w-100">
-               <a href="{% url 'news_detail' item.pk %}">
-                   <img class="card-img-top" src="/media/{{ item.img_news.first.img }}" alt="img">
-               </a>
-                <div class="card-body">
-                    <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ item.published|date:"d.m.Y" }}</p>
-                    <h3 class="card-title"><a href="{% url 'news_detail' item.pk %}">{{ item.title }}</a></h3>
+        <div class="col-12 d-flex justify-content-between mb-4 mt-5">
+            <h2 class="gray font-weight-bold">Новости</h2>
+            <a href="{% url 'news' %}" style="color: #55B50C;">Смотреть все</a>
+        </div>
+        {% for item in news %}
+            <div class="col-12 col-sm-6">
+                <div class="card w-100" style="border: none;">
+                   <a href="{% url 'news_detail' item.pk %}">
+                       <img class="card-img-top" src="/media/{{ item.img_news.first.img }}" alt="img" style="border-radius:0.5rem; max-height: 27rem;">
+                   </a>
+                    <div class="card-body">
+                        <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ item.published|date:"d.m.Y" }}</p>
+                        <h3 class="card-title"><a href="{% url 'news_detail' item.pk %}">{{ item.title }}</a></h3>
+                        <h5 class="gray my-4">{{ item.description|truncatewords:30|safe }}</h5>
+                        <p class="text-right news-link"><a href="{% url 'news_detail' item.pk %}" style="text-decoration:none;">
+                            <span style="color:#55B50C;">Читать</span><span class="gray pl-3">&gt;</span></a>
+                        </p>
+                    </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-        <h2 class="mt-3 w-100 gray">Youtube канал</h2>
-    </div>
-    <div class="row">
-        {% for item in youtube %}
-        <div class="col-4 embed-responsive embed-responsive-4by3">
-            <iframe class="embed-responsive-item" src="{{ item.video_url }}" frameborder="0" allowfullscreen></iframe>
-        </div>
         {% endfor %}
+    </div>
+    <div class="row" style="position: relative; bottom: 3rem">
+        <div class="col-12">
+            <h2 class="w-100 gray">Наш <b>YouTube</b> канал</h2>
+            <h3 class="gray my-3">Обзоры на жилые комплексы и квартиры, а также эксклюзивные интервью</h3>
+        </div>
+        <div class="col-12">
+            <div class="slider slider-2">
+                <div class="slider__container">
+                    <div class="slider__wrapper">
+                        <div class="slider__items">
+                            {% for item in youtube %}
+                                <div class="col-12 col-sm-6 slider__item embed-responsive embed-responsive-16by9">
+                                    <iframe class="frame_video embed-responsive-item" src="{{ item.video_url }}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                <a href="#" class="slider__control" data-slide="prev"></a>
+                <a href="#" class="slider__control" data-slide="next"></a>
+                </div>
+            </div>
+        </div>
         <a class="btn btn-light" href="https://www.youtube.com/111bashniRu" target="_blank">
             <h5 class="text-muted">больше видео &raquo;</h5></a>
+        <div class="col-12">
+            <h2 class="gray my-5">О компании</h2>
+        </div>
+        <div class="col-12 col-sm-6">
+            <p class="gray text-justify h4" style="line-height:2.2rem;">Портал 111BASHNI.RU работает с 2012 года, является ведущим специализированным сайтом в сфере строительства жилья во Владивостоке.
+             Работаем как с новостройками Владивостока, так и с новостройками других городов России: Москва, Санкт-Петербург, Анапа.
+            </p>
+        </div>
+        <div class="col-6 d-flex justify-content-center"><img src="{% static 'img/new_logo.png' %}" alt="logo" style="width:65%; align-self:center;"></div>
+        <div class="col-12 mt-5">
+            <h2 class="my-5 gray">Преимущества покупки квартиры в новостройке через 111Bashni.ru</h2>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class="col-12 col-sm-6 div-text d-flex justify-content-around mb-5">
+                <div class="div-img"><img src="{% static 'img/smile.png' %}" alt="" style="width:3rem; align-self:center;"></div>
+                <p class="ind_text py-3">Продажа квартир в новостройках осуществляется специалистами отдела <b>без комиссий, по ценам застройщиков</b>.</p>
+            </div>
+            <div class="col-12 col-sm-6 div-text d-flex justify-content-around mb-5">
+                <div class="div-img"><img src="{% static 'img/info.png' %}" alt="" style="width:3rem; align-self:center;"></div>
+                <p class="ind_text py-3">Информация о новостройках, рейтинг, карта новостроек,  видеонаблюдение за стройками.</p>
+            </div>
+            <div class="col-12 col-sm-6 div-text d-flex justify-content-around mb-5">
+                <div class="div-img"><img src="{% static 'img/percent.png' %}" alt="" style="width:2rem; align-self:center;"></div>
+                <p class="ind_text py-3"><b>Ипотека</b>: работаем со всеми банками, подбор наиболее выгодных условий по ипотеке и страховке.</p>
+            </div>
+            <div class="col-12 col-sm-6 div-text d-flex justify-content-around mb-5">
+                <div class="div-img"><img src="{% static 'img/arrows.png' %}" alt="" style="width:3rem; align-self:center;"></div>
+                <p class="ind_text py-3"><b>Обмен квартир на новостройку</b> — работаем с застройщиками по обмену старой квартиры на квартиру в новостройке.</p>
+            </div>
+        </div>
+        {% if events %}
+            <div class="col-12 d-flex justify-content-between my-5">
+                <h2 class="gray font-weight-bold">Мероприятия</h2>
+                <a href="{% url 'events' %}" style="color: #55B50C;">Смотреть все</a>
+            </div>
+            {% for item in events %}
+                <div class="col-12 col-sm-6 mb-sm-5">
+                    <div class="card w-100" style="background: #EEEEEE; border-radius: 0.7rem; border: 1px solid #EEEEEE;">
+                       <a href="{% url 'events_detail' item.pk %}" style="width: 90%; align-self: center; padding-top: 2rem;">
+                           <img class="card-img-top" src="/media/{{ item.event_img }}" alt="img" style="border-radius:0.5rem; max-height: 20.5rem;">
+                       </a>
+                        <div class="card-body">
+                            <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ item.start_date|date:"d.m.Y" }} - {{ item.finish_date|date:"d.m.Y" }}</p>
+                            <h3 class="card-title"><a href="{% url 'events_detail' item.pk %}">{{ item.title }}</a></h3>
+                            <p class="gray">{{ item.city.city_name }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
+
+{% block js %}
+  <script src="{% static 'js/jquery-3.6.0-min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+  <script src="https://use.fontawesome.com/aeedf3f379.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+  <script src="{% static 'js/chief-slider.js' %}"></script>
+  <script src="{% static 'js/slider.js' %}"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

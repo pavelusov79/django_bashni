@@ -26,7 +26,9 @@ def run():
     #     'https://domoplaner.ru/dc-api/feeds/13-pW0O6NiYW1GabRrSikIOG00Obcu0uaxg5cOM4Ud8AbCjvKWjXncRSgieKri4lUZg/',
     #     'https://dom.masterstroydv.ru/feed',
     #     'https://pb14188.profitbase.ru/export/domclick/6add6ecc11bbbcabe7d78c7af47537a6',
-    #     'https://davinchigrupp.kvartirogramma.ru/feeds/288e18971b8c177c4508769895b3951f.xml'
+    #     'https://davinchigrupp.kvartirogramma.ru/feeds/288e18971b8c177c4508769895b3951f.xml',
+    #     'https://stroizakaz.kvartirogramma.ru/feeds/2be4141d0f8964ed8c1a9e59f8660f5a.xml',
+    #     'https://img.dmclk.ru/ack/acc_feed/290949/114550/5380_114550_114550.xml'
     # ]
     for url in range(len(urls)):
         print(urls[url].feed)
@@ -54,18 +56,18 @@ def run():
                 elif build_num[1].firstChild.data == '165609':
                     db.flats.delete_many({'living_complex_name': 'Брусника', 'num_dom': 7})
             else:
-                db.flats.delete_many({'living_complex_name': ' '.join(name[0].firstChild.data.split()[1:]).replace('"', '').replace("«", '').replace("»", '')})
+                db.flats.delete_many({'living_complex_name': ' '.join(name[0].firstChild.data.split()[1:]).replace('"', '').replace("«", '').replace("»", '').strip()})
         else:
-            db.flats.delete_many({'living_complex_name': name[0].firstChild.data.replace('"', '').replace("«", '').replace("»", '')}) 
+            db.flats.delete_many({'living_complex_name': name[0].firstChild.data.replace('"', '').replace("«", '').replace("»", '').strip()})
         for flat in flats:
             db_item = {}
             for item in flat.childNodes:
                 if item.nodeType == 1:
                     if item.tagName == 'flat_id':
                         if re.match('ЖК', name[0].firstChild.data):
-                            db_item['living_complex_name'] = ' '.join(name[0].firstChild.data.split()[1:]).replace('"', '').replace("«", '').replace("»", '')
+                            db_item['living_complex_name'] = ' '.join(name[0].firstChild.data.split()[1:]).replace('"', '').replace("«", '').replace("»", '').strip()
                         else:
-                            db_item['living_complex_name'] = name[0].firstChild.data.replace('"', '').replace("«", '').replace("»", '')
+                            db_item['living_complex_name'] = name[0].firstChild.data.replace('"', '').replace("«", '').replace("»", '').strip()
                         db_item['_id'] = int(f'{url + 4}{item.firstChild.data}')
                         d = item.parentNode.parentNode.parentNode
                         for el in d.childNodes:
@@ -78,6 +80,11 @@ def run():
                                             db_item['num_dom'] = 8
                                         else:
                                             db_item['num_dom'] = 1
+                                else:
+                                    if el.tagName == 'id' and el.firstChild.data == '158758':
+                                        db_item['num_dom'] = 1
+                                    elif el.tagName == 'id' and el.firstChild.data == '158759':
+                                        db_item['num_dom'] = 2
                     if item.tagName == 'floor':
                         db_item['floor'] = int(item.firstChild.data)
                     if item.tagName == 'apartment':
@@ -95,6 +102,8 @@ def run():
                     try:
                         if item.tagName == 'renovation':
                             db_item['flat_decor'] = item.firstChild.data
+                            if item.firstChild.data == 'None':
+                                db_item['flat_decor'] = 'Нет'
                     except AttributeError:
                         db_item['flat_decor'] = '-'
                     if item.tagName == 'area':
@@ -104,7 +113,7 @@ def run():
                         db_item['planning_url'] = plan_url
                         path_to_media = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'media/flats')
                         os.makedirs(f'{path_to_media}/{db_item["living_complex_name"]}', exist_ok=True)
-                        filename = f'{path_to_media}/{db_item["living_complex_name"]}/{plan_url.split("/")[-1].split("?")[0]}'
+                        filename = f'{path_to_media}/{db_item["living_complex_name"]}/{plan_url.split("/")[-1].split("?")[0].replace("%20дом2", "")}'
                         db_item['path_to_planning'] = filename
                         if not os.path.exists(filename):
                             if re.match('https', plan_url):
@@ -118,11 +127,13 @@ def run():
             try:
                 db.flats.insert_one(db_item)
             except DuplicateKeyError:
+                print('duplicate found')
+                print(db.flats.find_one({'_id': db_item['_id']}))
                 try:
                     db_item['_id'] = f'{db_item["_id"]}{url}'
                     db.flats.insert_one(db_item)
                 except DuplicateKeyError:
-                    print('found duplicate')
+                    print('found duplicate 2')
 
     logger_path = os.path.join(os.path.dirname(__file__), 'flats_logger.txt')
     with open(logger_path, 'a') as f:

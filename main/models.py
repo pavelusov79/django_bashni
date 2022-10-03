@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 from slugify import slugify
 from PIL import Image
 
-from property.models import Property
+from property.models import Property, City, resize_image
 
 
 class Tags(models.Model):
@@ -47,11 +47,7 @@ class ImageNews(models.Model):
     def save(self, *args, **kwargs):
         if self.img:
             super().save(*args, **kwargs)
-            org_img = Image.open(self.img.path)
-            width, height = org_img.size
-            if width > 900:
-                width_ratio = round(900 / width * 100)
-                org_img.save(self.img.path, quality=width_ratio)
+            resize_image(self.img)
 
 
 class NewsComment(models.Model):
@@ -82,5 +78,35 @@ class YoutubeChannel(models.Model):
         ordering = ('-date',)
 
 
+class Events(models.Model):
+    title = models.CharField(max_length=128, verbose_name="заголовок мероприятия")
+    start_date = models.DateField(verbose_name="начало мероприятия")
+    finish_date = models.DateField(verbose_name="конец мероприятия")
+    description = RichTextField(verbose_name="текст мероприятия")
+    event_img = models.ImageField(upload_to='events', verbose_name='фото меропритятия', max_length=256)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name="город")
+    is_active = models.BooleanField(verbose_name='мероприятие активно', default=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Мероприятия'
+        ordering = ['-start_date']
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        resize_image(self.event_img)
+
+
+class SitePolicy(models.Model):
+    title = models.CharField(max_length=128, verbose_name="заголовок")
+    text = RichTextField(verbose_name="текст")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Политика сайта'
 
 

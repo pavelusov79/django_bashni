@@ -136,8 +136,7 @@
                                 {% if request.GET.fl_decor %}
                                     {% for i in flat_decors %}
                                         {% if i|first == request.GET.fl_decor %}
-                                            <option value="{{ i|first }}">{{ i|last }}</option>
-                                            <option value="">отделка квартиры</option>
+                                            <option value="{{ i|first }}" selected>{{ i|last }}</option>
                                         {% else %}
                                             <option value="{{ i|first }}">{{ i|last }}</option>
                                         {% endif %}
@@ -145,9 +144,7 @@
                                 {% else %}
                                     <option value="">отделка квартиры</option>
                                     {% for i in flat_decors %}
-                                        <option value="{{ i|first }}">
-                                           {{ i|last }}
-                                        </option>
+                                        <option value="{{ i|first }}">{{ i|last }}</option>
                                     {% endfor %}
                                 {% endif %}
                             </select>
@@ -285,7 +282,22 @@
                        <p class="h5" style="height: 11rem; object-fit: contain;">Изображение планировки отсутствует</p>
                        {% endif %}
                     </a>
-                    <p class="heart heart-fl">
+                    <p class="{% if user.is_authenticated %}heart_1{% else %}heart{% endif %} heart-fl">
+                        {% if request.user.is_authenticated %}
+                            <span>
+                                {% if item.id in request.session.sravni_fl %}
+                                    <svg id="{{ item.id }}_sr" width="22" height="22" viewBox="0 0 22 22" fill="#55B50C" xmlns="http://www.w3.org/2000/svg" data-url="{{ request.path }}">
+                                        <path d="M17.875 12.375H4.125C3.7453 12.375 3.4375 12.6828 3.4375 13.0625V17.1875C3.4375 17.5672 3.7453 17.875 4.125 17.875H17.875C18.2547 17.875 18.5625 17.5672 18.5625 17.1875V13.0625C18.5625 12.6828 18.2547 12.375 17.875 12.375Z" stroke="#55B50C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17.875 4.125H4.125C3.7453 4.125 3.4375 4.4328 3.4375 4.8125V8.9375C3.4375 9.3172 3.7453 9.625 4.125 9.625H17.875C18.2547 9.625 18.5625 9.3172 18.5625 8.9375V4.8125C18.5625 4.4328 18.2547 4.125 17.875 4.125Z" stroke="#55B50C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                {% else %}
+                                    <svg id="{{ item.id }}_sr1" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" data-url="{{ request.path }}">
+                                        <path d="M17.875 12.375H4.125C3.7453 12.375 3.4375 12.6828 3.4375 13.0625V17.1875C3.4375 17.5672 3.7453 17.875 4.125 17.875H17.875C18.2547 17.875 18.5625 17.5672 18.5625 17.1875V13.0625C18.5625 12.6828 18.2547 12.375 17.875 12.375Z" stroke="#55B50C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17.875 4.125H4.125C3.7453 4.125 3.4375 4.4328 3.4375 4.8125V8.9375C3.4375 9.3172 3.7453 9.625 4.125 9.625H17.875C18.2547 9.625 18.5625 9.3172 18.5625 8.9375V4.8125C18.5625 4.4328 18.2547 4.125 17.875 4.125Z" stroke="#55B50C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                {% endif %}
+                            </span>
+                        {% endif %}
                         <span>
                             {% if request.user.is_authenticated %}
                                 <i id="{{ item.id }}_fl" data-url="{{ request.path }}" class="{% if item.id in fav_fl %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>

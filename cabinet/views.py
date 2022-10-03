@@ -62,4 +62,35 @@ class CompareView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'cabinet/compare.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['flats'] = Flats.objects.all()
+        context['fav_fl'] = [item[0] for item in
+                             FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]
+        return context
+
+    def get(self, request, *args, **kwargs):
+        fav_obj = self.request.GET.get('fav_obj')
+        sr_obj = self.request.GET.get('sr_obj')
+        sr_empty = self.request.GET.get('sr_empty')
+        if fav_obj:
+            fav_id = int(fav_obj.replace('_fl', ''))
+            if fav_id not in [item[0] for item in
+                              FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]:
+                fav = FavoritesFlats(user=self.request.user, property_pk=Flats.objects.filter(id=fav_id).first())
+                fav.save()
+            else:
+                fav = FavoritesFlats.objects.get(user=self.request.user,
+                                                 property_pk=Flats.objects.filter(id=fav_id).first())
+                fav.delete()
+        if sr_obj:
+            sr_id = int(sr_obj.replace('_sr', ''))
+            print('sr_id = ', sr_id)
+            self.request.session['sravni_fl'].remove(int(sr_id))
+            self.request.session.modified = True
+        if sr_empty:
+            self.request.session['sravni_fl'] = []
+            self.request.session.modified = True
+        return super().get(request, *args, **kwargs)
+
 
