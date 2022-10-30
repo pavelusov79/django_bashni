@@ -282,7 +282,7 @@
                        <p class="h5" style="height: 11rem; object-fit: contain;">Изображение планировки отсутствует</p>
                        {% endif %}
                     </a>
-                    <p class="{% if user.is_authenticated %}heart_1{% else %}heart{% endif %} heart-fl">
+                    <p class="{% if user.is_authenticated %}heart_1{% else %}heart{% endif %} heart-fl mb-0">
                         {% if request.user.is_authenticated %}
                             <span>
                                 {% if item.id in request.session.sravni_fl %}
@@ -306,7 +306,7 @@
                             {% endif %}
                         </span>
                     </p>
-                    <div class="card-body">
+                    <div class="card-body pt-0">
                         <div class="d-flex justify-content-between">
                             <h6 class="card-title gray">{% if item.fl_price %}{{ item.fl_price|price }} &#8381;{% else %}стоимость не указана{% endif %}</h6>
                             <p style="display: inline-block;">{% if item.fl_decor == 'Да' %}<img src="{% static '/img/otdelka.png' %}" alt="img" title="Квартира с отделкой">
@@ -317,7 +317,7 @@
                         <p class="d-flex justify-content-between gray" style="height: 1.5rem;">
                             <span>{% if item.fl_type == 'C' %}Студия{% else %}{{ item.fl_type }}-х комн{% endif %}</span><span class="dot_html">&middot;</span><span>{{ item.fl_sq }} м2</span><span class="dot_html">&middot;</span><span>{% if item.fk_property.name == 'More (Море)' or item.fk_property.name == 'Premium park (Премиум парк)' %}&mdash; этаж{% else %}{{ item.floor }} этаж{% endif %}</span>
                         </p>
-                        <p class="gray"><span class="font-weight-bold">{{ item.fk_property.name }}</span> {{ item.fk_building.num_dom }}</p>
+                        <p class="gray"><span class="font-weight-bold mr-3">{{ item.fk_property.name }}</span>{% if item.fk_building %}{{ item.fk_building.num_dom }}{% else %}д. {{ item.build_num }}{% endif %}</p>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@ class ZhkName(admin.SimpleListFilter):
     parameter_name = 'zhk'
 
     def lookups(self, request, model_admin):
-        zhk = set([i.fk_property for i in model_admin.model.objects.filter(fk_property__has_scraper=True)])
+        zhk = [i.fk_property for i in model_admin.model.objects.filter(fk_property__has_scraper=True).distinct('fk_property__name').order_by('fk_property__name')]
         return [(i.id, i.name) for i in zhk]
 
     def queryset(self, request, queryset):

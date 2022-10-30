@@ -20,11 +20,15 @@
             <h1 class="white"><a href="{% url 'property' 'vladivostok' %}?param=mid_rating" style="text-decoration: none; color: white;">Популярные новостройки Приморского края</a></h1>
         </div>
         <div class="col-6"></div>
-        <div class="col-6 popular gray py-3">
-            <a href="{% url 'property_detail' most_popular.fk_property.city.city_slug most_popular.fk_property.pk most_popular.fk_property.slug %}"
-               style="text-decoration: none; color: white;">
-                <h4 class="mb-0">ЖК "{{ most_popular.fk_property.name }}"</h4>
-                <h4 class="mb-0">{{ most_popular.addr }}</h4></a>
+        <div class="col-6 popular gray py-3 d-flex ml-auto pl-2">
+            <div>
+                <a href="{% url 'property_detail' most_popular.fk_property.city.city_slug most_popular.fk_property.pk most_popular.fk_property.slug %}"
+                   style="text-decoration: none; color: white;">
+                    <div><h5 class="mb-0">ЖК "{{ most_popular.fk_property.name }}"</h5>
+                        <h5 class="mb-0">{{ most_popular.addr }}</h5>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
     <div class="row justify-content-center" style="position: relative; bottom: 6rem">
@@ -41,12 +45,12 @@
                 </select>
             </h2>
             <div class="form-group">
-                <div class="d-flex justify-content-between mb-4 mt-3">
-                    <div class="col-6 pl-0 find-addr">
+                <div class="d-flex flex-wrap justify-content-between mb-4 mt-3">
+                    <div class="col-12 col-sm-6 pl-0 find-addr">
                         <input id="sort_zhk" type="text" value="{% if request.GET.zhk %}{{ request.GET.zhk }}{% endif %}" placeholder="Адрес, жилой комплекс">
                         <span><img class="search-icon" src="{% static 'img/search_icon.png' %}" alt="search"></span>
                     </div>
-                    <div class="col-6 col-sm-3">
+                    <div class="col-6 col-sm-5 col-lg-3">
                         <select name="finish_date" style="height: 2.4rem;">
                             {% if request.GET.date %}
                                 <option value="{{ request.GET.date }}">{{ request.GET.date }}</option>
@@ -57,7 +61,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-4 col-sm-3 pr-0 pr-xl-3 map-pin">
+                    <div class="col-6 col-sm-5 col-lg-3 pr-0 pr-xl-3 map-pin">
                         <a href="" class="btn btn-secondary" style="width: 100%; "><svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11.5385 5.76923C11.5385 10.9615 5.76923 15 5.76923 15C5.76923 15 0 10.9615 0 5.76923C0 4.23914 0.607828 2.77171 1.68977 1.68977C2.77171 0.607828 4.23914 0 5.76923 0C7.29933 0 8.76675 0.607828 9.84869 1.68977C10.9306 2.77171 11.5385 4.23914 11.5385 5.76923V5.76923Z" fill="#55B50C" fill-opacity="0.6"/>
                             <path d="M5.76912 8.07693C7.04362 8.07693 8.07681 7.04374 8.07681 5.76924C8.07681 4.49474 7.04362 3.46155 5.76912 3.46155C4.49461 3.46155 3.46143 4.49474 3.46143 5.76924C3.46143 7.04374 4.49461 8.07693 5.76912 8.07693Z" fill="#E6E6E6"/>
@@ -148,16 +152,26 @@
             <h2 class="gray font-weight-bold">Новости</h2>
             <a href="{% url 'news' %}" style="color: #55B50C;">Смотреть все</a>
         </div>
+        <div class="col-12 my-3">
+            <a class="btn btn-outline-success mb-3 mr-4" href="{% url 'news_popular' %}">Популярное</a>
+             <a class="btn btn-outline-success mb-3 mr-4" href="{% url 'news_slug' 'ipoteka' %}">Ипотека</a>
+             <a class="btn btn-outline-success mb-3 mr-4" href="{% url 'news_slug' 'kupit_kvartiru' %}">Купить квартиру</a>
+             <a class="btn btn-outline-success mb-3 mr-4" href="{% url 'news_slug' 'aktsii_i_starty' %}">Акции</a>
+             <a class="btn btn-outline-success mb-3" href="{% url 'news_slug' 'riski_i_garantii' %}">Риски и гарантии</a>
+        </div>
         {% for item in news %}
             <div class="col-12 col-sm-6">
                 <div class="card w-100" style="border: none;">
                    <a href="{% url 'news_detail' item.pk %}">
-                       <img class="card-img-top" src="/media/{{ item.img_news.first.img }}" alt="img" style="border-radius:0.5rem; max-height: 27rem;">
+                       <img class="card-img-top" src="/media/{{ item.img_news.first.img }}" alt="img" style="border-radius:0.5rem; max-height: 23rem;">
                    </a>
                     <div class="card-body">
                         <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ item.published|date:"d.m.Y" }}</p>
                         <h3 class="card-title"><a href="{% url 'news_detail' item.pk %}">{{ item.title }}</a></h3>
                         <h5 class="gray my-4">{{ item.description|truncatewords:30|safe }}</h5>
+                        {% for tag in item.tags.all %}
+                          <a class="btn btn-outline-success mb-3 mr-3" href="{% url 'news_slug' tag.slug %}">{{ tag.tag_name }}</a>
+                        {% endfor %}
                         <p class="text-right news-link"><a href="{% url 'news_detail' item.pk %}" style="text-decoration:none;">
                             <span style="color:#55B50C;">Читать</span><span class="gray pl-3">&gt;</span></a>
                         </p>

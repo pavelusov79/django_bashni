@@ -309,7 +309,7 @@
   {% if object.has_scraper %}
     <h2 class="gray font-weight-bold mb-3 mt-3">Цены на квартиры</h2>
     <div class="row justify-content-center mb-5 fl-results">
-      <div class="col-12 col-sm-6 left-block" style="border: 1px solid #C4C4C4; height: 23.7rem; border-radius: 0.6rem;">
+      <div class="col-12 col-md-6 mt-sm-5 left-block" style="border: 1px solid #C4C4C4; height: 23.7rem; border-radius: 0.6rem;">
         <div class="d-flex justify-content-between">
           <span class='gray mt-2'>Подобрать квартиру</span>
           <ul name="flat_type" class="nav t_fl d-flex gray mt-2" style="width: 50%;" zhk-id="{{ object.id }}" url-d="{% url 'sale' object.city.city_slug %}">
@@ -339,11 +339,11 @@
         </div>
         {% if flats_d %}
           <hr class="gray my-3">
-          <p class="gray mt-4 pp">Стоимость <span style="color: #55B50C !important;" class="ml-3 font-weight-bold fl_pr">от {{ current_price|price }} &#8381;</span></p>
+          <p class="gray mt-4 pp">Стоимость <span style="color: #55B50C !important;" class="ml-3 font-weight-bold fl_pr">{% if current_price != 0 %}от {{ current_price|price }} &#8381;{% else %}&mdash; &#8381;{% endif %}</span></p>
           <a href="{% url 'sale' object.city.city_slug %}?zhk={{ object.name }}&flat_type={{ type_flat }}" class="btn btn-success w-100 mt-4 go_sale" style="border-radius: 0.7rem;">Перейти в квартирографию</a>
         {% endif %}
       </div>
-      <div class="col-12 col-sm-6 big-img text-center">
+      <div class="col-12 col-md-6 big-img text-center">
         <img  class="" src="{% if flats_d.0.fl_drawing %}/media/{{ flats_d.0.fl_drawing }}{% endif %}" alt="drawing" style="max-height: 23.7rem; max-width: 70%;">
       </div>
     </div>
@@ -373,7 +373,7 @@
   </div>
   <h2 class="gray font-weight-bold mb-3">Расчет ипотеки</h2>
   <div class="row ipot mb-5 justify-content-center">
-    <div class="col-10 col-sm-6 ipoteka-calc">
+    <div class="col-10 col-md-6 ipoteka-calc">
       <form  class="ipoteka_calc_form" method="post">
         {% csrf_token %}
         <div class="d-flex mt-4 justify-content-around">
@@ -382,11 +382,11 @@
         </div>
         <p class="ml-4 mt-2 text-step">Шаг 1 из 2</p>
         <div class="step1 ml-4 step1-1">
-          <h4 class="mt-2 mb-3">Укажите цену жилья</h4>
-          <p class="t1 small mb-sm-4">Стоимость недвижимости</p>
+          <h4 class="mt-2 mb-3 pt-4">Укажите цену жилья</h4>
+          <p class="t1 small mb-sm-4 pt-3">Стоимость недвижимости</p>
           <p class="" style="width: 90%; margin-top: 1.7rem;"><input id="calc1" name="calc1" data-slider-id="calc1Slider" type="text" data-slider-min="4000000"
             data-slider-max="20000000" data-slider-step="50000" data-slider-value="6500000"></p>
-          <p class="t1 small mb-sm-4">Первоначальный взнос</p>
+          <p class="t1 small mb-sm-4 mt-5">Первоначальный взнос</p>
           <p class="" style="width: 90%; margin-top: 1.7rem;"><input id="calc2" name="calc2" data-slider-id="calc2Slider" type="text" data-slider-min="500000"
             data-slider-max="2500000" data-slider-step="10000" data-slider-value="950000"></p>
         </div>
@@ -396,11 +396,21 @@
           <p class="text-center er-text mb-0" style="height: 3rem;"></p>
           <p class="mb-0"><span class="num-seven pr-2 py-2">+7</span><input type="tel" class="ipoteka-text ipoteka-text-1 py-2 pl-5" name="tel-ip" placeholder="Телефон"></p>
           <p class="text-center er-tel-text mb-0" style="height: 3rem;"></p>
+          <div class="check-policy">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="check3" required>
+                  <label class="form-check-label gray" for="check3">Даю согласие на <a href="{% url 'person_data' %}">обработку персональных данных</a></label>
+            </div>
+            <div class="form-check mb-4">
+              <input type="checkbox" class="form-check-input" id="check4" required>
+                  <label class="form-check-label gray" for="check4">Ознакомлен с <a href="{% url 'policy' %}">Политикой сайта и условиями обработки и защиты персональных данных</a></label>
+            </div>
+          </div>
         </div>
         <div class="d-flex justify-content-center mt-sm-5"><button class="btn btn-success btn-ipoteka btn-ipoteka-1">Далее</button></div>
       </form>
     </div>
-    <div class="col-10 col-sm-6 d-flex flex-column mt-3 mt-sm-0">
+    <div class="col-10 col-md-6 d-flex flex-column mt-3 mt-sm-0">
       <div>
         <a href="#"><img class="" src="{% static 'img/ipoteka.png' %}" alt="ipteka_img" style="width: 100%; height: 13rem; object-fit: contain;"></a>
       </div>
@@ -492,7 +502,7 @@
           </div>
           <div class="col-6 col-sm-3 d-flex flex-column align-items-center">
             <p class="gray mb-2 font-weight-bold">Нежилые помещения</p>
-            {% if bject.buildings_set.first.sales_not_living %}
+            {% if object.buildings_set.first.sales_not_living %}
               <svg class="chart" width="100" height="100" viewBox="0 0 50 50">
                 <circle class="unit" r="15.9" cx="50%" cy="50%" style="fill: none; stroke-width: 0.3rem; stroke: #55B50C; stroke-dasharray: {{ object.buildings_set.first.sales_not_living|split:'%'|first }} 100"></circle>
               </svg>
@@ -700,8 +710,7 @@
       {% endif %}
     </div>
   </div>
-  <h2 class="gray mb-3 mt-3">Медиа</h2>
-  <div class="row" style="height: 13.5rem;">
+  <!--div class="row" style="height: 13.5rem;">
     <div class="col-7 col-sm-8 col-md-9" style="border-radius: 10px; height: 13.5rem;">
       {% if build_news %}
         <a href="{% url 'news_detail' build_news.pk %}" style="text-decoration: none;">
@@ -730,10 +739,13 @@
         <a href="https://t.me/bashni111" target="_blank" class="btn btn-success" role="button" style="border-radius: 10px; width: 85%; margin: auto;">Подписаться</a>
       </div>
     </div>
-  </div>
+  </div-->
   {% if object.youtubechannel_set.first %}
     <div class="row mt-5">
-      <div class="slider slider-2">
+      <div class="col-12">
+        <h2 class="gray mb-5">Медиа</h2>
+      </div>
+      <div class="slider slider-2 mb-3">
         <div class="slider__container">
           <div class="slider__wrapper">
             {% if object.youtubechannel_set.all|length == 1 %}
@@ -767,7 +779,7 @@
                   <a href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}">
                       <img class="card-img-top" src="/media/{{ item.buildings_set.first.small_img }}" alt="img" style="height: 10rem; border-radius: 0.6rem;">
                   </a>
-                  <p class="heart">
+                  <p class="heart mb-0">
                       <span>
                           {% if request.user.is_authenticated %}
                               <i id="{{ item.id }}_zhk" data-url="{{ request.path }}" class="{% if item.id in fav_zhk %}fa fa-heart{% else %}fa fa-heart-o{% endif %}" aria-hidden="true" style="color: #55B50C;"></i>
@@ -776,7 +788,7 @@
                           {% endif %}
                       </span>
                   </p>
-                   <div class="card-body">
+                   <div class="card-body pt-0">
                        <p class="badge badge-pill badge-secondary">{{ item.buildings_set.first.get_build_stage_display }}</p>
                        <h4 class="card-title"><a href="{% url 'property_detail' item.city.city_slug item.pk item.slug %}" style="color: #55B50C;">{{ item.name|truncatewords:20 }}</a></h4>
                        <p class="small">Срок сдачи: {{ item.buildings_set.first.operation_term }}</p>

@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError
 from lxml import html
 import requests
 import os
@@ -60,7 +61,16 @@ def parse_flats():
                             except IndexError:
                                 db_item['flat_decor'] = 'Да'
                                 print(f'*******{url_link}*********')
-                        db.flats.insert_one(db_item)
+                        try:
+                            db.flats.insert_one(db_item)
+                        except DuplicateKeyError:
+                            print('duplicate found')
+                            print(db.flats.find_one({'_id': db_item['_id']}))
+                            try:
+                                db_item['_id'] = f'100{db_item["_id"]}'
+                                db.flats.insert_one(db_item)
+                            except DuplicateKeyError:
+                                print('duplicate 2!')
                                                   
     logger_path = os.path.join(os.path.dirname(__file__), 'flats_logger.txt')
     with open(logger_path, 'a') as f:

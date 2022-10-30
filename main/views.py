@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormMixin
 
-from main.models import News, Tags, YoutubeChannel, NewsComment, Events, SitePolicy
+from main.models import News, Tags, YoutubeChannel, NewsComment, Events, SitePolicy, PersonDataTreatment
 from main.forms import NewsCommentForm
 from property.models import Flats, Property, Buildings, City
 
@@ -29,21 +29,17 @@ class IndexView(TemplateView):
         context['flat_decors'] = Flats.DECOR_CHOICES
         context['f_dates'] = Flats.objects.distinct('fk_building__operation_term').order_by(
             '-fk_building__operation_term')
-        context['districts'] = Flats.objects.distinct('fk_property__district')
         try:
             context['min_price'] = Flats.objects.exclude(fl_price__in=[None, 0]).order_by('fl_price').first().fl_price
             context['max_price'] = Flats.objects.all().order_by('-fl_price').exclude(fl_price=None).first().fl_price
             context['max_sq'] = Flats.objects.all().order_by('-fl_sq').first().fl_sq
             context['min_sq'] = Flats.objects.all().order_by('fl_sq').first().fl_sq
-            context['max_fl'] = Flats.objects.all().order_by('-floor').first().floor
         except Exception:
             context['min_price'] = 0
             context['max_price'] = 0
             context['min_sq'] = 0
             context['max_sq'] = 0
-            context['max_fl'] = 25
         return context
-
 
 
 class NewsListView(ListView):
@@ -55,7 +51,20 @@ class NewsListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['recent'] = News.objects.all().order_by('-published')[:4]
-        context['popular'] = News.objects.filter(tags__slug='populyarnoe').order_by('-published')[:4]
+        context['popular'] = News.objects.filter(news_visit__gte=10).order_by('-published')[:4]
+        return context
+
+
+class PopularNewsListView(ListView):
+    paginate_by = 20
+
+    def get_queryset(self):
+        return News.objects.filter(news_visit__gte=10).order_by('-news_visit')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recent'] = News.objects.all().order_by('-published')[:4]
+        context['popular'] = News.objects.filter(news_visit__gte=10).order_by('-published')[:4]
         return context
 
 
@@ -72,6 +81,9 @@ class NewsDetailList(FormMixin, DetailView):
         self.object = self.get_object()
         data = self.get_context_data(object=self.object)
         like = self.request.GET.get('likes')
+        self.object.news_visit += 1
+        self.object.save()
+
         if like:
             total_likes = int(like) + 1
             self.object.likes = total_likes
@@ -113,7 +125,7 @@ class NewsSlugView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['recent'] = News.objects.all().order_by('-published')[:4]
-        context['popular'] = News.objects.filter(tags__slug='populyarnoe').order_by('-published')[:4]
+        context['popular'] = News.objects.filter(news_visit__gte=10).order_by('-published')[:4]
         return context
 
 
@@ -188,6 +200,15 @@ class PolicyView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object'] = SitePolicy.objects.first()
+        return context
+
+
+class PersonDataView(TemplateView):
+    template_name = 'main/person_data.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = PersonDataTreatment.objects.first()
         return context
 
 

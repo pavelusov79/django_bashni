@@ -177,7 +177,7 @@ class FlatDetailView(FormMixin, DetailView):
         fio = request.POST.get('fio')
         tel_ipoteka = request.POST.get('tel-ip')
         if fio and tel_ipoteka:
-            recipients = ['info@111bashni.ru']
+            recipients = ['crm@111bashni.ru']
             message = f'Заяка на расчет ипотеки квартиры { self.object.get_fl_type_display() } в ЖК { self.object.fk_property.name }, дом: {self.object.fk_building.num_dom }, этаж: {self.object.floor}, № кв: {self.object.fl_num}\nстоимость квартиры: {self.object.fl_price} руб.\nпервоначальный взнос: {request.POST.get("calc2")} руб.\nФИО: {fio}\nтел: +7{tel_ipoteka}'
             send_mail('Заяка на расчет ипотеки квартиры', message, 'it@111bashni.ru', recipients) 
         
@@ -191,7 +191,7 @@ class FlatDetailView(FormMixin, DetailView):
         context = super().get_context_data()
         name = form.cleaned_data['name']
         contact_phone = form.cleaned_data['contact_phone']
-        recipients = ['info@111bashni.ru']
+        recipients = ['crm@111bashni.ru']
         message = f'id квартиры: {self.object.id}\nназвание ЖК: {self.object.fk_property.name}\nтип квартиры:' \
                   f' { self.object.get_fl_type_display() }\nномер дома: {self.object.build_num}\nкв. №: ' \
                   f'{self.object.fl_num}\nэтаж: {self.object.floor}\nплощадь: {self.object.fl_sq} м2\nстоимость: ' \
@@ -202,7 +202,7 @@ class FlatDetailView(FormMixin, DetailView):
         return render(self.request, 'property/flats_detail.html', context)
 
     def get_success_url(self):
-        return reverse('flat_detail', kwargs={'city_slug': self.object.fk_propery.city.city_slug, 'pk': self.object.pk, 'slug': self.object.slug})
+        return reverse('flat_detail', kwargs={'city_slug': self.object.fk_property.city.city_slug, 'pk': self.object.pk, 'slug': self.object.slug})
 
 
 class PropertyListView(GetContext, ListView):
@@ -221,9 +221,12 @@ class PropertyListView(GetContext, ListView):
         price = self.request.GET.get('price')
         reset = self.request.GET.get('reset')
         fav_obj = self.request.GET.get('fav_obj')
+        sr_obj = self.request.GET.get('sr_obj')
         self.request.session['page'] = self.request.get_full_path()
         if 'fav_zhk' not in self.request.session.keys():
             self.request.session['fav_zhk'] = []
+        if 'sravni_zhk' not in self.request.session.keys():
+            self.request.session['sravni_zhk'] = []
         if fav_obj:
             if not self.request.user.is_authenticated:
                 if int(fav_obj) not in self.request.session['fav_zhk']:
@@ -241,6 +244,18 @@ class PropertyListView(GetContext, ListView):
                     fav = FavoritesProperty.objects.get(user=self.request.user,
                                                         property_pk=Property.objects.filter(id=fav_id).first())
                     fav.delete()
+
+        if sr_obj:
+            if re.search(r'\w1', sr_obj):
+                sr_id = int(sr_obj.replace('_sr1', ''))
+            else:
+                sr_id = int(sr_obj.replace('_sr', ''))
+            if int(sr_id) not in self.request.session['sravni_zhk']:
+                self.request.session['sravni_zhk'].append(int(sr_id))
+                self.request.session.modified = True
+            else:
+                self.request.session['sravni_zhk'].remove(int(sr_id))
+                self.request.session.modified = True
         if zhk:
             results = list(set(results.filter(Q(name__icontains=zhk) | Q(buildings__addr__icontains=zhk))))
         if district:
@@ -339,7 +354,7 @@ class PropertyDetailView(FormMixin, DetailView):
         type_of_flat = self.request.GET.get('type_of_flat')
         if type_of_flat:
             context['type_flat'] = type_of_flat
-            context['flats_d'] = Flats.objects.filter(fk_property=self.object, fl_type=type_of_flat).exclude(fl_drawing='').exclude(fl_price__in=[None, 0]).order_by('fl_sq').distinct('fl_sq')
+            context['flats_d'] = Flats.objects.filter(fk_property=self.object, fl_type=type_of_flat).exclude(fl_drawing='').exclude(fl_price=None).order_by('fl_sq').distinct('fl_sq')
             if context['flats_d']:
                 context['current_price'] = context['flats_d'][0].fl_price
             if el and context['flats_d']:
@@ -351,7 +366,7 @@ class PropertyDetailView(FormMixin, DetailView):
             except IndexError:
                 context['type_flat'] = '1'
             try:
-                context['flats_d'] = Flats.objects.filter(fk_property=self.object, fl_type=context['fil_flats'][0].fl_type).exclude(fl_drawing='').exclude(fl_price__in=[None, 0]).order_by('fl_sq').distinct('fl_sq')
+                context['flats_d'] = Flats.objects.filter(fk_property=self.object, fl_type=context['fil_flats'][0].fl_type).exclude(fl_drawing='').exclude(fl_price=None).order_by('fl_sq').distinct('fl_sq')
             except IndexError:
                 context['flats_d'] = ''
             if context['flats_d']:
@@ -385,13 +400,13 @@ class PropertyDetailView(FormMixin, DetailView):
         name = request.POST.get('name')
         tel = request.POST.get('contact_phone')
         if name and tel:
-            recipients = ['info@111bashni.ru']
+            recipients = ['crm@111bashni.ru']
             message = f'Поступила заяка на просмотр ЖК:\nжилой комплекс: {self.object.name}\nот: {name}\nконтактный тел: {tel}'
             send_mail('Заяка на просмотр ЖК', message, 'it@111bashni.ru', recipients)       
         fio = request.POST.get('fio')
         tel_ipoteka = request.POST.get('tel-ip')
         if fio and tel_ipoteka:
-            recipients = ['info@111bashni.ru']
+            recipients = ['crm@111bashni.ru']
             message = f'Заяка на расчет ипотеки:\nстоимость жилья: {request.POST.get("calc1")} руб.\nпервоначальный взнос: {request.POST.get("calc2")} руб.\nФИО: {fio}\nтел: +7{tel_ipoteka}'
             send_mail('Заяка на расчет ипотеки', message, 'it@111bashni.ru', recipients) 
         

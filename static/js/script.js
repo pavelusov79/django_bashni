@@ -524,9 +524,19 @@ $('span svg').click(function() {
                 $this.attr('fill', 'none');
             }
             if ($this.hasClass('delete-sr')) {
-                if ($('.sr').length > 1 && $('.sr').html != '') {
+                if ($('.delete-sr').length > 1) {
                     $this.parents('.sr').fadeOut('slow', function() {
                         $this.parents('.sr').empty();
+                        console.log('deleted compare');
+                    });
+                }else {
+                    window.location.reload();
+                }
+            }
+            if ($this.hasClass('delete-sr-zhk')) {
+                if ($('.delete-sr-zhk').length > 1) {
+                    $this.parents('.sr_zhk').fadeOut('slow', function() {
+                        $this.parents('.sr_zhk').empty();
                         console.log('deleted compare');
                     });
                 }else {
@@ -539,14 +549,21 @@ $('span svg').click(function() {
 
 $('.sr-empty').click(function(){
     var sr_empty = $(this).attr('id');
+    var val = $('li.active').attr('value');
     $.ajax({
         type: 'GET',
         url: $(this).attr('data-url'),
-        data: {'sr_empty': sr_empty},
+        data: {'sr_empty': sr_empty, 'val': val},
         success: function(response) {
-            var res = $(response).find('.show-block');
-            $('.block-1').empty();
-            $('.block-1').html(res);
+            if (val == 'fl') {
+                var res = $(response).find('.show-block');
+                $('.block-1').empty();
+                $('.block-1').html(res);
+            }else if (val == 'zhk') {
+                var res = $(response).find('.show-block-empty');
+                $('.block-5').empty();
+                $('.block-5').html(res);
+            }
         }
     });
     return false;
@@ -652,6 +669,8 @@ $('.btn-ipoteka').click(function(e) {
         $('.er-tel').css('display', 'none');
         var nameEl = $('input[name=fio]').val();
         var telEl = $('input[name=tel-ip]').val();
+        var checked_3 = $('#check3').is(':checked');
+        var checked_4 = $('#check4').is(':checked');
         var re = new RegExp(/^\(9[0-9]{2}\)\s[0-9]{3}\-[0-9]{4}$/);
         var re1 = new RegExp(/^[а-яА-Я]{2,}$|^[а-яА-Я]{2,}\s[а-яА-Я]{2,}$|^[а-яА-Я]{2,}\s[а-яА-Я]{2,}\s[а-яА-Я]{2,}$/);
         if (nameEl == '' || re1.test(nameEl) != true) {
@@ -660,7 +679,19 @@ $('.btn-ipoteka').click(function(e) {
         if (telEl == '' || re.test(telEl) != true) {
             $('.er-tel-text').append('<p class="font-italic er-tel pl-4 text-left" style="color: red;">Вводить номер нужно без пробелов начиная с 9-ки, например 9027235577 в кол-ве 10 цифр.</p>');
         }
-        if (re.test(telEl) && re1.test(nameEl)) {
+        if (!checked_3 || !checked_4) {
+            $('.form-check').removeClass('mb-4');
+            $('.check-policy').append('<p class="font-italic small pl-3 mt-0 mb-0 text-left check-p" style="color: red;">Чтобы отправить установите все флажки</p>');
+        }
+        $('.form-check input').change(function() {
+            if ($('#check3').is(':checked')) {
+                $('.check-p').remove();
+            }
+            else if ($('#check4').is(':checked')) {
+                $('.check-p').remove();
+            }
+        });
+        if (re.test(telEl) && re1.test(nameEl) && checked_3 && checked_4) {
             var url = $('#select_num_dom').attr('action');
             $.ajax({
                 type: 'POST',
@@ -675,6 +706,8 @@ $('.btn-ipoteka').click(function(e) {
                     $('.btn-ipoteka').html('Далее');
                     $('input[name=fio]').val('');
                     $('input[name=tel-ip]').val('');
+                    $('#check3').prop('checked', false);
+                    $('#check4').prop('checked', false);
                     console.log('ipoteka request was sent');
                 }
             });

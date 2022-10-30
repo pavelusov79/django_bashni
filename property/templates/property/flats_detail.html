@@ -52,16 +52,24 @@
                   <form action="" method="post">
                       {% csrf_token %}
                       {{ form.as_p }}
-                      <button class="btn btn-primary" type="submit">отправить заявку</button>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="check1" required>
+                          <label class="form-check-label gray" for="check1">Даю согласие на <a href="{% url 'person_data' %}">обработку персональных данных</a></label>
+                      </div>
+                      <div class="form-check mb-4">
+                        <input type="checkbox" class="form-check-input" id="check2" required>
+                          <label class="form-check-label gray" for="check2">Ознакомлен с <a href="{% url 'policy' %}">Политикой сайта и условиями обработки и защиты персональных данных</a></label>
+                      </div>
+                      <button class="btn btn-success" type="submit">отправить заявку</button>
                   </form>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-10 col-sm-6">
+        <div class="col-10 col-md-6">
             <div class="block-1">
                 {% if object.fl_drawing %}
-                    <img class="img-fluid" src="/media/{{ object.fl_drawing }}" alt="{{object.fl_type}}">
+                    <img class="img-fluid" src="/media/{{ object.fl_drawing }}" alt="{{object.fl_type}}" style="max-height: 40rem;">
                 {% else %}
                     <h5 class="align-item-center">Планировка не загружена</h5>
                 {% endif %}
@@ -84,7 +92,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-11 col-sm-6 py-3 right-block" style="background: #EEEEEE; border-radius: 0.9rem; max-height: 28.5rem;">
+        <div class="col-12 col-md-6 py-3 right-block mb-sm-3" style="background: #EEEEEE; border-radius: 0.9rem; max-height: 28.5rem;">
             <h1 class="gray">{% if object.fl_type == 'C' %}Студия{% else %}{{ object.fl_type }}-комн кв{% endif %} {{ object.fl_sq }} м2</h1>
             <h6 class=""><a href="{% url 'property_detail' object.fk_property.city.city_slug object.fk_property.id object.fk_property.slug %}" style="color: #55B50C;">{{ object.fk_property.name }}</a></h6>
             <p class="gray mb-2 mt-3">Передача ключей:{% if object.fk_building.send_keys %} {{ object.fk_building.send_keys|date:"d M Y" }}г.{% else %}&mdash;{% endif %}</p>
@@ -175,7 +183,7 @@
     </div>
     {% if object.fl_price %}
         <div class="row justify-content-center mt-md-5">
-            <div class="col-11 col-sm-12 ipoteka-calc-1" style="height: 20.5rem; border: 1px solid rgba(238, 238, 238, 1); background: rgba(238, 238, 238, 1)">
+            <div class="col-11 col-sm-12 ipoteka-calc-1" style="height: 28.5rem; border: 1px solid rgba(238, 238, 238, 1); background: rgba(238, 238, 238, 1)">
                 <form  class="ipoteka_calc_form" method="post" id="select_num_dom" action="{{ request.path }}" style="width: 100%; border: none; padding-left: 0;">
                 {% csrf_token %}
                 <div class="d-flex mt-4 justify-content-center">
@@ -183,35 +191,45 @@
                     <div class="div2 green ml-5" style="width: 10%;"></div>
                 </div>
                 <p class="ml-4 mt-2 text-step">Шаг 1 из 2</p>
-                <div class="step1 ml-4" style="height: 10.5rem;">
+                <div class="step1 ml-4" style="height: 12.5rem;">
                     <h4 class="mt-2 mb-3">Расчитать ипотеку</h4>
-                    <div class="d-flex flex-wrap">
-                        <div class="col-11 col-sm-6">
+                    <div class="d-flex flex-wrap pt-4">
+                        <div class="col-11 col-md-6 st-1">
                             <p class="small mb-4">Стоимость недвижимости</p>
                             <p class="slider4" style="width: 90%; margin-top: 1.7rem;"><input id="calc3" name="calc3" data-slider-id="calc3Slider" type="text" data-slider-min="4000000"
                             data-slider-max="20000000" data-slider-step="500000" data-slider-value="{{ object.fl_price }}"></p>
                         </div>
-                        <div class="col-11 col-sm-6">
+                        <div class="col-11 col-md-6">
                             <p class="small mb-4">Первоначальный взнос</p>
                             <p class="slider4" style="width: 90%; margin-top: 1.7rem;"><input id="calc2" name="calc2" data-slider-id="calc2Slider" type="text" data-slider-min="500000"
                             data-slider-max="2500000" data-slider-step="10000" data-slider-value="950000"></p>
                         </div>
                     </div>
                 </div>
-                <div class="step2" style="height: 10.5rem;">
+                <div class="step2" style="height: 12.5rem;">
                     <h4 class="mt-2 mb-5 ml-4">Укажите ваши данные</h4>
                     <div class="d-flex flex-wrap">
-                        <div class="col-11 col-sm-6 text-center text-sm-left">
+                        <div class="col-11 col-md-6 text-center text-sm-left fio">
                             <input type="text" class="ipoteka-text py-2 pl-3" name="fio" placeholder="ФИО">
                             <p class="er-text mt-1"></p>
                         </div>
-                        <div class="col-11 col-sm-6">
+                        <div class="col-11 col-md-6 tel-ipoteka">
                             <p class="text-tel mb-0"><span class="num-seven pr-2 py-2">+7</span><input type="tel" class="ipoteka-text py-2 pl-5 mb-2" name="tel-ip" placeholder="Телефон"></p>
                             <p class="er-tel-text"></p>
                         </div>
+                        <div class="col-11 check-policy mt-0">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="check3" required>
+                                    <label class="form-check-label gray" for="check3">Даю согласие на <a href="{% url 'person_data' %}">обработку персональных данных</a></label>
+                            </div>
+                            <div class="form-check mb-4">
+                                <input type="checkbox" class="form-check-input" id="check4" required>
+                                    <label class="form-check-label gray" for="check4">Ознакомлен с <a href="{% url 'policy' %}">Политикой сайта и условиями обработки и защиты персональных данных</a></label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-6"><button class="btn btn-success btn-ipoteka">Далее</button></div>
+                <div class="col-6 btn-ip" style="margin-top: 5rem;"><button class="btn btn-success btn-ipoteka">Далее</button></div>
                 </form>
             </div>
         </div>
@@ -221,8 +239,8 @@
         {% if otdelka %}
             {% for item in otdelka %}
                 {% if item.decor == object.fl_decor %}
-                    <div class="col-11 col-sm-6 gray">{{ item.decor_text|safe }}</div>
-                    <div class="col-11 col-sm-6">
+                    <div class="col-11 col-md-6 gray">{{ item.decor_text|safe }}</div>
+                    <div class="col-11 col-md-6">
                         {% if object.fk_property.flats_media.first %}
                             {% for obj in  object.fk_property.flats_media.all %}
                                 {% if object.fl_type == obj.flat_choice %}
@@ -261,8 +279,8 @@
                 {% endif %}
             {% endfor %}
         {% else %}
-            <div class="col-11 col-sm-6 gray">{% lorem 2 p random %}</div>
-            <div class="col-11 col-sm-6">
+            <div class="col-11 col-md-6 gray">{% lorem 2 p random %}</div>
+            <div class="col-11 col-md-6">
                 {% if object.fl_decor == 'Нет' %}
                     <img src="{% static 'img/bez_otdelki.jpg' %}" alt="img" style="height: 20rem; object-fit: cover;">
                 {% elif object.fl_decor == 'whitebox' %}
@@ -281,7 +299,7 @@
                 <div class="slider__wrapper">
                     <div class="slider__items" {% if similar|length == 1 %}style="justify-content: center;"{% endif %}>
                         {% for item in similar %}
-                        <div class="col-6 col-sm-4 col-lg-3 slider__item">
+                        <div class="col-6 col-md-4 col-lg-3 slider__item">
                             <div class="card" style="border: none; background: rgba(238, 238, 238, 1); border-radius: 0.7rem;">
                                 <a href="{% url 'flat_detail' item.fk_property.city.city_slug item.pk item.slug %}">
                                     {% if item.fl_drawing %}

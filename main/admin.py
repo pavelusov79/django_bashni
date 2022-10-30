@@ -3,10 +3,11 @@ from django.contrib import admin
 from django.contrib.admin import StackedInline
 from django.core.mail import send_mail
 
-from main.models import ImageNews, News, Tags, YoutubeChannel, NewsComment, Events, SitePolicy
+from main.models import ImageNews, News, Tags, YoutubeChannel, NewsComment, Events, SitePolicy, PersonDataTreatment
 
 
 admin.site.register(SitePolicy)
+admin.site.register(PersonDataTreatment)
 
 
 class NewsCommentForm(forms.ModelForm):
@@ -38,7 +39,12 @@ class NewsCommentAdmin(admin.ModelAdmin):
 @admin.register(Tags)
 class TagsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('tag_name',)}
-    list_display = ('tag_name', 'slug')
+    list_display = ('tag_name', 'slug', 'q_ty')
+
+    def q_ty(self, obj):
+        return len(News.objects.filter(tags=obj))
+
+    q_ty.short_description = "Кол-во статей"
 
 
 class ImagesInline(StackedInline):
@@ -47,9 +53,14 @@ class ImagesInline(StackedInline):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'published')
+    list_display = ('title', 'published', 'news_visit', 'get_tags')
     list_filter = ('published', 'is_active', 'tags')
     inlines = [ImagesInline]
+
+    def get_tags(self, obj):
+        return [tag.tag_name for tag in obj.tags.all()]
+
+    get_tags.short_description = "Тэги"
 
 
 @admin.register(YoutubeChannel)

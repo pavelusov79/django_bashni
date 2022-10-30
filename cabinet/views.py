@@ -65,31 +65,54 @@ class CompareView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['flats'] = Flats.objects.all()
+        context['zhk'] = Property.objects.all()
         context['fav_fl'] = [item[0] for item in
                              FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]
+        context['fav_zhk'] = [item[0] for item in
+                              FavoritesProperty.objects.filter(user=self.request.user).values_list('property_pk')]
         return context
 
     def get(self, request, *args, **kwargs):
         fav_obj = self.request.GET.get('fav_obj')
         sr_obj = self.request.GET.get('sr_obj')
         sr_empty = self.request.GET.get('sr_empty')
+        val = self.request.GET.get('val')
         if fav_obj:
-            fav_id = int(fav_obj.replace('_fl', ''))
-            if fav_id not in [item[0] for item in
-                              FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]:
-                fav = FavoritesFlats(user=self.request.user, property_pk=Flats.objects.filter(id=fav_id).first())
-                fav.save()
+            if re.search(r'\w_fl', fav_obj):
+                fav_id = int(fav_obj.replace('_fl', ''))
+                if fav_id not in [item[0] for item in
+                                  FavoritesFlats.objects.filter(user=self.request.user).values_list('property_pk')]:
+                    fav = FavoritesFlats(user=self.request.user, property_pk=Flats.objects.filter(id=fav_id).first())
+                    fav.save()
+                else:
+                    fav = FavoritesFlats.objects.get(user=self.request.user,
+                                                     property_pk=Flats.objects.filter(id=fav_id).first())
+                    fav.delete()
             else:
-                fav = FavoritesFlats.objects.get(user=self.request.user,
-                                                 property_pk=Flats.objects.filter(id=fav_id).first())
-                fav.delete()
+                fav_id = int(fav_obj.replace('_zhk', ''))
+                if fav_id not in [item[0] for item in
+                                  FavoritesProperty.objects.filter(user=self.request.user).values_list('property_pk')]:
+                    fav = FavoritesProperty(user=self.request.user,
+                                            property_pk=Property.objects.filter(id=fav_id).first())
+                    fav.save()
+                else:
+                    fav = FavoritesProperty.objects.get(user=self.request.user,
+                                                        property_pk=Property.objects.filter(id=fav_id).first())
+                    fav.delete()
         if sr_obj:
-            sr_id = int(sr_obj.replace('_sr', ''))
-            print('sr_id = ', sr_id)
-            self.request.session['sravni_fl'].remove(int(sr_id))
-            self.request.session.modified = True
-        if sr_empty:
+            if re.search(r'\w_sr', sr_obj):
+                sr_id = int(sr_obj.replace('_sr', ''))
+                self.request.session['sravni_fl'].remove(int(sr_id))
+                self.request.session.modified = True
+            else:
+                sr_id = int(sr_obj.replace('_zhk', ''))
+                self.request.session['sravni_zhk'].remove(int(sr_id))
+                self.request.session.modified = True
+        if sr_empty and val == 'fl':
             self.request.session['sravni_fl'] = []
+            self.request.session.modified = True
+        elif sr_empty and val == 'zhk':
+            self.request.session['sravni_zhk'] = []
             self.request.session.modified = True
         return super().get(request, *args, **kwargs)
 

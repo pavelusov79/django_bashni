@@ -31,6 +31,7 @@ class News(models.Model):
     tags = models.ManyToManyField(Tags, verbose_name='тэги')
     is_active = models.BooleanField(verbose_name='новость активна', default=True)
     likes = models.PositiveSmallIntegerField(verbose_name='лайки', default=0)
+    news_visit = models.PositiveSmallIntegerField(verbose_name='просмотры новости', default=0)
 
     def __str__(self):
         return self.title
@@ -108,5 +109,17 @@ class SitePolicy(models.Model):
 
     class Meta:
         verbose_name_plural = 'Политика сайта'
+
+
+class PersonDataTreatment(models.Model):
+    title = models.CharField(max_length=256, verbose_name='заголовок')
+    text = RichTextField(verbose_name='текст')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Обработка персональных данных'
+
 
 

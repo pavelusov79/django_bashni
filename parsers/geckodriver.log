@@ -10,3 +10,841 @@ Gtk-Message: 09:32:48.336: Failed to load module "xapp-gtk3-module"
 Gtk-Message: 09:35:28.978: Failed to load module "xapp-gtk3-module"
 [GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1665898097570	geckodriver	INFO	Listening on 127.0.0.1:37109
+1665898098076	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--window-size=1200, 800" "-headless" "--remote-debugging-port" "34751" "-no-remote" "-profile" "/tmp/rust_mozprofileuWjUBy"
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/cups/doc-root /usr/share/cups/doc-root none bind,ro 0 0): cannot create directory "/usr/share/cups/doc-root": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/gimp/2.0/help /usr/share/gimp/2.0/help none bind,ro 0 0): cannot create directory "/usr/share/gimp/2.0": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/libreoffice/help /usr/share/libreoffice/help none bind,ro 0 0): cannot create directory "/usr/share/libreoffice/help": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/xubuntu-docs /usr/share/xubuntu-docs none bind,ro 0 0): cannot open directory "/var/lib": permission denied
+*** You are running in headless mode.
+Gtk-Message: 15:28:19.660: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1665898540945	geckodriver	INFO	Listening on 127.0.0.1:53819
+1665898541463	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "53675" "-no-remote" "-profile" "/tmp/rust_mozprofileZAL9XZ"
+Gtk-Message: 15:35:42.271: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+[Parent 16479, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:16479): GLib-GIO-CRITICAL **: 15:35:43.020: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 16479, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:16479): GLib-GIO-CRITICAL **: 15:35:43.020: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[warn] evsig_handler: received signal 17, but have no base configured
+1665898877517	geckodriver	INFO	Listening on 127.0.0.1:35083
+1665898877522	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "57323" "-no-remote" "-profile" "/tmp/rust_mozprofilerjIVGM"
+Gtk-Message: 15:41:17.686: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+[Parent 16824, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:16824): GLib-GIO-CRITICAL **: 15:41:18.195: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 16824, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:16824): GLib-GIO-CRITICAL **: 15:41:18.195: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+1665899262942	geckodriver	INFO	Listening on 127.0.0.1:38181
+1665899263448	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "44611" "-no-remote" "-profile" "/tmp/rust_mozprofiledmPkvx"
+Gtk-Message: 15:47:43.717: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+[Parent 17177, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:17177): GLib-GIO-CRITICAL **: 15:47:44.223: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 17177, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:17177): GLib-GIO-CRITICAL **: 15:47:44.223: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+1665899343043	geckodriver	INFO	Listening on 127.0.0.1:49525
+1665899343512	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "59393" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilegu4ax6"
+Gtk-Message: 15:49:03.539: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665899344315	Marionette	INFO	Marionette enabled
+1665899344320	Marionette	INFO	Listening on port 36649
+[Parent 17431, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:17431): GLib-GIO-CRITICAL **: 15:49:04.401: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 17431, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:17431): GLib-GIO-CRITICAL **: 15:49:04.402: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+Read port: 36649
+WebDriver BiDi listening on ws://127.0.0.1:59393
+1665899344481	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilegu4ax6/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:59393/devtools/browser/0b0c0e6c-871d-4180-8c16-ebdbf24583fa
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665899368279	Marionette	INFO	Stopped listening on port 36649
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665899451691	geckodriver	INFO	Listening on 127.0.0.1:55957
+1665899452151	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "40697" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileUVWRyE"
+Gtk-Message: 15:50:52.179: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665899452906	Marionette	INFO	Marionette enabled
+1665899452911	Marionette	INFO	Listening on port 42047
+Read port: 42047
+[Parent 17823, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:17823): GLib-GIO-CRITICAL **: 15:50:52.993: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 17823, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:17823): GLib-GIO-CRITICAL **: 15:50:52.993: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:40697
+1665899453048	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileUVWRyE/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:40697/devtools/browser/466fe1b7-a5f8-4496-a1e2-c5c0478efefb
+1665899563369	geckodriver	INFO	Listening on 127.0.0.1:34449
+1665899563556	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "50093" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileZSuP4a"
+Gtk-Message: 15:52:43.585: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665899564408	Marionette	INFO	Marionette enabled
+1665899564413	Marionette	INFO	Listening on port 46247
+Read port: 46247
+[Parent 18181, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:18181): GLib-GIO-CRITICAL **: 15:52:44.486: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 18181, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:18181): GLib-GIO-CRITICAL **: 15:52:44.486: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:50093
+1665899564537	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileZSuP4a/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:50093/devtools/browser/0df77b85-3301-4120-9beb-31f834ea4fcd
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665899676147	Marionette	INFO	Stopped listening on port 42047
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665900872292	geckodriver	INFO	Listening on 127.0.0.1:49729
+1665900872708	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "49863" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileeTF8ZK"
+Gtk-Message: 16:14:32.735: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665900873465	Marionette	INFO	Marionette enabled
+1665900873470	Marionette	INFO	Listening on port 36559
+Read port: 36559
+[Parent 19121, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:19121): GLib-GIO-CRITICAL **: 16:14:33.537: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 19121, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:19121): GLib-GIO-CRITICAL **: 16:14:33.538: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:49863
+1665900873595	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileeTF8ZK/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:49863/devtools/browser/7276fd83-61f8-448e-8278-773ee0f1f997
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665900942787	geckodriver	INFO	Listening on 127.0.0.1:60971
+1665900943255	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "38371" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileKA8qbM"
+Gtk-Message: 16:15:43.282: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665900943974	Marionette	INFO	Marionette enabled
+1665900943978	Marionette	INFO	Listening on port 37777
+[Parent 19473, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:19473): GLib-GIO-CRITICAL **: 16:15:44.045: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 19473, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:19473): GLib-GIO-CRITICAL **: 16:15:44.045: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+Read port: 37777
+WebDriver BiDi listening on ws://127.0.0.1:38371
+1665900944126	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileKA8qbM/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:38371/devtools/browser/909cf142-5783-49b5-9206-7254810b9362
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665901059610	Marionette	INFO	Stopped listening on port 37777
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665901108613	geckodriver	INFO	Listening on 127.0.0.1:56109
+1665901109079	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "33055" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilei6QiZK"
+Gtk-Message: 16:18:29.106: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665901109809	Marionette	INFO	Marionette enabled
+1665901109814	Marionette	INFO	Listening on port 41807
+Read port: 41807
+[Parent 19869, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:19869): GLib-GIO-CRITICAL **: 16:18:29.897: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 19869, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:19869): GLib-GIO-CRITICAL **: 16:18:29.897: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:33055
+1665901109950	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilei6QiZK/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:33055/devtools/browser/62c2fca0-82c4-45ab-83f3-d3238f804463
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+console.error: (new TypeError("container.node.targetFront is null", "resource://devtools/client/inspector/markup/markup.js", 2352))
+console.error: (new TypeError("container.editor is undefined", "resource://devtools/client/inspector/markup/markup.js", 1647))
+JavaScript error: resource://devtools/client/inspector/markup/markup.js, line 1620: TypeError: container.flashMutation is not a function
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+console.error: (new TypeError("container.node.targetFront is null", "resource://devtools/client/inspector/markup/markup.js", 2352))
+console.error: (new TypeError("container.editor is undefined", "resource://devtools/client/inspector/markup/markup.js", 1647))
+JavaScript error: resource://devtools/client/inspector/markup/markup.js, line 1620: TypeError: container.flashMutation is not a function
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 576: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665901726489	Marionette	INFO	Stopped listening on port 41807
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+1665901827975	geckodriver	INFO	Listening on 127.0.0.1:58949
+1665901828325	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "38573" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilemlvc8U"
+Gtk-Message: 16:30:28.411: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665901829169	Marionette	INFO	Marionette enabled
+1665901829174	Marionette	INFO	Listening on port 35029
+Read port: 35029
+[Parent 20586, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:20586): GLib-GIO-CRITICAL **: 16:30:29.241: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 20586, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:20586): GLib-GIO-CRITICAL **: 16:30:29.241: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:38573
+1665901829294	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilemlvc8U/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:38573/devtools/browser/aeb58dec-f5c2-4292-b9ca-edf05c66dfcf
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665901961368	geckodriver	INFO	Listening on 127.0.0.1:38061
+1665901961843	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "34805" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile543mqX"
+Gtk-Message: 16:32:41.871: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665901962573	Marionette	INFO	Marionette enabled
+1665901962578	Marionette	INFO	Listening on port 43473
+Read port: 43473
+[Parent 20977, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:20977): GLib-GIO-CRITICAL **: 16:32:42.665: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 20977, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:20977): GLib-GIO-CRITICAL **: 16:32:42.665: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:34805
+1665901962719	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile543mqX/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:34805/devtools/browser/41490f52-f379-4262-bcb9-c367d4e9e409
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665902523992	geckodriver	INFO	Listening on 127.0.0.1:44811
+1665902524455	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "--remote-debugging-port" "44253" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile7TdIfZ"
+Gtk-Message: 16:42:04.489: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665902525282	Marionette	INFO	Marionette enabled
+1665902525286	Marionette	INFO	Listening on port 42661
+Read port: 42661
+[Parent 21557, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:21557): GLib-GIO-CRITICAL **: 16:42:05.376: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 21557, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:21557): GLib-GIO-CRITICAL **: 16:42:05.376: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:44253
+1665902525446	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile7TdIfZ/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:44253/devtools/browser/440f79eb-fafe-43f3-bed0-e52cacac6f82
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665903012883	geckodriver	INFO	Listening on 127.0.0.1:56729
+1665903013351	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "--remote-debugging-port" "38933" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileW3bYvE"
+Gtk-Message: 16:50:13.378: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665903014092	Marionette	INFO	Marionette enabled
+1665903014097	Marionette	INFO	Listening on port 33221
+Read port: 33221
+[Parent 22160, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:22160): GLib-GIO-CRITICAL **: 16:50:14.201: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 22160, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:22160): GLib-GIO-CRITICAL **: 16:50:14.201: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:38933
+1665903014255	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileW3bYvE/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:38933/devtools/browser/92319988-f39a-41de-8c68-71c69aee6f6b
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+1665903018489	geckodriver	INFO	Listening on 127.0.0.1:45479
+1665903018911	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "--remote-debugging-port" "58521" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofiledfFDKG"
+Gtk-Message: 16:50:18.939: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665903019674	Marionette	INFO	Marionette enabled
+1665903019679	Marionette	INFO	Listening on port 42359
+Read port: 42359
+[Parent 22452, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:22452): GLib-GIO-CRITICAL **: 16:50:19.762: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 22452, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:22452): GLib-GIO-CRITICAL **: 16:50:19.763: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:58521
+1665903019817	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofiledfFDKG/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:58521/devtools/browser/ed87b000-d570-4861-a66f-0911132d49c2
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665903634566	Marionette	INFO	Stopped listening on port 33221
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665903642220	geckodriver	INFO	Listening on 127.0.0.1:53475
+1665903642676	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "user-data-dir=selenium" "--remote-debugging-port" "46359" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile7sDyXz"
+Gtk-Message: 17:00:42.704: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665903643441	Marionette	INFO	Marionette enabled
+1665903643447	Marionette	INFO	Listening on port 43617
+Read port: 43617
+[Parent 23088, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:23088): GLib-GIO-CRITICAL **: 17:00:43.531: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 23088, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:23088): GLib-GIO-CRITICAL **: 17:00:43.531: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:46359
+1665903643587	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile7sDyXz/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:46359/devtools/browser/9c06f6d3-87dd-4f5a-8a49-93b156659d5f
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665903659640	Marionette	INFO	Stopped listening on port 43617
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665903684790	geckodriver	INFO	Listening on 127.0.0.1:47141
+1665903685255	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "user-data-dir=selenium" "--remote-debugging-port" "33151" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilejr2yvv"
+Gtk-Message: 17:01:25.282: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665903685993	Marionette	INFO	Marionette enabled
+1665903685998	Marionette	INFO	Listening on port 32861
+Read port: 32861
+[Parent 23489, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:23489): GLib-GIO-CRITICAL **: 17:01:26.108: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 23489, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:23489): GLib-GIO-CRITICAL **: 17:01:26.108: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:33151
+1665903686155	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilejr2yvv/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:33151/devtools/browser/d8263ca3-282d-4e6b-9b90-30b6d9b362b2
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665903846373	geckodriver	INFO	Listening on 127.0.0.1:42057
+1665903846831	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "user-data-dir=selenium" "--remote-debugging-port" "48913" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileoslaOc"
+Gtk-Message: 17:04:06.859: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665903847586	Marionette	INFO	Marionette enabled
+1665903847590	Marionette	INFO	Listening on port 35277
+Read port: 35277
+[Parent 23903, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:23903): GLib-GIO-CRITICAL **: 17:04:07.669: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 23903, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:23903): GLib-GIO-CRITICAL **: 17:04:07.669: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:48913
+1665903847724	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileoslaOc/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:48913/devtools/browser/944244eb-7756-42b1-8a0a-3182cada453f
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665903879514	Marionette	INFO	Stopped listening on port 35277
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665904087311	geckodriver	INFO	Listening on 127.0.0.1:41007
+1665904087779	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "user-data-dir=selenium" "--remote-debugging-port" "59599" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileFuM90a"
+Gtk-Message: 17:08:07.807: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665904088533	Marionette	INFO	Marionette enabled
+1665904088538	Marionette	INFO	Listening on port 42591
+Read port: 42591
+[Parent 24307, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:24307): GLib-GIO-CRITICAL **: 17:08:08.617: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 24307, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:24307): GLib-GIO-CRITICAL **: 17:08:08.617: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:59599
+1665904088684	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileFuM90a/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:59599/devtools/browser/33f09d74-961c-4cc5-86a5-07693bd4d040
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665904121406	Marionette	INFO	Stopped listening on port 42591
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665904228843	geckodriver	INFO	Listening on 127.0.0.1:50409
+1665904229311	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "Accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9" "--remote-debugging-port" "55591" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilegLI7by"
+Gtk-Message: 17:10:29.338: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665904230068	Marionette	INFO	Marionette enabled
+1665904230073	Marionette	INFO	Listening on port 38077
+Read port: 38077
+[Parent 24699, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:24699): GLib-GIO-CRITICAL **: 17:10:30.152: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 24699, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:24699): GLib-GIO-CRITICAL **: 17:10:30.152: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:55591
+1665904230206	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilegLI7by/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:55591/devtools/browser/c7aee556-8f78-470e-9950-a62a71abe1c1
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665904336193	Marionette	INFO	Stopped listening on port 38077
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+Sandbox: Unexpected EOF, op 0 flags 00 path /proc/cpuinfo
+1665904651230	geckodriver	INFO	Listening on 127.0.0.1:38401
+1665904651703	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "Accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9" "Cookie=ftgl_cookie_id=2379a73d7899a190d1942822739ca770; _ym_uid=166495565813980988; _ym_d=1664955658; iap.uid=b383ee82ee4649c483fa8cf0db59c397; ___dmpkit___=9b24c938-278e-400a-ab34-aeb30cf6a6c0; _gcl_au=1.1.586041584.1664955659; region={%22data%22:{%22name%22:%22%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%22%2C%22kladr%22:%2277%22%2C%22guid%22:%221d1463ae-c80f-4d19-9331-a1b68a85b553%22}%2C%22isAutoResolved%22:true}; tmr_lvid=a476280283486dfc2e420458c7f3a18d; tmr_lvidTS=1664955662092; adtech_uid=98b877f8-e1e0-420a-bda0-de24e53a760b%3Adomclick.ru; top100_id=t1.4513750.1621206774.1664955662629; RETENTION_COOKIES_NAME=c82f5396d31a462188236f7afe96bddd:RyQsoarR-fqeYhasUpr7BZRpAVg; sessionId=3cbb971f2aa84acfa2772e9912f4eee6:zK4cB7W7SRJC-9naD2GuAfFsaPk; UNIQ_SESSION_ID=c37cc77adc90426592579d615a8a5f65:Yod9pbbuMN90VHNlrbMpsIIUYvk; adrcid=AMFj0LldRoMMsCnB4Y6BswQ; currentRegionGuid=619fd4a7-2e28-4d8e-b333-d1c7324c94be; currentLocalityGuid=09b74a8a-e195-493d-b776-fb00c9b763bd; ns_session=54e0c66e-b04d-5928-9ac1-95b2ecd4a8ff; currentSubDomain=vladivostok; regionName=09b74a8a-e195-493d-b776-fb00c9b763bd:%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA; _ym_isad=2; _gid=GA1.2.1798663704.1665878103; dtCookie=v_4_srv_7_sn_C10AD63F8FACF2B1195A254C3788CB62_perc_100000_ol_0_mul_1_app-3Aa90421fc39b1dbac_0_app-3Aca312da39d5a5d07_1_app-3A37d82a95eb231749_0_rcs-3Acss_0; cookieAlert=1; _ga=GA1.2.1278772854.1664955659; last_visit=1665846564296%3A%3A1665882564296; tmr_detect=0%7C1665882567232; tmr_reqNum=30; qrator_jsr=1665899836.527.8IadWDdKS2n7cm2F-tjf03a7nvh1pvd04dsjfg3v0c79vrdlc-00; _ga_NP4EQL89WF=GS1.1.1665898303.3.1.1665899836.60.0.0; t3_sid_4513750=s1.488770282.1665896602297.1665899836623.3.7.95; qrator_jsid=1665899836.527.8IadWDdKS2n7cm2F-ndm924mtm0iompsj0ocubu4da13f34u0" "--remote-debugging-port" "58071" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileASpcyQ"
+Gtk-Message: 17:17:31.734: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665904652430	Marionette	INFO	Marionette enabled
+1665904652435	Marionette	INFO	Listening on port 46603
+JavaScript error: resource://gre/modules/URIFixup.jsm, line 470: NS_ERROR_MALFORMED_URI: Couldn't build a valid uri
+Read port: 46603
+[Parent 25221, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:25221): GLib-GIO-CRITICAL **: 17:17:32.528: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 25221, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:25221): GLib-GIO-CRITICAL **: 17:17:32.528: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:58071
+1665904652581	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileASpcyQ/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:58071/devtools/browser/39e0dffa-60ba-411b-b2e9-57d3d1b707b9
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665904715847	geckodriver	INFO	Listening on 127.0.0.1:44531
+1665904716319	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36" "Cookie=ftgl_cookie_id=2379a73d7899a190d1942822739ca770; _ym_uid=166495565813980988; _ym_d=1664955658; iap.uid=b383ee82ee4649c483fa8cf0db59c397; ___dmpkit___=9b24c938-278e-400a-ab34-aeb30cf6a6c0; _gcl_au=1.1.586041584.1664955659; region={%22data%22:{%22name%22:%22%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%22%2C%22kladr%22:%2277%22%2C%22guid%22:%221d1463ae-c80f-4d19-9331-a1b68a85b553%22}%2C%22isAutoResolved%22:true}; tmr_lvid=a476280283486dfc2e420458c7f3a18d; tmr_lvidTS=1664955662092; adtech_uid=98b877f8-e1e0-420a-bda0-de24e53a760b%3Adomclick.ru; top100_id=t1.4513750.1621206774.1664955662629; RETENTION_COOKIES_NAME=c82f5396d31a462188236f7afe96bddd:RyQsoarR-fqeYhasUpr7BZRpAVg; sessionId=3cbb971f2aa84acfa2772e9912f4eee6:zK4cB7W7SRJC-9naD2GuAfFsaPk; UNIQ_SESSION_ID=c37cc77adc90426592579d615a8a5f65:Yod9pbbuMN90VHNlrbMpsIIUYvk; adrcid=AMFj0LldRoMMsCnB4Y6BswQ; currentRegionGuid=619fd4a7-2e28-4d8e-b333-d1c7324c94be; currentLocalityGuid=09b74a8a-e195-493d-b776-fb00c9b763bd; ns_session=54e0c66e-b04d-5928-9ac1-95b2ecd4a8ff; currentSubDomain=vladivostok; regionName=09b74a8a-e195-493d-b776-fb00c9b763bd:%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA; _ym_isad=2; _gid=GA1.2.1798663704.1665878103; dtCookie=v_4_srv_7_sn_C10AD63F8FACF2B1195A254C3788CB62_perc_100000_ol_0_mul_1_app-3Aa90421fc39b1dbac_0_app-3Aca312da39d5a5d07_1_app-3A37d82a95eb231749_0_rcs-3Acss_0; cookieAlert=1; _ga=GA1.2.1278772854.1664955659; last_visit=1665846564296%3A%3A1665882564296; tmr_detect=0%7C1665882567232; tmr_reqNum=30; qrator_jsr=1665899836.527.8IadWDdKS2n7cm2F-tjf03a7nvh1pvd04dsjfg3v0c79vrdlc-00; _ga_NP4EQL89WF=GS1.1.1665898303.3.1.1665899836.60.0.0; t3_sid_4513750=s1.488770282.1665896602297.1665899836623.3.7.95; qrator_jsid=1665899836.527.8IadWDdKS2n7cm2F-ndm924mtm0iompsj0ocubu4da13f34u0" "--remote-debugging-port" "33975" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileJZTWeE"
+Gtk-Message: 17:18:36.346: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665904717049	Marionette	INFO	Marionette enabled
+1665904717054	Marionette	INFO	Listening on port 36509
+JavaScript error: resource://gre/modules/URIFixup.jsm, line 470: NS_ERROR_MALFORMED_URI: Couldn't build a valid uri
+Read port: 36509
+[Parent 25613, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:25613): GLib-GIO-CRITICAL **: 17:18:37.134: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 25613, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:25613): GLib-GIO-CRITICAL **: 17:18:37.134: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:33975
+1665904717186	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileJZTWeE/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:33975/devtools/browser/1c7ed9ab-cf26-4d61-9c29-dc069e9e4476
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665904917796	geckodriver	INFO	Listening on 127.0.0.1:35855
+1665904918251	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "Cookie=ftgl_cookie_id=2379a73d7899a190d1942822739ca770; _ym_uid=166495565813980988; _ym_d=1664955658; iap.uid=b383ee82ee4649c483fa8cf0db59c397; ___dmpkit___=9b24c938-278e-400a-ab34-aeb30cf6a6c0; _gcl_au=1.1.586041584.1664955659; region={%22data%22:{%22name%22:%22%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%22%2C%22kladr%22:%2277%22%2C%22guid%22:%221d1463ae-c80f-4d19-9331-a1b68a85b553%22}%2C%22isAutoResolved%22:true}; tmr_lvid=a476280283486dfc2e420458c7f3a18d; tmr_lvidTS=1664955662092; adtech_uid=98b877f8-e1e0-420a-bda0-de24e53a760b%3Adomclick.ru; top100_id=t1.4513750.1621206774.1664955662629; RETENTION_COOKIES_NAME=c82f5396d31a462188236f7afe96bddd:RyQsoarR-fqeYhasUpr7BZRpAVg; sessionId=3cbb971f2aa84acfa2772e9912f4eee6:zK4cB7W7SRJC-9naD2GuAfFsaPk; UNIQ_SESSION_ID=c37cc77adc90426592579d615a8a5f65:Yod9pbbuMN90VHNlrbMpsIIUYvk; adrcid=AMFj0LldRoMMsCnB4Y6BswQ; currentRegionGuid=619fd4a7-2e28-4d8e-b333-d1c7324c94be; currentLocalityGuid=09b74a8a-e195-493d-b776-fb00c9b763bd; ns_session=54e0c66e-b04d-5928-9ac1-95b2ecd4a8ff; currentSubDomain=vladivostok; regionName=09b74a8a-e195-493d-b776-fb00c9b763bd:%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA; _ym_isad=2; _gid=GA1.2.1798663704.1665878103; dtCookie=v_4_srv_7_sn_C10AD63F8FACF2B1195A254C3788CB62_perc_100000_ol_0_mul_1_app-3Aa90421fc39b1dbac_0_app-3Aca312da39d5a5d07_1_app-3A37d82a95eb231749_0_rcs-3Acss_0; cookieAlert=1; _ga=GA1.2.1278772854.1664955659; last_visit=1665846564296%3A%3A1665882564296; tmr_detect=0%7C1665882567232; tmr_reqNum=30; qrator_jsr=1665899836.527.8IadWDdKS2n7cm2F-tjf03a7nvh1pvd04dsjfg3v0c79vrdlc-00; _ga_NP4EQL89WF=GS1.1.1665898303.3.1.1665899836.60.0.0; t3_sid_4513750=s1.488770282.1665896602297.1665899836623.3.7.95; qrator_jsid=1665899836.527.8IadWDdKS2n7cm2F-ndm924mtm0iompsj0ocubu4da13f34u0" "--remote-debugging-port" "34797" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofiledSs8eK"
+Gtk-Message: 17:21:58.278: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665904919005	Marionette	INFO	Marionette enabled
+1665904919009	Marionette	INFO	Listening on port 45349
+Read port: 45349
+JavaScript error: resource://gre/modules/URIFixup.jsm, line 470: NS_ERROR_MALFORMED_URI: Couldn't build a valid uri
+[Parent 26024, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:26024): GLib-GIO-CRITICAL **: 17:21:59.088: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 26024, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:26024): GLib-GIO-CRITICAL **: 17:21:59.089: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:34797
+1665904919144	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofiledSs8eK/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:34797/devtools/browser/54f647c8-b8b5-46d9-a2d8-9a123968e893
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665905021127	geckodriver	INFO	Listening on 127.0.0.1:36203
+1665905021583	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "Cookie=ftgl_cookie_id=2379a73d7899a190d1942822739ca770; _ym_uid=166495565813980988; _ym_d=1664955658; iap.uid=b383ee82ee4649c483fa8cf0db59c397; ___dmpkit___=9b24c938-278e-400a-ab34-aeb30cf6a6c0; _gcl_au=1.1.586041584.1664955659; region={%22data%22:{%22name%22:%22%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%22%2C%22kladr%22:%2277%22%2C%22guid%22:%221d1463ae-c80f-4d19-9331-a1b68a85b553%22}%2C%22isAutoResolved%22:true}; tmr_lvid=a476280283486dfc2e420458c7f3a18d; tmr_lvidTS=1664955662092; adtech_uid=98b877f8-e1e0-420a-bda0-de24e53a760b%3Adomclick.ru; top100_id=t1.4513750.1621206774.1664955662629; RETENTION_COOKIES_NAME=c82f5396d31a462188236f7afe96bddd:RyQsoarR-fqeYhasUpr7BZRpAVg; sessionId=3cbb971f2aa84acfa2772e9912f4eee6:zK4cB7W7SRJC-9naD2GuAfFsaPk; UNIQ_SESSION_ID=c37cc77adc90426592579d615a8a5f65:Yod9pbbuMN90VHNlrbMpsIIUYvk; adrcid=AMFj0LldRoMMsCnB4Y6BswQ; currentRegionGuid=619fd4a7-2e28-4d8e-b333-d1c7324c94be; currentLocalityGuid=09b74a8a-e195-493d-b776-fb00c9b763bd; ns_session=54e0c66e-b04d-5928-9ac1-95b2ecd4a8ff; currentSubDomain=vladivostok; regionName=09b74a8a-e195-493d-b776-fb00c9b763bd:%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA; _ym_isad=2; _gid=GA1.2.1798663704.1665878103; dtCookie=v_4_srv_7_sn_C10AD63F8FACF2B1195A254C3788CB62_perc_100000_ol_0_mul_1_app-3Aa90421fc39b1dbac_0_app-3Aca312da39d5a5d07_1_app-3A37d82a95eb231749_0_rcs-3Acss_0; cookieAlert=1; _ga=GA1.2.1278772854.1664955659; last_visit=1665846564296%3A%3A1665882564296; tmr_detect=0%7C1665882567232; tmr_reqNum=30; qrator_jsr=1665899836.527.8IadWDdKS2n7cm2F-tjf03a7nvh1pvd04dsjfg3v0c79vrdlc-00; _ga_NP4EQL89WF=GS1.1.1665898303.3.1.1665899836.60.0.0; t3_sid_4513750=s1.488770282.1665896602297.1665899836623.3.7.95; qrator_jsid=1665899836.527.8IadWDdKS2n7cm2F-ndm924mtm0iompsj0ocubu4da13f34u0" "--remote-debugging-port" "45151" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileBsELQ5"
+Gtk-Message: 17:23:41.610: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665905022311	Marionette	INFO	Marionette enabled
+1665905022315	Marionette	INFO	Listening on port 43631
+JavaScript error: resource://gre/modules/URIFixup.jsm, line 470: NS_ERROR_MALFORMED_URI: Couldn't build a valid uri
+Read port: 43631
+[Parent 26386, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:26386): GLib-GIO-CRITICAL **: 17:23:42.394: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 26386, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:26386): GLib-GIO-CRITICAL **: 17:23:42.394: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:45151
+1665905022447	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileBsELQ5/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:45151/devtools/browser/f99d27c4-60e2-4de1-8181-583dc8e7ac25
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1665905455740	geckodriver	INFO	Listening on 127.0.0.1:39761
+1665905456179	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "Cookie=ftgl_cookie_id=2379a73d7899a190d1942822739ca770; _ym_uid=166495565813980988; _ym_d=1664955658; iap.uid=b383ee82ee4649c483fa8cf0db59c397; ___dmpkit___=9b24c938-278e-400a-ab34-aeb30cf6a6c0; _gcl_au=1.1.586041584.1664955659; region={%22data%22:{%22name%22:%22%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%22%2C%22kladr%22:%2277%22%2C%22guid%22:%221d1463ae-c80f-4d19-9331-a1b68a85b553%22}%2C%22isAutoResolved%22:true}; tmr_lvid=a476280283486dfc2e420458c7f3a18d; tmr_lvidTS=1664955662092; adtech_uid=98b877f8-e1e0-420a-bda0-de24e53a760b%3Adomclick.ru; top100_id=t1.4513750.1621206774.1664955662629; RETENTION_COOKIES_NAME=c82f5396d31a462188236f7afe96bddd:RyQsoarR-fqeYhasUpr7BZRpAVg; sessionId=3cbb971f2aa84acfa2772e9912f4eee6:zK4cB7W7SRJC-9naD2GuAfFsaPk; UNIQ_SESSION_ID=c37cc77adc90426592579d615a8a5f65:Yod9pbbuMN90VHNlrbMpsIIUYvk; adrcid=AMFj0LldRoMMsCnB4Y6BswQ; currentRegionGuid=619fd4a7-2e28-4d8e-b333-d1c7324c94be; currentLocalityGuid=09b74a8a-e195-493d-b776-fb00c9b763bd; ns_session=54e0c66e-b04d-5928-9ac1-95b2ecd4a8ff; currentSubDomain=vladivostok; regionName=09b74a8a-e195-493d-b776-fb00c9b763bd:%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA; _ym_isad=2; _gid=GA1.2.1798663704.1665878103; dtCookie=v_4_srv_7_sn_C10AD63F8FACF2B1195A254C3788CB62_perc_100000_ol_0_mul_1_app-3Aa90421fc39b1dbac_0_app-3Aca312da39d5a5d07_1_app-3A37d82a95eb231749_0_rcs-3Acss_0; cookieAlert=1; _ga=GA1.2.1278772854.1664955659; last_visit=1665846564296%3A%3A1665882564296; tmr_detect=0%7C1665882567232; tmr_reqNum=30; qrator_jsr=1665899836.527.8IadWDdKS2n7cm2F-tjf03a7nvh1pvd04dsjfg3v0c79vrdlc-00; _ga_NP4EQL89WF=GS1.1.1665898303.3.1.1665899836.60.0.0; t3_sid_4513750=s1.488770282.1665896602297.1665899836623.3.7.95; qrator_jsid=1665899836.527.8IadWDdKS2n7cm2F-ndm924mtm0iompsj0ocubu4da13f34u0" "--remote-debugging-port" "47543" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilev5IcDq"
+Gtk-Message: 17:30:56.207: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665905456929	Marionette	INFO	Marionette enabled
+1665905456933	Marionette	INFO	Listening on port 42773
+Read port: 42773
+JavaScript error: resource://gre/modules/URIFixup.jsm, line 470: NS_ERROR_MALFORMED_URI: Couldn't build a valid uri
+[Parent 27066, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:27066): GLib-GIO-CRITICAL **: 17:30:57.023: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 27066, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:27066): GLib-GIO-CRITICAL **: 17:30:57.023: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:47543
+1665905457076	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilev5IcDq/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:47543/devtools/browser/1009cd1e-d6d6-4e97-8e91-eda92dafbafa
+JavaScript warning: https://vladivostok.domclick.ru/__qrator/qauth_utm.js, line 1: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://vladivostok.domclick.ru/__qrator/qauth_utm.js, line 1: WebGL context was lost.
+JavaScript error: https://vladivostok.domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://vladivostok.domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://vladivostok.domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: https://vladivostok.domclick.ru/__qrator/qauth_utm.js, line 1: TypeError: 'get ready' called on an object that does not implement interface ServiceWorkerContainer.
+JavaScript error: https://vladivostok.domclick.ru/__qrator/qauth_utm.js, line 1: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665906078544	Marionette	INFO	Stopped listening on port 42773
+JavaScript error: , line 0: AbortError: The operation was aborted. 
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665909592916	geckodriver	INFO	Listening on 127.0.0.1:42197
+1665909593375	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "55619" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileNvhGkg"
+Gtk-Message: 18:39:53.403: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+1665909594127	Marionette	INFO	Marionette enabled
+1665909594132	Marionette	INFO	Listening on port 33187
+Read port: 33187
+[Parent 28781, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:28781): GLib-GIO-CRITICAL **: 18:39:54.198: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 28781, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:28781): GLib-GIO-CRITICAL **: 18:39:54.198: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+WebDriver BiDi listening on ws://127.0.0.1:55619
+1665909594251	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileNvhGkg/search.json.mozlz4", (void 0)))
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+DevTools listening on ws://127.0.0.1:55619/devtools/browser/481341fa-842c-4532-86bc-a8ff66096c1e
+Missing chrome or resource URL: resource://gre/modules/UpdateListener.sys.mjs
+console.error: "Error during quit-application-granted: [Exception... \"File error: Not found\"  nsresult: \"0x80520012 (NS_ERROR_FILE_NOT_FOUND)\"  location: \"JS frame :: resource:///modules/BrowserGlue.jsm :: _onQuitApplicationGranted/tasks< :: line 2009\"  data: no]"
+1665909650903	Marionette	INFO	Stopped listening on port 33187
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1665909997997	geckodriver	INFO	Listening on 127.0.0.1:35641
+1665909998003	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "47663" "-no-remote" "-profile" "/tmp/rust_mozprofilePS6INx"
+Gtk-Message: 18:46:38.190: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+ATTENTION: default value of option mesa_glthread overridden by environment.
+[Parent 29470, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:29470): GLib-GIO-CRITICAL **: 18:46:38.687: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+[Parent 29470, Main Thread] WARNING: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:167
+
+(firefox:29470): GLib-GIO-CRITICAL **: 18:46:38.688: g_dbus_proxy_new: assertion 'G_IS_DBUS_CONNECTION (connection)' failed
+Invalid port. Exiting...
+Invalid port. Exiting...
+Invalid port. Exiting...
+1667055036832	geckodriver	INFO	Listening on 127.0.0.1:51007
+1667055037329	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--window-size=1200, 800" "-headless" "--remote-debugging-port" "53433" "-no-remote" "-profile" "/tmp/rust_mozprofileAPn7TX"
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/cups/doc-root /usr/share/cups/doc-root none bind,ro 0 0): cannot create directory "/usr/share/cups/doc-root": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/gimp/2.0/help /usr/share/gimp/2.0/help none bind,ro 0 0): cannot create directory "/usr/share/gimp/2.0": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/libreoffice/help /usr/share/libreoffice/help none bind,ro 0 0): cannot create directory "/usr/share/libreoffice/help": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/xubuntu-docs /usr/share/xubuntu-docs none bind,ro 0 0): cannot open directory "/var/lib": permission denied
+*** You are running in headless mode.
+Gtk-Message: 00:50:38.546: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1667055224581	geckodriver	INFO	Listening on 127.0.0.1:46065
+1667055225091	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--window-size=1200, 800" "-headless" "--remote-debugging-port" "58871" "-no-remote" "-profile" "/tmp/rust_mozprofile6hNqb6"
+*** You are running in headless mode.
+Gtk-Message: 00:53:45.340: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1667055378980	geckodriver	INFO	Listening on 127.0.0.1:38125
+1667055379443	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--window-size=1200, 800" "-headless" "--remote-debugging-port" "49623" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileQ7KFiI"
+*** You are running in headless mode.
+Gtk-Message: 00:56:19.469: Failed to load module "xapp-gtk3-module"
+[GFX1-]: glxtest: VA-API test failed: failed to initialise VAAPI connection.
+1667055379861	Marionette	INFO	Marionette enabled
+1667055379866	Marionette	INFO	Listening on port 46151
+Read port: 46151
+WebDriver BiDi listening on ws://127.0.0.1:49623
+1667055380037	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileQ7KFiI/search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:49623/devtools/browser/4b48af44-54b9-4608-b7e9-ba5363e3197e
+JavaScript error: resource://gre/modules/XULStore.jsm, line 58: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 58: Error: Can't find profile directory.
+1667055497028	Marionette	INFO	Stopped listening on port 46151

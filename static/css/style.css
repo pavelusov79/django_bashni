@@ -425,6 +425,26 @@ a .bi-twitter, a .bi-share-fill, a .bi-envelope, a .bi-facebook, a .bi-telegram 
         max-height: 25.5rem!important;
     }
 }
+@media all and (max-width: 767px) {
+    .right-block {
+        max-height: 32.5rem!important;
+    }
+    .ipoteka-calc-1, .ipoteka-calc {
+        height: 45.5rem!important;
+    }
+    .step1, .step2 {
+        height: 29.1rem!important;
+    }
+    .check-policy {
+        margin-top: 2rem;
+    }
+    .fio, .tel-ipoteka {
+        height: 9rem;
+    }
+    .st-1 {
+        height: 12rem;
+    }
+}
 /* end flat detail page */
 
 /* .filter-objects {
@@ -496,6 +516,9 @@ a .bi-twitter, a .bi-share-fill, a .bi-envelope, a .bi-facebook, a .bi-telegram 
     height: 27rem;
     border: 1px solid #55B50C;
     border-radius: 10px;
+}
+.ipoteka-calc {
+    height: 32rem;
 }
 
 #select_num_dom, #select_month, select[name="finish_date"], select[name='fl_decors'], select[name='district'], select[name="param"] {
@@ -634,7 +657,7 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
     display: none;
 }
 .step1, .step2 {
-    height: 13.1rem;
+    height: 19.1rem;
 }
 
 #calc1Slider.slider.slider-horizontal, #calc2Slider.slider.slider-horizontal, #sl3Slider.slider.slider-horizontal, #sl4Slider.slider.slider-horizontal, #sl5Slider.slider.slider-horizontal, #calc3Slider.slider.slider-horizontal{
@@ -1036,12 +1059,16 @@ select[name="fl_decors"]:focus, select[name="finish_date"]:focus,  select[name='
 .popular {
     position: relative;
     bottom: 39rem;
-    left: 18rem;
     text-align: center;
-    max-width: 30rem;
+    max-width: 27rem;
     border-radius: 0.7rem;
     background: rgba(238, 238, 238, 0.78);
     backdrop-filter: blur(2.5px);
+}
+@media all and (max-width: 700px) {
+    .popular {
+        display: none!important;
+    }
 }
 /* end Index page*/
 
