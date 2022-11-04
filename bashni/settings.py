@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from email.errors import FirstHeaderLineIsContinuationDefect
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
     'authapp',
     'property',
     'cabinet',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -137,9 +137,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -161,6 +159,12 @@ DEFAULT_FROM_EMAIL = 'it@111bashni.ru'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        "removePlugins": ["exportpdf", "stylesheetparser",],
+        "allowedContent": True,
+    }
+}
 
 
 

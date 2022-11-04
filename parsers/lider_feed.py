@@ -95,22 +95,28 @@ def parse_feed():
                                                     r = requests.get(f'https:{plan_url}')
                                                 with open(filename, 'wb') as f:
                                                     f.write(r.content)
-                                    # pprint(db_item)
-                                    # print('-----------------------------')
-                                    try:
-                                        db.flats.insert_one(db_item)
-                                    except DuplicateKeyError:
-                                        print('duplicate found')
-                                        print(db.flats.find_one({'_id': db_item['_id']}))
+                                    # if db_item['living_complex_name'] == 'Лидер' and db_item['flat_type'] == '1':
+                                    #     pass
+                                    # else:
+                                    #     pprint(db_item)
+                                    #     print('-----------------------------')
+                                    if db_item['living_complex_name'] == 'Лидер' and db_item['flat_type'] == '1':
+                                        pass
+                                    else:
                                         try:
-                                            db_item['_id'] = f'9{db_item["_id"]}'
                                             db.flats.insert_one(db_item)
                                         except DuplicateKeyError:
-                                            print('duplicate 2!')
+                                            print('duplicate found')
+                                            print(db.flats.find_one({'_id': db_item['_id']}))
+                                            try:
+                                                db_item['_id'] = f'9{db_item["_id"]}'
+                                                db.flats.insert_one(db_item)
+                                            except DuplicateKeyError:
+                                                print('duplicate 2!')
 
-    logger_path = os.path.join(os.path.dirname(__file__), 'flats_logger.txt')
-    with open(logger_path, 'a') as f:
-        f.write(f"OK *** {datetime.datetime.now().strftime('%d.%m.%y %H:%M')} *** успешно спарсено {db.flats.count_documents({'living_complex_name': 'Лидер'}) + db.flats.count_documents({'living_complex_name': 'Новые Горизонты'})} квартир с lider_feed.py\n")
+    # logger_path = os.path.join(os.path.dirname(__file__), 'flats_logger.txt')
+    # with open(logger_path, 'a') as f:
+    #     f.write(f"OK *** {datetime.datetime.now().strftime('%d.%m.%y %H:%M')} *** успешно спарсено {db.flats.count_documents({'living_complex_name': 'Лидер'}) + db.flats.count_documents({'living_complex_name': 'Новые Горизонты'})} квартир с lider_feed.py\n")
     print('script done')
     return db
 

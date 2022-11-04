@@ -168,7 +168,7 @@
                     <div class="card-body">
                         <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ item.published|date:"d.m.Y" }}</p>
                         <h3 class="card-title"><a href="{% url 'news_detail' item.pk %}">{{ item.title }}</a></h3>
-                        <h5 class="gray my-4">{{ item.description|truncatewords:30|safe }}</h5>
+                        <h5 class="gray my-4">{{ item.description|striptags|safe|truncatewords:30 }}</h5>
                         {% for tag in item.tags.all %}
                           <a class="btn btn-outline-success mb-3 mr-3" href="{% url 'news_slug' tag.slug %}">{{ tag.tag_name }}</a>
                         {% endfor %}

@@ -15,8 +15,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+import bashni.views
 from bashni import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404, handler500
+from django.contrib.sitemaps.views import sitemap
+
+from main import views as main_views
+from property import views as pr_views
+
+sitemaps = {
+    'index': main_views.IndexViewSitemap,
+    'static': main_views.StaticViewSitemap,
+    'news_slug': main_views.NewsSlugVladivostokSitemapView,
+    'news': main_views.NewsSitemapView,
+    'property': pr_views.PropertySitemapView,
+    'property_detail': pr_views.PropertyDetailSitemapView,
+    'flats_detail': pr_views.FlatsDetailSitemapView
+}
+
+handler404 = bashni.views.page_not_found_view
+handler500 = bashni.views.custom_error_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +45,7 @@ urlpatterns = [
     path('property/', include('property.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('lk/', include('cabinet.urls', namespace='cabinet')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ]
 
 if settings.DEBUG:

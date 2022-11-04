@@ -2,6 +2,7 @@ import re
 
 from itertools import chain
 
+from django.contrib.sitemaps import Sitemap
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import JsonResponse
@@ -212,3 +213,50 @@ class PersonDataView(TemplateView):
         return context
 
 
+# _______________Sitemap views________________________
+class IndexViewSitemap(Sitemap):
+    priority = 0.5
+    changefreq = 'daily'
+
+    def items(self):
+        return ['main']
+
+    def location(self, item):
+        return reverse(item)
+
+
+class StaticViewSitemap(Sitemap):
+    priority = 0.5
+    changefreq = 'weekly'
+
+    def items(self):
+        return ['news_popular', 'loan', 'repair', 'events', 'news']
+
+    def location(self, item):
+        return reverse(item)
+
+
+class NewsSitemapView(Sitemap):
+    changefreq = "weekly"
+    priority = 0.5
+
+    def items(self):
+        return News.objects.filter(is_active=True).order_by('-published')
+
+    def lastmod(self, obj):
+        return obj.published
+
+    def location(self, item):
+        return f'/news/{item.pk}/'
+
+
+class NewsSlugVladivostokSitemapView(Sitemap):
+    changefreq = "weekly"
+    priority = 0.5
+
+    def items(self):
+        return ['news_slug']
+
+    def location(self, item):
+        tag = Tags.objects.get(slug='vladivostok')
+        return f'/news_slug/{tag.slug}/'

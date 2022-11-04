@@ -14,7 +14,7 @@
         <h3 class="gray"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h3>
       </div>
         <p class="text-muted mt-3">{{ news.published|date:"d.m.Y" }}</p>
-      <p>{{ news.description|truncatewords:30|safe }}</p>
+      <p style="text-align: justify;">{{ news.description|striptags|safe|truncatewords:30 }}</p>
       <a class="btn btn-clear text-muted" href="{% url 'news_detail' news.pk %}">читать далее...</a> <span class="ml-5 text-muted">тэги: </span>
         {% for tag in news.tags.all %}
           <a class="btn btn-outline-success ml-4" href="{% url 'news_slug' tag.slug %}">{{ tag.tag_name }}</a>

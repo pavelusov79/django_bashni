@@ -25,6 +25,7 @@ class Tags(models.Model):
 
 
 class News(models.Model):
+    descr = models.CharField(max_length=256, verbose_name='описание для мета тэгов', blank=True)
     title = models.CharField(max_length=128, verbose_name="заголовок")
     published = models.DateField(verbose_name="опубликовано", default=datetime.now)
     description = RichTextField(verbose_name="текст новости")
@@ -39,6 +40,10 @@ class News(models.Model):
     class Meta:
         verbose_name_plural = 'Новости'
         ordering = ['-published']
+
+    def save(self, *args, **kwargs):
+        self.descr = f'{self.description}'[:256]
+        return super(News, self).save(*args, **kwargs)
 
 
 class ImageNews(models.Model):
@@ -80,6 +85,8 @@ class YoutubeChannel(models.Model):
 
 
 class Events(models.Model):
+    key_words = models.CharField(max_length=256, verbose_name='ключевые слова для мета тэгов', blank=True)
+    descr = models.CharField(max_length=300, verbose_name='описание для мета тэгов', blank=True)
     title = models.CharField(max_length=128, verbose_name="заголовок мероприятия")
     start_date = models.DateField(verbose_name="начало мероприятия")
     finish_date = models.DateField(verbose_name="конец мероприятия")
@@ -96,8 +103,11 @@ class Events(models.Model):
         ordering = ['-start_date']
 
     def save(self, *args, **kwargs):
+        self.key_words = self.city.city_name
+        self.descr = f'{self.description}'[:300]
         super().save(*args, **kwargs)
         resize_image(self.event_img)
+        return super(Events, self).save(*args, **kwargs)
 
 
 class SitePolicy(models.Model):
@@ -113,7 +123,7 @@ class SitePolicy(models.Model):
 
 class PersonDataTreatment(models.Model):
     title = models.CharField(max_length=256, verbose_name='заголовок')
-    text = RichTextField(verbose_name='текст')
+    text_field = RichTextField(verbose_name='текст')
 
     def __str__(self):
         return self.title

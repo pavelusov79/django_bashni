@@ -60,6 +60,8 @@ class Property(models.Model):
         ('p', 'сдан'),
         ('d', 'долгострой'),
     )
+    key_words = models.CharField(max_length=256, verbose_name='ключевые слова для мета тэгов', blank=True)
+    description = models.CharField(max_length=300, verbose_name='описание для мета тэгов', blank=True)
     name = models.CharField(max_length=128, verbose_name='Название ЖК', unique=True)
     slug = models.SlugField(verbose_name='поле url', max_length=128)
     build_stage = models.CharField(max_length=15, verbose_name='Стадия строительства', choices=STAGE_CHOICES, default='b')
@@ -88,6 +90,8 @@ class Property(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name, ok='_', only_ascii=True)
+        self.key_words = f'{self.name} ({self.city.city_name})'[:256]
+        self.description = f'{self.short_desc}'[:300]
         super(Property, self).save(*args, **kwargs)
         if self.gen_plan:
             super().save(*args, **kwargs)
@@ -139,6 +143,8 @@ class Buildings(models.Model):
         ('p', 'сдан'),
         ('d', 'долгострой'),
     )
+    key_words = models.CharField(max_length=256, verbose_name='ключевые слова для мета тэгов', blank=True)
+    description = models.CharField(max_length=300, verbose_name='описание для мета тэгов', blank=True)
     fk_property = models.ForeignKey(Property, on_delete=models.CASCADE, verbose_name='ЖК')
     num_dom = models.CharField(max_length=64, verbose_name='номер строения/название дома')
     start_date = models.PositiveIntegerField(verbose_name='год начала строительства', blank=True, null=True)
@@ -164,6 +170,11 @@ class Buildings(models.Model):
     sales_not_living = models.CharField(verbose_name='распроданность нежилых помещений', max_length=32, blank=True)
     sales_parking = models.CharField(verbose_name='распроданность машиномест', max_length=32, blank=True)
     is_active = models.BooleanField(verbose_name='активный', default=True)
+
+    def save(self, *args, **kwargs):
+        self.key_words = f'{self.fk_property.name} ({self.fk_property.city.city_name})'[:256]
+        self.description = f'{self.fk_property.short_desc}'[:300]
+        super(Buildings, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Объекты недвижимости'
@@ -326,6 +337,8 @@ class Flats(models.Model):
         ('reserved', 'забронировано'),
         ('sold', 'продано')
     )
+    key_words = models.CharField(max_length=256, verbose_name='ключевые слова для мета тэгов', blank=True)
+    description = models.CharField(max_length=300, verbose_name='описание для мета тэгов', blank=True)
     fk_property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='flats',
                                   verbose_name='для ЖК')
     fk_building = models.ForeignKey(Buildings, on_delete=models.SET_NULL, blank=True, null=True, related_name='obj_flats', 
@@ -349,7 +362,9 @@ class Flats(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.get_fl_type_display(), ok='_', only_ascii=True)
-        super(Flats, self).save(*args, **kwargs)
+        self.description = f'{self.get_fl_type_display()} квартира {self.fl_sq} м2 в ЖК {self.fk_property.name}'[:300]
+        self.key_words = f'{self.get_fl_type_display()} квартира в ЖК {self.fk_property.name}, {self.fl_sq} м2'[:256]
+        return super(Flats, self).save(*args, **kwargs)
 
     def middle_price(self):
         try:

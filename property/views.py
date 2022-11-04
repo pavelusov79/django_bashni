@@ -1,6 +1,7 @@
 import datetime
 import re
 
+from django.contrib.sitemaps import Sitemap
 from django.db.models import Max, F
 from django.core.mail import send_mail
 from django.http import JsonResponse
@@ -26,7 +27,7 @@ class GetContext(ContextMixin):
 
 
 class FlatsListView(GetContext, ListView):
-    paginate_by = 48
+    paginate_by = 24
 
     def get_queryset(self):
         self.city = get_object_or_404(City, city_slug=self.kwargs['city'])
@@ -436,6 +437,40 @@ def valid_phone(request):
         'valid_phone': phone
     }
     return JsonResponse(response)
+
+
+#______________Sitemap views_______________
+class PropertyDetailSitemapView(Sitemap):
+    changefreq = "daily"
+    priority = 0.5
+
+    def items(self):
+        return Property.objects.filter(is_active=True)
+
+    def location(self, item):
+        return f'/property/{item.city.city_slug}/{item.pk}/{item.slug}/'
+
+
+class FlatsDetailSitemapView(Sitemap):
+    def items(self):
+        return Flats.objects.filter(fl_status='free')
+
+    def location(self, item):
+        return f'/property/{item.fk_property.city.city_slug}/flats/{item.pk}/{item.slug}/'
+
+
+class PropertySitemapView(Sitemap):
+    changefreq = "daily"
+    priority = 0.5
+
+    def items(self):
+        return ['property']
+
+    def location(self, item):
+        return '/property/vladivostok/'
+
+
+
 
 
 
