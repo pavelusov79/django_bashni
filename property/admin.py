@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import StackedInline
+from django.utils.html import strip_tags, format_html
 
 from property.models import City, Buildings, MainPhotos, BuildingPhotos, \
     ObjectDocuments, CheckObjectReadiness, CheckTermsPassKeys, Property, \
@@ -136,6 +137,14 @@ class PropertyAdmin(admin.ModelAdmin):
     search_fields = ('name__icontains', )
     inlines = [PropertyFeedsInline, YoutubeChannelInline, MediaFlatsInline]
 
+    def save_model(self, request, obj, form, change):
+        if 'description' in form.changed_data or 'key_words' in form.changed_data:
+            obj.save()
+        else:
+            obj.description = strip_tags(format_html(obj.short_desc[:300].replace('&quot;', '')))
+            obj.key_words = f'{obj.name} ({obj.city.city_name})'[:256]
+        return super().save_model(request, obj, form, change)
+
 
 @admin.register(Buildings)
 class BuildingsAdmin(admin.ModelAdmin):
@@ -144,6 +153,15 @@ class BuildingsAdmin(admin.ModelAdmin):
     search_fields = ('fk_property__name__icontains',)
     inlines = [MainPhotosInline, BuildingMonthsInline, ObjectsDocumentsInline,
                CheckObjectReadinessInline, CheckTermsPassKeysInline, PropertyFloorPlansInline]
+
+    def save_model(self, request, obj, form, change):
+        if 'description' in form.changed_data or 'key_words' in form.changed_data:
+            obj.save()
+        else:
+            obj.description = strip_tags(format_html(obj.fk_property.short_desc[:300].replace('&quot;', '')))
+            obj.key_words = f'{obj.fk_property.name} ({obj.fk_property.city.city_name})'[:256]
+        return super().save_model(request, obj, form, change)
+
 
 
 

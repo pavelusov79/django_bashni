@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth.views import LoginView, auth_login
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -7,6 +9,7 @@ from django.views.generic import CreateView
 from authapp.forms import UserRegisterForm, MyAuthenticationForm
 from cabinet.models import FavoritesProperty, FavoritesFlats
 from property.models import Property, Flats
+from authapp.models import UserProfile
 
 
 class UserLoginView(LoginView):
@@ -30,7 +33,7 @@ class UserLoginView(LoginView):
             return HttpResponseRedirect(reverse('cabinet:main', kwargs={'pk': self.request.user.pk}))
         if 'next' in self.request.POST.keys() and self.request.POST['next'] != '':
             return HttpResponseRedirect(self.request.POST['next'])
-        if 'prev_page' in self.request.session.keys():
+        if 'prev_page' in self.request.session.keys() and not re.search(r'/auth/login/', self.request.session['prev_page']):
             if self.request.session['prev_page'] == '/favorites/':
                 return HttpResponseRedirect(reverse('cabinet:main', kwargs={'pk': self.request.user.pk}))
             else:
@@ -48,6 +51,14 @@ class UserLoginView(LoginView):
 class SingUpView(CreateView):
     form_class = UserRegisterForm
     template_name = 'authapp/register.html'
+
+    def form_valid(self, form):
+        user = form.save()
+        if form.cleaned_data.get('tel'):
+            profile = UserProfile.objects.create(user=user)
+            profile.tel = form.cleaned_data.get('tel')
+            profile.save()
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('authapp:login')

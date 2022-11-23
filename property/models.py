@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 from PIL import Image
 
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from slugify import slugify
 
@@ -90,8 +89,6 @@ class Property(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name, ok='_', only_ascii=True)
-        self.key_words = f'{self.name} ({self.city.city_name})'[:256]
-        self.description = f'{self.short_desc}'[:300]
         super(Property, self).save(*args, **kwargs)
         if self.gen_plan:
             super().save(*args, **kwargs)
@@ -170,11 +167,6 @@ class Buildings(models.Model):
     sales_not_living = models.CharField(verbose_name='распроданность нежилых помещений', max_length=32, blank=True)
     sales_parking = models.CharField(verbose_name='распроданность машиномест', max_length=32, blank=True)
     is_active = models.BooleanField(verbose_name='активный', default=True)
-
-    def save(self, *args, **kwargs):
-        self.key_words = f'{self.fk_property.name} ({self.fk_property.city.city_name})'[:256]
-        self.description = f'{self.fk_property.short_desc}'[:300]
-        super(Buildings, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'Объекты недвижимости'
@@ -362,8 +354,14 @@ class Flats(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.get_fl_type_display(), ok='_', only_ascii=True)
-        self.description = f'{self.get_fl_type_display()} квартира {self.fl_sq} м2 в ЖК {self.fk_property.name}'[:300]
-        self.key_words = f'{self.get_fl_type_display()} квартира в ЖК {self.fk_property.name}, {self.fl_sq} м2'[:256]
+        try:
+            self.description = f'{self.get_fl_type_display()} квартира {self.fl_sq} м2 в ЖК {self.fk_property.name}'[:300]
+        except Exception:
+            self.description = ''
+        try:
+            self.key_words = f'{self.get_fl_type_display()} квартира в ЖК {self.fk_property.name} {self.fl_sq} м2'[:256]
+        except Exception:
+            self.key_words = ''
         return super(Flats, self).save(*args, **kwargs)
 
     def middle_price(self):

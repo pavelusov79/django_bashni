@@ -137,8 +137,14 @@ class FlatDetailView(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page'] = self.request.session['flat_page']
-        context['search'] = self.request.session['search']
+        try:
+            context['page'] = self.request.session['flat_page']
+        except KeyError:
+            context['page'] = ''
+        try:
+            context['search'] = self.request.session['search']
+        except KeyError:
+            context['search'] = ''
         if self.object.fl_price:
             context['similar'] = Flats.objects.filter(fk_property=self.object.fk_property, fl_price__range=((self.object.fl_price - 200000), (self.object.fl_price + 200000)), fl_sq__range=((self.object.fl_sq - 10), (self.object.fl_sq + 10))).exclude(fl_price__in=[None, 0]).order_by('fl_price')
         else:

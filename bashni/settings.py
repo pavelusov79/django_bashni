@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'property',
     'cabinet',
     'django.contrib.sitemaps',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -118,6 +119,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'authapp.backends.PhoneBackend',
+    'authapp.backends.EmailBackend'
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -165,6 +171,8 @@ CKEDITOR_CONFIGS = {
         "allowedContent": True,
     }
 }
+
+CAPTCHA_FONT_SIZE = 28
 
 
 

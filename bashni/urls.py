@@ -45,7 +45,8 @@ urlpatterns = [
     path('property/', include('property.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('lk/', include('cabinet.urls', namespace='cabinet')),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('captcha/', include('captcha.urls')),
 ]
 
 if settings.DEBUG:

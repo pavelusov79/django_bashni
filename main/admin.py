@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.admin import StackedInline
 from django.core.mail import send_mail
+from django.utils.html import strip_tags, format_html
 
 from main.models import ImageNews, News, Tags, YoutubeChannel, NewsComment, Events, SitePolicy, PersonDataTreatment
 
@@ -61,6 +62,13 @@ class NewsAdmin(admin.ModelAdmin):
         return [tag.tag_name for tag in obj.tags.all()]
 
     get_tags.short_description = "Тэги"
+
+    def save_model(self, request, obj, form, change):
+        if 'descr' in form.changed_data:
+            obj.save()
+        else:
+            obj.descr = strip_tags(format_html(obj.description[:256].replace('&quot;', '')))
+        return super().save_model(request, obj, form, change)
 
 
 @admin.register(YoutubeChannel)

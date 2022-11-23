@@ -206,7 +206,8 @@ def parse():
             db_item['sales_flats'] = ''
             db_item['sales_not_living'] = ''
             db_item['sales_parking'] = ''
-  except Exception:      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.TAG_NAME, 'li')))
+    except Exception:      \
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.TAG_NAME, 'li')))
         docs = driver.find_elements(By.XPATH, '//div[contains(@class, "styles__Tab")]/button[contains(@class, "styles__ButtonContainer")]')[1:3]
         doc_list = []
         db_item['start_date'] = datetime.datetime.strptime('01.01.20', "%d.%m.%y")

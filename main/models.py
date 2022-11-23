@@ -41,10 +41,6 @@ class News(models.Model):
         verbose_name_plural = 'Новости'
         ordering = ['-published']
 
-    def save(self, *args, **kwargs):
-        self.descr = f'{self.description}'[:256]
-        return super(News, self).save(*args, **kwargs)
-
 
 class ImageNews(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='img_news')
